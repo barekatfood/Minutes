@@ -303,7 +303,7 @@
           <option value="مجتبی فروتن">مجتبی فروتن</option>
           <option value="یاسر فروتن">یاسر فروتن</option>
           <option value="سید مهدی طیبی">سید مهدی طیبی</option>
-          <option value="میثم نوری">میثم نوری</option>
+          <option value="میثم نوری سلطان">میثم نوری سلطان</option>
           <option value="سلطان جلال یعقوبی">سلطان جلال یعقوبی</option>
           <option value="میلاد بختور">میلاد بختور</option>
         </select>
@@ -325,6 +325,7 @@
       </div>
       <div class="action-buttons">
         <button type="button" class="primary-btn" id="saveMeetingBtn">💾 ذخیره صورت‌جلسه</button>
+        <button type="button" class="primary-btn" id="updateMeetingBtn" style="display:none;">💾 ذخیره تغییرات</button>
         <button type="button" class="primary-btn" id="addEntryBtn">+ افزودن مصوبه جدید</button>
         <button type="button" class="primary-btn" id="printBtn">🖨 پرینت</button>
       </div>
@@ -332,7 +333,9 @@
     <div id="archive"></div>
   </div>
   <script>
-    // تاریخ و ساعت شمسی (ساده و دقیق برای نیاز شما)
+    let editingMeetingId = null;
+
+    // تاریخ و ساعت شمسی (ساده)
     function pad(num) { return num.toString().padStart(2, '0'); }
     function toPersianDigits(str) {
       return str.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
@@ -413,8 +416,9 @@
       button.closest('.entry-row').remove();
     }
 
-    // ذخیره صورتجلسه در SheetDB
+    // ذخیره صورتجلسه جدید یا ویرایش
     document.getElementById('saveMeetingBtn').addEventListener('click', saveMeeting);
+    document.getElementById('updateMeetingBtn').addEventListener('click', updateMeeting);
 
     async function saveMeeting() {
       const meetingDate = document.getElementById('meetingDate').value.trim();
@@ -455,7 +459,62 @@
       displayArchive();
     }
 
-    // نمایش آرشیو
+    // ویرایش جلسه
+    async function editMeeting(id) {
+      const res = await fetch('https://sheetdb.io/api/v1/010ujio6884bd/search?id=' + id);
+      const meetings = await res.json();
+      if (!meetings.length) {
+        alert('جلسه پیدا نشد!');
+        return;
+      }
+      const m = meetings[0];
+      editingMeetingId = id;
+      document.getElementById('meetingDate').value = m.date || '';
+      document.getElementById('meetingTime').value = m.time || '';
+      document.getElementById('meetingNumber').value = m.number || '';
+      document.getElementById('meetingLocation').value = m.location || '';
+      document.getElementById('topic').value = m.topic || '';
+      // حاضرین
+      Array.from(document.getElementById('attendeesList').options).forEach(opt => {
+        opt.selected = m.attendees && m.attendees.includes(opt.value);
+      });
+      updateSelectedAttendees();
+      // مصوبات
+      const entries = m.entries ? m.entries.split(' | ') : [];
+      const entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      entries.forEach(entry => {
+        const match = entry.match(/^(.*) \(مسئول: (.*)، مهلت: (.*)\)$/);
+        let text = entry, responsible = '', deadline = '';
+        if (match) { text = match[1]; responsible = match[2]; deadline = match[3]; }
+        const div = document.createElement('div');
+        div.className = 'entry-row';
+        div.innerHTML = `
+          <textarea placeholder="📌 مصوبه">${text}</textarea>
+          <div class="entry-details">
+            <input type="text" placeholder="👤 مسئول اجرا" value="${responsible}" />
+            <input type="text" placeholder="📅 مهلت اجرا" value="${deadline}" />
+            <button type="button" class="remove-btn" onclick="removeEntry(this)">حذف</button>
+          </div>`;
+        entriesDiv.appendChild(div);
+      });
+      document.getElementById('saveMeetingBtn').style.display = 'none';
+      document.getElementById('updateMeetingBtn').style.display = '';
+    }
+
+    // ذخیره تغییرات ویرایش
+    async function updateMeeting() {
+      if (!editingMeetingId) return;
+      // حذف جلسه قبلی
+      await fetch('https://sheetdb.io/api/v1/010ujio6884bd/id/' + editingMeetingId, { method: 'DELETE' });
+      // ثبت جلسه جدید با همان id
+      await saveMeeting();
+      editingMeetingId = null;
+      document.getElementById('saveMeetingBtn').style.display = '';
+      document.getElementById('updateMeetingBtn').style.display = 'none';
+    }
+
+    // نمایش آرشیو با خلاصه مصوبات و دکمه بیشتر/کمتر و دکمه ویرایش
     async function displayArchive() {
       const archive = document.getElementById('archive');
       const res = await fetch('https://sheetdb.io/api/v1/010ujio6884bd');
@@ -464,18 +523,40 @@
         archive.innerHTML = '<p>هیچ صورت‌جلسه‌ای ذخیره نشده است.</p>';
         return;
       }
-      let html = '<table><thead><tr><th>شماره</th><th>تاریخ</th><th>موضوع</th><th>حاضرین</th><th>مصوبات</th></tr></thead><tbody>';
-      meetings.forEach(m => {
+      let html = '<table><thead><tr><th>شماره</th><th>تاریخ</th><th>موضوع</th><th>حاضرین</th><th>مصوبات</th><th>ویرایش</th></tr></thead><tbody>';
+      meetings.forEach((m, idx) => {
+        let summary = (m.entries && m.entries.length > 60) ? m.entries.slice(0, 60) + '...' : m.entries;
+        let showMoreBtn = (m.entries && m.entries.length > 60)
+          ? `<button onclick="toggleEntryFull(this, '${encodeURIComponent(m.entries)}')">بیشتر</button>`
+          : '';
         html += `<tr>
           <td>${m.number}</td>
           <td>${m.date} ${m.time}</td>
           <td>${m.topic}</td>
           <td>${m.attendees}</td>
-          <td>${m.entries}</td>
+          <td>
+            <span class="entry-summary">${summary}</span>
+            ${showMoreBtn}
+          </td>
+          <td>
+            <button onclick="editMeeting('${m.id}')">ویرایش</button>
+          </td>
         </tr>`;
       });
       html += '</tbody></table>';
       archive.innerHTML = html;
+    }
+
+    // تابع نمایش/مخفی‌کردن متن کامل مصوبه
+    window.toggleEntryFull = function(btn, fullText) {
+      const span = btn.parentNode.querySelector('.entry-summary');
+      if (btn.textContent === 'بیشتر') {
+        span.textContent = decodeURIComponent(fullText);
+        btn.textContent = 'کمتر';
+      } else {
+        span.textContent = decodeURIComponent(fullText).slice(0, 60) + '...';
+        btn.textContent = 'بیشتر';
+      }
     }
 
     // بازنشانی فرم
@@ -483,27 +564,4 @@
       document.getElementById('meetingForm').reset();
       document.getElementById('entries').innerHTML = `
         <div class="entry-row">
-          <textarea placeholder="📌 مصوبه"></textarea>
-          <div class="entry-details">
-            <input type="text" placeholder="👤 مسئول اجرا" />
-            <input type="text" placeholder="📅 مهلت اجرا" />
-            <button type="button" class="remove-btn" onclick="removeEntry(this)">حذف</button>
-          </div>
-        </div>`;
-      updateSelectedAttendees();
-      document.getElementById('meetingDate').value = getShamsiDate();
-      document.getElementById('meetingTime').value = getShamsiTime();
-    }
-
-    // دکمه پرینت
-    document.getElementById('printBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      window.print();
-    });
-
-    // فراخوانی اولیه
-    updateSelectedAttendees();
-    displayArchive();
-  </script>
-</body>
-</html>
+          <textarea placeholder="📌 مصوبه"><
