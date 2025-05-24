@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>صورتجلسه شرکت بهین تهیه غذای برکت</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body, input, select, textarea {
+      font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+      font-size: 13pt;
+      color: #1F2A44;
+      line-height: 1.7;
+    }
+    body {
+      background: #F5F6F5;
+      margin: 0;
+      padding: 15px;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+      padding: 18px 12px 22px 12px;
+      border: 2px solid #00C4B4;
+    }
+    .top-form-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      background: linear-gradient(90deg,#e0f8f7 70%,#f7fafc 100%);
+      border-radius: 10px;
+      padding: 16px 12px 12px 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,196,180,0.07);
+    }
+    .top-form-bar label {
+      font-weight: bold;
+      color: #7B3FE4;
+      margin-left: 4px;
+      min-width: 58px;
+    }
+    .top-form-bar input, .top-form-bar select {
+      background: #fff;
+      border: 1.5px solid #00C4B4;
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 13pt;
+      min-width: 70px;
+      margin-left: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .top-form-bar input:focus, .top-form-bar select:focus {
+      border-color: #7B3FE4;
+    }
+    .top-form-bar .today-btn {
+      background: #00C4B4;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 5px 14px;
+      font-size: 11pt;
+      margin-right: 2px;
+      margin-left: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .top-form-bar .today-btn:hover {
+      background: #7B3FE4;
+    }
+    .attendees-section, .action-buttons, #archive { margin-bottom: 12px; }
+    .attendees-list {
+      border: 1px solid #00C4B4;
+      border-radius: 8px;
+      padding: 6px;
+      background: #f7fafc;
+      font-size: 12pt;
+      min-height: 80px;
+      min-width: 160px;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      direction: rtl;
+    }
+    .attendees-input {
+      padding: 6px;
+      border: 1px solid #00C4B4;
+      border-radius: 8px;
+      font-size: 12pt;
+      margin-bottom: 4px;
+      background: #f7fafc;
+      min-width: 120px;
+    }
+    .attendees-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 6px;
+      margin-top: 4px;
+      min-height: 32px;
+    }
+    .attendee-tag {
+      background: #e0f8f7;
+      border: 1px solid #00C4B4;
+      color: #1F2A44;
+      border-radius: 6px;
+      padding: 3px 12px 3px 6px;
+      font-size: 12pt;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: default;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .attendee-tag .remove-tag {
+      color: #e74c3c;
+      background: none;
+      border: none;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-right: 2px;
+      margin-left: -2px;
+      line-height: 1;
+      padding: 0;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin: 18px 0 10px 0;
+      justify-content: flex-end;
+    }
+    .btn-modern {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(90deg,#00C4B4 60%,#7B3FE4 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px 9px 18px;
+      font-size: 1.08em;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,196,180,0.09);
+      transition: background 0.2s, box-shadow 0.2s;
+      min-width: 145px;
+    }
+    .btn-modern:hover {
+      background: linear-gradient(90deg,#FF6B9B 60%,#7B3FE4 100%);
+      box-shadow: 0 4px 16px rgba(123,63,228,0.13);
+    }
+    .btn-modern svg {
+      width: 20px; height: 20px; fill: #fff;
+      margin-left: 3px;
+    }
+    .sign-area {
+      border: 1.5px dashed #00C4B4;
+      border-radius: 8px;
+      margin-top: 12px;
+      padding: 5px 2px;
+      min-height: 20px;
+      background: #f8f8f8;
+      direction: rtl;
+      display: none;
+    }
+    .sign-title {
+      font-size: 10pt;
+      font-weight: bold;
+      margin-bottom: 3px;
+      text-align: right;
+      padding-right: 8px;
+    }
+    .sign-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 18px 18px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+    .sign-box {
+      min-width: 130px;
+      min-height: 54px;
+      border: 1.7px solid #00C4B4;
+      border-radius: 9px;
+      padding: 6px 8px 24px 8px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      font-size: 10pt;
+      background: #fff;
+      margin-bottom: 6px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .sign-box span {
+      position: absolute;
+      bottom: 5px;
+      left: 0; right: 0;
+      font-size: 9pt;
+      color: #bbb;
+      text-align: center;
+      pointer-events: none;
+      font-family: Vazirmatn,Tahoma;
+      letter-spacing: 1px;
+    }
+    .entry-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 3px;
+      border-bottom: 1px dashed #d8e6e6;
+      padding-bottom: 10px;
+    }
+    .entry-row textarea {
+      width: 100%;
+      padding: 7px 8px;
+      border: 1px solid #00C4B4;
+      border-radius: 8px;
+      min-height: 32px;
+      resize: vertical;
+      font-size: 12pt;
+      background: #f7fafc;
+      box-sizing: border-box;
+      margin: 0;
+    }
+    .entry-details {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .entry-details input {
+      flex: 1 1 80px;
+      padding: 4px;
+      border: 1px solid #00C4B4;
+      border-radius: 8px;
+      font-size: 11pt;
+      text-align: center;
+      min-width: 60px;
+      max-width: 120px;
+      background: #f7fafc;
+    }
+    .remove-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-right: 2px;
+      transition: background 0.2s;
+    }
+    .remove-btn:after { content: "×"; font-size: 1.2em; }
+    .print-responsible, .print-deadline { display: none; }
+    #archive table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+    #archive th, #archive td {
+      border: 1px solid #b2e3de;
+      padding: 7px 5px;
+      text-align: right;
+      vertical-align: top;
+    }
+    .edit-btn, .del-btn {
+      background: linear-gradient(90deg, #00C4B4, #7B3FE4);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-left: 2px;
+    }
+    .del-btn {
+      background: linear-gradient(90deg, #e74c3c, #c0392b);
+    }
+    @media print {
+      .action-buttons, .attendees-section, .attendees-tags, #archive { display: none !important; }
+      .sign-area { display: block !important; }
+      .print-responsible, .print-deadline { display: inline-block !important; }
+      .entry-details input, .remove-btn { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 style="text-align:center;color:#00C4B4;margin-bottom:18px;">صورتجلسه شرکت بهین تهیه غذای برکت</h2>
+    <div class="top-form-bar">
+      <label for="meetingDate">تاریخ:</label>
+      <input type="text" id="meetingDate" autocomplete="off" style="width:110px;">
+      <button type="button" id="todayBtn" class="today-btn">امروز</button>
+      <label for="meetingTime">ساعت:</label>
+      <input type="text" id="meetingTime" autocomplete="off" style="width:60px;">
+      <label for="meetingNumber">شماره:</label>
+      <input type="text" id="meetingNumber" autocomplete="off" style="width:70px;">
+      <label for="meetingLocation">محل:</label>
+      <select id="meetingLocation">
+        <option value="">انتخاب</option>
+        <option value="دفتر باغ فیض">دفتر باغ فیض</option>
+        <option value="دفتر مرکزی">دفتر مرکزی</option>
+        <option value="شعبه مسجد">شعبه مسجد</option>
+        <option value="شعبه لبخند">شعبه لبخند</option>
+        <option value="شعبه الزهرا سلام الله علیها">شعبه الزهرا سلام الله علیها</option>
+        <option value="سرای لبخند">سرای لبخند</option>
+      </select>
+      <label for="topic">موضوع:</label>
+      <input type="text" id="topic" placeholder="موضوع جلسه را وارد کنید" style="width:220px;">
+    </div>
+    <div class="attendees-section" style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start;">
+      <select id="attendeesList" class="attendees-list" multiple size="7" style="min-width:170px;">
+        <option value="محمد جواد اسماعیلی">محمد جواد اسماعیلی</option>
+        <option value="علیرضا اسماعیلی">علیرضا اسماعیلی</option>
+        <option value="علیرضا کیایی">علیرضا کیایی</option>
+        <option value="علی سلیمی">علی سلیمی</option>
+        <option value="کاظم کاظمی">کاظم کاظمی</option>
+        <option value="رضا خانی">رضا خانی</option>
+        <option value="آقای اخباریه">آقای اخباریه</option>
+        <option value="محمدرضا صالحی">محمدرضا صالحی</option>
+        <option value="محمد صباغی">محمد صباغی</option>
+        <option value="وحید خانی">وحید خانی</option>
+        <option value="خانم حسنیان">خانم حسنیان</option>
+        <option value="بهرام آقاپور">بهرام آقاپور</option>
+        <option value="مجتبی فروتن">مجتبی فروتن</option>
+        <option value="یاسر فروتن">یاسر فروتن</option>
+        <option value="سید مهدی طیبی">سید مهدی طیبی</option>
+        <option value="میثم نوری سلطان">میثم نوری سلطان</option>
+        <option value="سلطان جلال یعقوبی">سلطان جلال یعقوبی</option>
+        <option value="میلاد بختور">میلاد بختور</option>
+      </select>
+      <input type="text" id="newAttendee" class="attendees-input" placeholder="➕ افزودن نام جدید" />
+      <button type="button" class="primary-btn" id="addAttendeeBtn">افزودن</button>
+    </div>
+    <div class="attendees-tags" id="attendeesTags"></div>
+    <div id="selectedAttendees">
+      <h3>حاضرین در جلسه: <span id="selectedAttendeeList"></span></h3>
+    </div>
+    <div id="entries"></div>
+    <div class="action-buttons">
+      <button type="button" class="btn-modern" id="saveMeetingBtn">
+        <svg viewBox="0 0 24 24"><path d="M5 20h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-4V3h-4v2H5a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2zm7-1a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        ذخیره صورتجلسه
+      </button>
+      <button type="button" class="btn-modern" id="addEntryBtn">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14m7-7H5"/></svg>
+        افزودن مصوبه جدید
+      </button>
+      <button type="button" class="btn-modern" id="printBtn">
+        <svg viewBox="0 0 24 24"><rect x="6" y="9" width="12" height="7" rx="2"/><path d="M6 17v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"/></svg>
+        پرینت
+      </button>
+    </div>
+    <div class="sign-area" id="signArea"></div>
+    <div id="archive"></div>
+  </div>
+  <script>
+    // تابع تاریخ و ساعت شمسی
+    function pad(num) { return num.toString().padStart(2, '0'); }
+    function toPersianDigits(str) { return str.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+    function getShamsiDate() {
+      const gDate = new Date();
+      const gy = gDate.getFullYear(), gm = gDate.getMonth() + 1, gd = gDate.getDate();
+      let jy, jm, jd;
+      const g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+      let gy2 = (gm > 2)? (gy + 1) : gy;
+      let days = 355666 + (365 * gy) + parseInt((gy2 + 3) / 4, 10) - parseInt((gy2 + 99) / 100, 10) + parseInt((gy2 + 399) / 400, 10) + gd + g_d_m[gm-1];
+      jy = -1595 + (33 * parseInt(days / 12053, 10));
+      days %= 12053;
+      jy += 4 * parseInt(days / 1461, 10);
+      days %= 1461;
+      if (days > 365) { jy += parseInt((days - 1)/365, 10); days = (days-1)%365; }
+      jm = (days < 186)? 1 + parseInt(days/31, 10) : 7 + parseInt((days-186)/30, 10);
+      jd = 1 + ((days < 186)? (days%31) : ((days-186)%30));
+      return toPersianDigits(`${jy}-${pad(jm)}-${pad(jd)}`);
+    }
+    function getShamsiTime() {
+      const d = new Date();
+      return toPersianDigits(`${pad(d.getHours())}:${pad(d.getMinutes())}`);
+    }
+    function setLiveDateTime() {
+      document.getElementById('meetingDate').value = getShamsiDate();
+      document.getElementById('meetingTime').value = getShamsiTime();
+    }
+    document.getElementById('todayBtn').addEventListener('click', setLiveDateTime);
+
+    // حاضرین
+    function getSelectedAttendees() {
+      return JSON.parse(localStorage.getItem('selectedAttendees') || '[]');
+    }
+    function setSelectedAttendees(list) {
+      localStorage.setItem('selectedAttendees', JSON.stringify(list));
+    }
+    function renderAttendeesTags() {
+      const tagsDiv = document.getElementById('attendeesTags');
+      const selected = getSelectedAttendees();
+      tagsDiv.innerHTML = '';
+      selected.forEach(name => {
+        const tag = document.createElement('span');
+        tag.className = 'attendee-tag';
+        tag.innerHTML = name + `<button class="remove-tag" title="حذف" data-name="${name}">&times;</button>`;
+        tagsDiv.appendChild(tag);
+      });
+      document.getElementById('selectedAttendeeList').textContent = selected.join('، ');
+    }
+    document.getElementById('addAttendeeBtn').addEventListener('click', function() {
+      const select = document.getElementById('attendeesList');
+      const selectedOptions = Array.from(select.selectedOptions).map(opt => opt.value);
+      let selected = getSelectedAttendees();
+      selectedOptions.forEach(name => {
+        if (!selected.includes(name)) selected.push(name);
+      });
+      setSelectedAttendees(selected);
+      renderAttendeesTags();
+      select.selectedIndex = -1;
+    });
+    document.getElementById('newAttendee').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('addAttendeeBtn').click();
+      }
+    });
+    document.getElementById('addAttendeeBtn').addEventListener('click', function() {
+      const input = document.getElementById('newAttendee');
+      const list = document.getElementById('attendeesList');
+      const newName = input.value.trim();
+      if (newName) {
+        let exists = Array.from(list.options).some(opt => opt.value === newName);
+        if (!exists) {
+          let option = document.createElement('option');
+          option.value = newName;
+          option.textContent = newName;
+          list.appendChild(option);
+        }
+        let selected = getSelectedAttendees();
+        if (!selected.includes(newName)) {
+          selected.push(newName);
+          setSelectedAttendees(selected);
+        }
+        input.value = '';
+        renderAttendeesTags();
+      }
+    });
+    document.getElementById('attendeesTags').addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove-tag')) {
+        const name = e.target.getAttribute('data-name');
+        let selected = getSelectedAttendees();
+        selected = selected.filter(n => n !== name);
+        setSelectedAttendees(selected);
+        renderAttendeesTags();
+      }
+    });
+
+    // مصوبات
+    document.getElementById('addEntryBtn').addEventListener('click', addDefaultEntry);
+    function addDefaultEntry() {
+      const entries = document.getElementById('entries');
+      const div = document.createElement('div');
+      div.className = 'entry-row';
+      div.innerHTML = `
+        <textarea placeholder="📌 مصوبه" oninput="autoGrow(this)"></textarea>
+        <div class="entry-details">
+          <input type="text" placeholder="👤 مسئول اجرا" />
+          <input type="text" placeholder="📅 مهلت اجرا" />
+          <button type="button" class="remove-btn" onclick="removeEntry(this)"></button>
+          <span class="print-responsible"></span>
+          <span class="print-deadline"></span>
+        </div>`;
+      entries.appendChild(div);
+      div.querySelector('.remove-btn').addEventListener('click', e => {
+        e.target.closest('.entry-row').remove();
+      });
+      autoGrow(div.querySelector('textarea'));
+      div.querySelector('textarea').addEventListener('input',function(){autoGrow(this);});
+    }
+    function removeEntry(button) {
+      button.closest('.entry-row').remove();
+    }
+    window.autoGrow = function(element) {
+      element.style.height = "5px";
+      element.style.height = (element.scrollHeight+2)+"px";
+    }
+    document.querySelectorAll('.entry-row textarea').forEach(function(el){ autoGrow(el); el.addEventListener('input',function(){autoGrow(el);}); });
+
+    // محل امضا فقط در پرینت
+    function updateSignArea() {
+      const selected = getSelectedAttendees();
+      let signArea = document.getElementById('signArea');
+      let boxes = [];
+      for (let i = 0; i < selected.length; i++) {
+        if(selected[i] === "محمد جواد اسماعیلی") continue; // استثنا
+        boxes.push(`<div class="sign-box">${selected[i]}<span>امضا</span></div>`);
+      }
+      if (boxes.length) {
+        let grid = `<div class="sign-title">محل امضای حاضرین:</div><div class="sign-grid">${boxes.join('')}</div>`;
+        signArea.innerHTML = grid;
+      } else {
+        signArea.innerHTML = '';
+      }
+    }
+    window.addEventListener('beforeprint', function() {
+      updateSignArea();
+      document.getElementById('signArea').style.display = 'block';
+      document.querySelectorAll('.entry-row').forEach(row => {
+        const responsible = row.querySelector('.entry-details input[placeholder="👤 مسئول اجرا"]');
+        const deadline = row.querySelector('.entry-details input[placeholder="📅 مهلت اجرا"]');
+        const spanRes = row.querySelector('.print-responsible');
+        const spanDead = row.querySelector('.print-deadline');
+        if (spanRes) {
+          if (responsible && responsible.value.trim()) {
+            spanRes.textContent = `👤 ${responsible.value}`;
+            spanRes.style.display = 'inline-block';
+          } else {
+            spanRes.textContent = '';
+            spanRes.style.display = 'none';
+          }
+        }
+        if (spanDead) {
+          if (deadline && deadline.value.trim()) {
+            spanDead.textContent = `📅 ${deadline.value}`;
+            spanDead.style.display = 'inline-block';
+          } else {
+            spanDead.textContent = '';
+            spanDead.style.display = 'none';
+          }
+        }
+      });
+    });
+    window.addEventListener('afterprint', function() {
+      document.getElementById('signArea').style.display = 'none';
+      document.querySelectorAll('.print-responsible').forEach(span => { span.textContent = ''; span.style.display = 'none'; });
+      document.querySelectorAll('.print-deadline').forEach(span => { span.textContent = ''; span.style.display = 'none'; });
+    });
+
+    // آرشیو
+    async function displayArchive() {
+      const archive = document.getElementById('archive');
+      const res = await fetch('https://sheetdb.io/api/v1/010ujio6884bd');
+      const meetings = await res.json();
+      if (!meetings.length) {
+        archive.innerHTML = '<p>هیچ صورت‌جلسه‌ای ذخیره نشده است.</p>';
+        return;
+      }
+      let html = '<table><thead><tr><th>شماره</th><th>موضوع</th><th>ویرایش</th><th>حذف</th></tr></thead><tbody>';
+      meetings.forEach((m, idx) => {
+        html += `<tr>
+          <td>${m.number}</td>
+          <td>${m.topic}</td>
+          <td>
+            <button class="edit-btn" onclick="editMeeting('${m.id}')">✎</button>
+          </td>
+          <td>
+            <button class="del-btn" onclick="deleteMeeting('${m.id}')">🗑</button>
+          </td>
+        </tr>`;
+      });
+      html += '</tbody></table>';
+      archive.innerHTML = html;
+    }
+    async function deleteMeeting(id) {
+      if (!confirm('آیا از حذف این صورت‌جلسه مطمئن هستید؟')) return;
+      await fetch('https://sheetdb.io/api/v1/010ujio6884bd/id/' + id, { method: 'DELETE' });
+      displayArchive();
+    }
+    let editingMeetingId = null;
+    async function editMeeting(id) {
+      const res = await fetch('https://sheetdb.io/api/v1/010ujio6884bd/search?id=' + id);
+      const meetings = await res.json();
+      if (!meetings.length) {
+        alert('جلسه پیدا نشد!');
+        return;
+      }
+      const m = meetings[0];
+      editingMeetingId = id;
+      document.getElementById('meetingDate').value = m.date || '';
+      document.getElementById('meetingTime').value = m.time || '';
+      document.getElementById('meetingNumber').value = m.number || '';
+      document.getElementById('meetingLocation').value = m.location || '';
+      document.getElementById('topic').value = m.topic || '';
+      const selected = m.attendees ? m.attendees.split(/[،,]/).map(x=>x.trim()).filter(Boolean) : [];
+      setSelectedAttendees(selected);
+      renderAttendeesTags();
+      const entries = m.entries ? m.entries.split(' | ') : [];
+      const entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      entries.forEach(entry => {
+        let obj;
+        try { obj = JSON.parse(entry); } catch { obj = {text: entry, responsible: '', deadline: ''}; }
+        const div = document.createElement('div');
+        div.className = 'entry-row';
+        div.innerHTML = `
+          <textarea placeholder="📌 مصوبه" oninput="autoGrow(this)">${obj.text || ''}</textarea>
+          <div class="entry-details">
+            <input type="text" placeholder="👤 مسئول اجرا" value="${obj.responsible || ''}" />
+            <input type="text" placeholder="📅 مهلت اجرا" value="${obj.deadline || ''}" />
+            <button type="button" class="remove-btn" onclick="removeEntry(this)"></button>
+            <span class="print-responsible"></span>
+            <span class="print-deadline"></span>
+          </div>`;
+        entriesDiv.appendChild(div);
+        autoGrow(div.querySelector('textarea'));
+        div.querySelector('textarea').addEventListener('input',function(){autoGrow(this);});
+      });
+    }
+
+    document.getElementById('saveMeetingBtn').addEventListener('click', saveMeeting);
+    async function saveMeeting() {
+      const meetingDate = document.getElementById('meetingDate').value.trim();
+      const meetingTime = document.getElementById('meetingTime').value.trim();
+      const meetingNumber = document.getElementById('meetingNumber').value.trim();
+      const meetingLocation = document.getElementById('meetingLocation').value;
+      const topic = document.getElementById('topic').value.trim();
+      const attendees = getSelectedAttendees().join('، ');
+      const entryRows = document.querySelectorAll('.entry-row');
+      if (!meetingNumber || !topic) {
+        alert('لطفاً شماره جلسه و موضوع را وارد کنید.');
+        return;
+      }
+      const entries = Array.from(entryRows).map(row => {
+        const text = row.querySelector("textarea").value.trim();
+        const responsible = row.querySelector(".entry-details input[placeholder='👤 مسئول اجرا']").value.trim();
+        const deadline = row.querySelector(".entry-details input[placeholder='📅 مهلت اجرا']").value.trim();
+        if (!text) return '';
+        return JSON.stringify({text, responsible, deadline});
+      }).filter(e => e !== '').join(' | ');
+      if (!entries) {
+        alert('لطفاً حداقل یک مصوبه وارد کنید.');
+        return;
+      }
+      const meeting = {
+        id: editingMeetingId ? editingMeetingId : Date.now(),
+        date: meetingDate,
+        time: meetingTime,
+        number: meetingNumber,
+        location: meetingLocation,
+        topic: topic,
+        attendees: attendees,
+        entries: entries
+      };
+      if (editingMeetingId) {
+        await fetch('https://sheetdb.io/api/v1/010ujio6884bd/id/' + editingMeetingId, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: [meeting] })
+        });
+        alert("ویرایش صورت‌جلسه با موفقیت انجام شد!");
+      } else {
+        await fetch('https://sheetdb.io/api/v1/010ujio6884bd', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: [meeting] })
+        });
+        alert("صورت‌جلسه ذخیره شد!");
+      }
+      resetForm();
+      displayArchive();
+    }
+    function resetForm() {
+      document.getElementById('entries').innerHTML = '';
+      addDefaultEntry();
+      setSelectedAttendees([]);
+      renderAttendeesTags();
+      editingMeetingId = null;
+      setLiveDateTime();
+      document.getElementById('meetingNumber').value = '';
+      document.getElementById('meetingLocation').selectedIndex = 0;
+      document.getElementById('topic').value = '';
+    }
+
+    document.getElementById('printBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.print();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setLiveDateTime();
+      renderAttendeesTags();
+      document.getElementById('signArea').style.display = 'none';
+      addDefaultEntry();
+      displayArchive();
+    });
+  </script>
+</body>
+</html>
