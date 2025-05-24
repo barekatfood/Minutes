@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>صورتجلسه شرکت برکت</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Your original styling */
+    body, input, select, textarea, button {
+      font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+      font-size: 13px;
+      color: #23272f;
+      line-height: 1.7;
+    }
+    body {
+      background: #f7fafd;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 24px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(56, 189, 248, 0.11);
+      padding: 18px 12px 28px 12px;
+      border: none;
+      position: relative;
+    }
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      gap: 0;
+    }
+    .logo-barakat {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+      border: none;
+      background: none;
+      box-shadow: none;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0;
+      display: block;
+      flex-shrink: 0;
+    }
+    .session-title {
+      flex: 1;
+      text-align: center;
+      font-size: 1.7em;
+      font-weight: 700;
+      color: #00c4cc;
+      letter-spacing: 0.01em;
+      margin-right: -70px;
+      margin-left: 0;
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .header-flex {
+        flex-direction: column;
+        gap: 0;
+      }
+      .session-title { margin-right: 0; font-size: 1.18em; }
+      .logo-barakat { margin-bottom: 10px; }
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #f7fafc;
+      border-radius: 10px;
+      padding: 7px 10px 6px 10px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 6px rgba(0,196,180,0.06);
+      font-size: 12px;
+    }
+    .top-bar input, .top-bar select {
+      border: 1.2px solid #00c4cc;
+      border-radius: 6px;
+      padding: 2px 6px;
+      font-size: 12px;
+      min-width: 0;
+      font-weight: 500;
+      background: #fff;
+      height: 28px;
+      width: 70px;
+      transition: width 0.2s;
+    }
+    .top-bar input[placeholder="ساعت"] { width: 54px;}
+    .top-bar input[placeholder="شماره"] { width: 46px;}
+    .top-bar input[placeholder="موضوع"] { width: 110px;}
+    .top-bar select {
+      min-width: 120px;
+      max-width: 260px;
+      width: auto;
+      font-size: 13px;
+      direction: rtl;
+      padding-right: 16px;
+      padding-left: 6px;
+      display: inline-block;
+      transition: width 0.2s;
+    }
+    .top-bar input:focus, .top-bar select:focus {
+      border-color: #5a8dee;
+      outline: none;
+    }
+    .today-btn {
+      background: #00c4cc;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 2px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      font-weight: 700;
+      height: 28px;
+      transition: background 0.2s;
+      margin-right: 2px;
+    }
+    .today-btn:hover {
+      background: #5a8dee;
+    }
+    .top-bar .icon {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle;
+      opacity: 0.75;
+      margin: 0 0 0 2px;
+      display: inline-block;
+    }
+    @media print {
+      #todayBtn, .today-btn { display: none !important; visibility: hidden !important; }
+      .top-bar { box-shadow: none !important; }
+    }
+    .attendees-section {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .attendees-list {
+      border: 1.2px solid #00c4cc;
+      border-radius: 8px;
+      padding: 5px;
+      background: #f7fafc;
+      font-size: 13px;
+      min-height: 60px;
+      min-width: 120px;
+      max-width: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      direction: rtl;
+    }
+    .attendees-input {
+      padding: 5px;
+      border: 1.2px solid #00c4cc;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 2px;
+      background: #f7fafc;
+      min-width: 80px;
+      height: 28px;
+    }
+    .primary-btn, .btn-modern {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(90deg,#00c4cc 60%,#5a8dee 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 18px 7px 14px;
+      font-size: 1em;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(90,141,238,0.09);
+      transition: background 0.2s, box-shadow 0.2s;
+      min-width: 115px;
+      margin: 0 0 0 6px;
+      letter-spacing: 0.01em;
+      height: 32px;
+    }
+    .primary-btn:hover, .btn-modern:hover {
+      background: linear-gradient(90deg,#5a8dee 60%,#00c4cc 100%);
+      box-shadow: 0 4px 16px rgba(90,141,238,0.13);
+    }
+    .btn-modern svg, .primary-btn svg {
+      width: 18px; height: 18px; fill: #fff;
+      margin-left: 3px;
+    }
+    .attendees-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 6px;
+      margin-top: 4px;
+      min-height: 32px;
+    }
+    .attendee-tag {
+      background: #e3f6fc;
+      border: 1.2px solid #00c4cc;
+      color: #23272f;
+      border-radius: 7px;
+      padding: 4px 15px 4px 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: default;
+      position: relative;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    .attendee-tag .remove-tag {
+      color: #e74c3c;
+      background: none;
+      border: none;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-right: 2px;
+      margin-left: -2px;
+      line-height: 1;
+      padding: 0;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0 10px 0;
+      justify-content: flex-end;
+    }
+    .sign-area {
+      border: 1.2px dashed #00c4cc;
+      border-radius: 8px;
+      margin-top: 12px;
+      padding: 5px 2px;
+      min-height: 20px;
+      background: #f8f8f8;
+      direction: rtl;
+      display: none;
+    }
+    .sign-title {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 3px;
+      text-align: right;
+      padding-right: 8px;
+    }
+    .sign-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 16px 16px;
+      margin-top: 12px;
+      margin-bottom: 8px;
+    }
+    .sign-box {
+      min-width: 150px;
+      min-height: 60px;
+      border: 1.2px solid #00c4cc;
+      border-radius: 9px;
+      padding: 6px 10px 22px 10px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      font-size: 14px;
+      background: #fff;
+      margin-bottom: 6px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .sign-box span {
+      position: absolute;
+      bottom: 7px;
+      left: 0; right: 0;
+      font-size: 13px;
+      color: #bbb;
+      text-align: center;
+      pointer-events: none;
+      font-family: Vazirmatn,Tahoma;
+      letter-spacing: 1px;
+    }
+    .entry-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 3px;
+      border-bottom: 1px dashed #b2e3de;
+      padding-bottom: 10px;
+    }
+    .entry-row textarea {
+      width: 100%;
+      padding: 5px 7px;
+      border: 1.2px solid #00c4cc;
+      border-radius: 8px;
+      min-height: 28px;
+      resize: vertical;
+      font-size: 13px;
+      background: #f7fafc;
+      box-sizing: border-box;
+      margin: 0;
+      font-weight: 500;
+      transition: height 0.2s;
+    }
+    .entry-details {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .entry-details input {
+      flex: 1 1 70px;
+      padding: 3px;
+      border: 1.2px solid #00c4cc;
+      border-radius: 7px;
+      font-size: 12px;
+      text-align: center;
+      min-width: 50px;
+      max-width: 100px;
+      background: #f7fafc;
+    }
+    .remove-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-right: 2px;
+      transition: background 0.2s;
+    }
+    .remove-btn:after { content: "×"; font-size: 1.2em; }
+    #archive {
+      margin-top: 30px;
+      border-top: 2px solid #00c4cc;
+      padding-top: 15px;
+    }
+    #archive h2 {
+      color: #00c4cc;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    #archive table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    #archive th, #archive td {
+      border: 1px solid #b2e3de;
+      padding: 8px;
+      text-align: right;
+      vertical-align: top;
+    }
+    #archive th {
+      background: #f0faff;
+    }
+    .edit-btn {
+      background: linear-gradient(90deg, #00c4cc, #5a8dee);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-left: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-flex">
+      <img src="https://i.imgur.com/gX2NTo6.png" alt="لوگوی شرکت برکت" class="logo-barakat" />
+      <div class="session-title">صورتجلسه شرکت برکت</div>
+    </div>
+    <div class="top-bar">
+      <input type="text" id="meetingDate" placeholder="تاریخ" aria-label="تاریخ جلسه" />
+      <button type="button" id="todayBtn" class="today-btn" title="تاریخ امروز" aria-label="تاریخ امروز">امروز</button>
+      <input type="text" id="meetingTime" placeholder="ساعت" aria-label="ساعت جلسه" />
+      <input type="text" id="meetingNumber" placeholder="شماره" aria-label="شماره جلسه" />
+      <select id="meetingLocation" aria-label="محل جلسه" oninput="resizeLocationSelect(this)">
+        <option value="">محل</option>
+        <option>دفتر باغ فیض</option>
+        <option>دفتر مرکزی</option>
+        <option>شعبه مسجد</option>
+        <option>شعبه لبخند</option>
+        <option>شعبه الزهرا سلام الله علیها</option>
+        <option>سرای لبخند</option>
+      </select>
+      <input type="text" id="topic" placeholder="موضوع" aria-label="موضوع جلسه" />
+    </div>
+    <div class="attendees-section">
+      <select id="attendeesList" class="attendees-list" multiple size="7" aria-label="لیست حاضرین">
+        <option value="محمد جواد اسماعیلی">محمد جواد اسماعیلی</option>
+        <option value="علیرضا اسماعیلی">علیرضا اسماعیلی</option>
+        <option value="علیرضا کیایی">علیرضا کیایی</option>
+        <option value="علی سلیمی">علی سلیمی</option>
+        <option value="کاظم کاظمی">کاظم کاظمی</option>
+        <option value="رضا خانی">رضا خانی</option>
+        <option value="آقای اخباریه">آقای اخباریه</option>
+        <option value="محمدرضا صالحی">محمدرضا صالحی</option>
+        <option value="محمد صباغی">محمد صباغی</option>
+        <option value="وحید خانی">وحید خانی</option>
+        <option value="خانم حسنیان">خانم حسنیان</option>
+        <option value="بهرام آقاپور">بهرام آقاپور</option>
+        <option value="مجتبی فروتن">مجتبی فروتن</option>
+        <option value="یاسر فروتن">یاسر فروتن</option>
+        <option value="سید مهدی طیبی">سید مهدی طیبی</option>
+        <option value="میثم نوری سلطان">میثم نوری سلطان</option>
+        <option value="سلطان جلال یعقوبی">سلطان جلال یعقوبی</option>
+        <option value="میلاد بختور">میلاد بختور</option>
+      </select>
+      <input type="text" id="newAttendee" class="attendees-input" placeholder="➕ افزودن نام جدید" aria-label="افزودن نام جدید" />
+      <button type="button" class="primary-btn" id="addAttendeeBtn" aria-label="افزودن حاضر جدید">افزودن</button>
+    </div>
+    <div class="attendees-tags" id="attendeesTags" aria-live="polite" aria-atomic="true"></div>
+    <div id="selectedAttendees">
+      <h3 style="font-size:1.1em;font-weight:600;color:#00c4cc;">حاضرین در جلسه: <span id="selectedAttendeeList"></span></h3>
+    </div>
+    <div id="entries"></div>
+    <div class="action-buttons">
+      <button type="button" class="btn-modern" id="saveMeetingBtn" aria-label="ذخیره صورتجلسه">ذخیره صورتجلسه</button>
+      <button type="button" class="btn-modern" id="addEntryBtn" aria-label="افزودن مصوبه جدید">افزودن مصوبه جدید</button>
+      <button type="button" class="btn-modern" id="printBtn" aria-label="پرینت صورتجلسه">پرینت</button>
+    </div>
+    <div class="sign-area" id="signArea"></div>
+    <div id="archive">
+      <h2>آرشیو صورتجلسات</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>تاریخ و ساعت</th>
+            <th>شماره</th>
+            <th>موضوع</th>
+            <th>عملیات</th>
+          </tr>
+        </thead>
+        <tbody id="archiveBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let editingMeetingId = null;
+
+    (function(){
+      const tmpSpan = document.createElement('span');
+      tmpSpan.style.visibility = 'hidden';
+      tmpSpan.style.position = 'absolute';
+      tmpSpan.style.whiteSpace = 'nowrap';
+      document.body.appendChild(tmpSpan);
+
+      window.resizeLocationSelect = function(sel) {
+        const style = window.getComputedStyle(sel);
+        tmpSpan.style.fontSize = style.fontSize;
+        tmpSpan.style.fontFamily = style.fontFamily;
+        tmpSpan.textContent = sel.options[sel.selectedIndex]?.text || sel.options[0].text;
+        let w = tmpSpan.offsetWidth + 40;
+        w = Math.max(120, Math.min(w, 260));
+        sel.style.width = w + 'px';
+      };
+    })();
+
+    document.getElementById('meetingLocation').addEventListener('change', function() {
+      resizeLocationSelect(this);
+    });
+
+    function pad(num) { return num.toString().padStart(2, '0'); }
+    function toPersianDigits(str) { return str.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]); }
+    function getShamsiDate() {
+      const gDate = new Date();
+      const gy = gDate.getFullYear(), gm = gDate.getMonth() + 1, gd = gDate.getDate();
+      let jy, jm, jd;
+      const g_d_m = [0,31,59,90,120,151,181,212,243,273,304,334];
+      let gy2 = (gm > 2)? (gy + 1) : gy;
+      let days = 355666 + (365 * gy) + parseInt((gy2 + 3) / 4, 10) - parseInt((gy2 + 99) / 100, 10) + parseInt((gy2 + 399) / 400, 10) + gd + g_d_m[gm-1];
+      jy = -1595 + (33 * parseInt(days / 12053, 10));
+      days %= 12053;
+      jy += 4 * parseInt(days / 1461, 10);
+      days %= 1461;
+      if (days > 365) { jy += parseInt((days - 1)/365, 10); days = (days-1)%365; }
+      jm = (days < 186)? 1 + parseInt(days/31, 10) : 7 + parseInt((days-186)/30, 10);
+      jd = 1 + ((days < 186)? (days%31) : ((days-186)%30));
+      return toPersianDigits(`${jy}-${pad(jm)}-${pad(jd)}`);
+    }
+    function getShamsiTime() {
+      const d = new Date();
+      return toPersianDigits(`${pad(d.getHours())}:${pad(d.getMinutes())}`);
+    }
+    function setLiveDateTime() {
+      document.getElementById('meetingDate').value = getShamsiDate();
+      document.getElementById('meetingTime').value = getShamsiTime();
+    }
+
+    document.getElementById('todayBtn').addEventListener('click', setLiveDateTime);
+
+    function getSelectedAttendees() {
+      return JSON.parse(localStorage.getItem('selectedAttendees') || '[]');
+    }
+    function setSelectedAttendees(list) {
+      localStorage.setItem('selectedAttendees', JSON.stringify(list));
+    }
+    function renderAttendeesTags() {
+      const tagsDiv = document.getElementById('attendeesTags');
+      const selected = getSelectedAttendees();
+      tagsDiv.innerHTML = '';
+      selected.forEach(name => {
+        const tag = document.createElement('span');
+        tag.className = 'attendee-tag';
+        tag.innerHTML = name + `<button class="remove-tag" title="حذف" data-name="${name}" aria-label="حذف ${name}">&times;</button>`;
+        tagsDiv.appendChild(tag);
+      });
+      document.getElementById('selectedAttendeeList').textContent = selected.join('، ');
+    }
+
+    document.getElementById('addAttendeeBtn').addEventListener('click', function() {
+      const select = document.getElementById('attendeesList');
+      const input = document.getElementById('newAttendee');
+      const selectedOptions = Array.from(select.selectedOptions).map(opt => opt.value);
+      let selected = getSelectedAttendees();
+
+      selectedOptions.forEach(name => {
+        if (!selected.includes(name)) selected.push(name);
+      });
+
+      const newName = input.value.trim();
+      if (newName) {
+        let exists = Array.from(select.options).some(opt => opt.value === newName);
+        if (!exists) {
+          let option = document.createElement('option');
+          option.value = newName;
+          option.textContent = newName;
+          select.appendChild(option);
+        }
+        if (!selected.includes(newName)) {
+          selected.push(newName);
+        }
+        input.value = '';
+      }
+      setSelectedAttendees(selected);
+      renderAttendeesTags();
+      select.selectedIndex = -1;
+      input.focus();
+    });
+
+    document.getElementById('newAttendee').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') {
+        e.preventDefault();
+        if (this.value.trim()) {
+          document.getElementById('addAttendeeBtn').click();
+        }
+      }
+    });
+
+    document.getElementById('attendeesTags').addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove-tag')) {
+        const name = e.target.getAttribute('data-name');
+        let selected = getSelectedAttendees();
+        selected = selected.filter(n => n !== name);
+        setSelectedAttendees(selected);
+        renderAttendeesTags();
+      }
+    });
+
+    function autoGrow(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+
+    function removeEntry(button) {
+      const entryRow = button.closest('.entry-row');
+      if (entryRow) {
+        entryRow.remove();
+      }
+    }
+
+    function addDefaultEntry() {
+      const entries = document.getElementById('entries');
+      const div = document.createElement('div');
+      div.className = 'entry-row';
+      div.innerHTML = `
+        <textarea placeholder="📌 مصوبه" oninput="autoGrow(this)" aria-label="متن مصوبه"></textarea>
+        <div class="entry-details">
+          <input type="text" placeholder="👤 مسئول اجرا" aria-label="مسئول اجرا" />
+          <input type="text" placeholder="📅 مهلت اجرا" aria-label="مهلت اجرا" />
+          <button type="button" class="remove-btn" aria-label="حذف مصوبه">×</button>
+        </div>`;
+      entries.appendChild(div);
+      const textarea = div.querySelector('textarea');
+      autoGrow(textarea);
+      textarea.addEventListener('input', function() { autoGrow(this); });
+      div.querySelector('.remove-btn').addEventListener('click', () => removeEntry(div.querySelector('.remove-btn')));
+    }
+
+    document.getElementById('addEntryBtn').addEventListener('click', addDefaultEntry);
+
+    document.getElementById('saveMeetingBtn').addEventListener('click', saveMeeting);
+
+    function saveMeeting() {
+      const meetingDate = document.getElementById('meetingDate').value.trim();
+      const meetingTime = document.getElementById('meetingTime').value.trim();
+      const meetingNumber = document.getElementById('meetingNumber').value.trim();
+      const meetingLocation = document.getElementById('meetingLocation').value;
+      const topic = document.getElementById('topic').value.trim();
+      const attendees = getSelectedAttendees().join('، ');
+      const entryRows = document.querySelectorAll('.entry-row');
+
+      if (!meetingDate || !meetingTime || !meetingNumber || !meetingLocation || !topic) {
+        alert('لطفاً همه فیلدهای ضروری را پر کنید.');
+        return;
+      }
+
+      const entries = Array.from(entryRows).map(row => {
+        const text = row.querySelector("textarea").value.trim();
+        const responsible = row.querySelector(".entry-details input[placeholder='👤 مسئول اجرا']").value.trim();
+        const deadline = row.querySelector(".entry-details input[placeholder='📅 مهلت اجرا']").value.trim();
+        if (!text) return '';
+        return {text, responsible, deadline};
+      }).filter(e => e !== '');
+
+      if (!entries.length) {
+        alert('لطفاً حداقل یک مصوبه وارد کنید.');
+        return;
+      }
+
+      const meeting = {
+        id: editingMeetingId ? editingMeetingId : Date.now(),
+        date: meetingDate,
+        time: meetingTime,
+        number: meetingNumber,
+        location: meetingLocation,
+        topic: topic,
+        attendees: attendees,
+        entries: entries
+      };
+
+      try {
+        let archive = JSON.parse(localStorage.getItem('meetingArchive') || '[]');
+        if (editingMeetingId) {
+          archive = archive.map(m => m.id === editingMeetingId ? meeting : m);
+          alert("ویرایش صورت‌جلسه با موفقیت انجام شد!");
+        } else {
+          archive.push(meeting);
+          alert("صورت‌جلسه ذخیره شد!");
+        }
+        localStorage.setItem('meetingArchive', JSON.stringify(archive));
+      } catch (error) {
+        alert("خطا در ذخیره صورتجلسه. لطفاً دوباره تلاش کنید.");
+        console.error(error);
+        return;
+      }
+
+      resetForm();
+      displayArchive();
+    }
+
+    function resetForm() {
+      document.getElementById('entries').innerHTML = '';
+      addDefaultEntry();
+      setSelectedAttendees([]);
+      renderAttendeesTags();
+      editingMeetingId = null;
+      setLiveDateTime();
+      document.getElementById('meetingNumber').value = '';
+      document.getElementById('meetingLocation').selectedIndex = 0;
+      document.getElementById('topic').value = '';
+      resizeLocationSelect(document.getElementById('meetingLocation'));
+    }
+
+    function displayArchive() {
+      const archiveDiv = document.getElementById('archiveBody');
+      let archive = JSON.parse(localStorage.getItem('meetingArchive') || '[]');
+      if (!archive.length) {
+        archiveDiv.innerHTML = '<tr><td colspan="4" style="text-align:center;">هیچ صورتجلسه‌ای ذخیره نشده است.</td></tr>';
+        return;
+      }
+      archiveDiv.innerHTML = '';
+      archive.forEach(meeting => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${meeting.date} ${meeting.time}</td>
+          <td>${meeting.number}</td>
+          <td>${meeting.topic}</td>
+          <td>
+            <button class="edit-btn" data-id="${meeting.id}" title="ویرایش">✎</button>
+          </td>
+        `;
+        archiveDiv.appendChild(tr);
+      });
+      archiveDiv.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = Number(btn.getAttribute('data-id'));
+          editMeeting(id);
+        });
+      });
+    }
+
+    function editMeeting(id) {
+      const archive = JSON.parse(localStorage.getItem('meetingArchive') || '[]');
+      const meeting = archive.find(m => m.id === id);
+      if (!meeting) return;
+
+      editingMeetingId = id;
+      document.getElementById('meetingDate').value = meeting.date;
+      document.getElementById('meetingTime').value = meeting.time;
+      document.getElementById('meetingNumber').value = meeting.number;
+      document.getElementById('meetingLocation').value = meeting.location;
+      resizeLocationSelect(document.getElementById('meetingLocation'));
+      document.getElementById('topic').value = meeting.topic;
+
+      setSelectedAttendees(meeting.attendees.split('، ').filter(Boolean));
+      renderAttendeesTags();
+
+      const entriesDiv = document.getElementById('entries');
+      entriesDiv.innerHTML = '';
+      meeting.entries.forEach(e => {
+        const div = document.createElement('div');
+        div.className = 'entry-row';
+        div.innerHTML = `
+          <textarea placeholder="📌 مصوبه" oninput="autoGrow(this)" aria-label="متن مصوبه">${e.text}</textarea>
+          <div class="entry-details">
+            <input type="text" placeholder="👤 مسئول اجرا" aria-label="مسئول اجرا" value="${e.responsible || ''}" />
+            <input type="text" placeholder="📅 مهلت اجرا" aria-label="مهلت اجرا" value="${e.deadline || ''}" />
+            <button type="button" class="remove-btn" onclick="removeEntry(this)" aria-label="حذف مصوبه"></button>
+          </div>`;
+        entriesDiv.appendChild(div);
+        autoGrow(div.querySelector('textarea'));
+        div.querySelector('textarea').addEventListener('input', function() { autoGrow(this); });
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setLiveDateTime();
+      renderAttendeesTags();
+      addDefaultEntry();
+      displayArchive();
+      resizeLocationSelect(document.getElementById('meetingLocation'));
+    });
+  </script>
+</body>
+</html>
