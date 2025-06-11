@@ -1,261 +1,2407 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آقا مهدوی | سامانه مدیریت</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
-    <link href="https://cdn.fontcdn.ir/Fonts/Vazir/font-face.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>صورتجلسات حرفه‌ای | شرکت برکت</title>
+
+    <!-- فونت‌ها و آیکون‌ها -->
+    <link href="https://cdn.fontcdn.ir/Fonts/Vazir/font-face.css" rel="stylesheet" />
+    <link href="https://cdn.fontcdn.ir/Fonts/IRANSans/font-face.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css" />
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Vazir', sans-serif; background: #f0f2f5; }
-        .header { background: linear-gradient(90deg, #7c3aed, #3b82f6); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        .header .logo img { height: 50px; }
-        .header .site-title { font-size: 26px; font-weight: bold; }
-        .user-auth .btn { padding: 8px 16px; margin-left: 10px; border-radius: 4px; cursor: pointer; }
-        .btn-primary { background: #22c55e; border: none; color: #fff; }
-        .btn-danger { background: #ef4444; border: none; color: #fff; }
-        .mobile-menu-toggle { display: none; font-size: 24px; cursor: pointer; }
-        .main-nav { background: #fff; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .main-nav ul { list-style: none; display: flex; }
-        .main-nav li { margin-left: 20px; }
-        .main-nav a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s; }
-        .main-nav a:hover, .main-nav a.active { color: #7c3aed; }
-        .mosaic-container { padding: 20px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .mosaic-tile { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
-        .mosaic-tile:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        .tile-content { padding: 20px; text-align: center; }
-        .tile-icon { font-size: 40px; color: #7c3aed; margin-bottom: 10px; }
-        .tile-title { font-size: 18px; font-weight: bold; color: #333; }
-        .tile-desc { font-size: 14px; color: #666; margin-top: 5px; }
-        .footer { background: #1f2937; color: #fff; text-align: center; padding: 20px; margin-top: 20px; }
-        .footer a { color: #22c55e; text-decoration: none; margin: 0 5px; }
-        @media (max-width: 768px) {
-            .header { flex-wrap: wrap; }
-            .mobile-menu-toggle { display: block; }
-            .main-nav { display: none; }
-            .main-nav.active { display: block; }
-            .main-nav ul { flex-direction: column; }
-            .main-nav li { margin: 10px 0; }
-            .mosaic-container { grid-template-columns: 1fr; }
+        :root {
+            --primary-purple: #7c3aed;
+            --primary-blue: #06b6d4;
+            --primary-pink: #ec4899;
+            --primary-green: #22c55e;
+            --bg-light: #f9fafb;
+            --card-bg: #ffffff;
+            --text-dark: #111827;
+            --text-muted: #6b7280;
+            --border-light: #d1d5db;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 6px 16px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --table-header-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.6), rgba(236, 72, 153, 0.6));
+            --font-base: 'Vazir', 'Inter', sans-serif;
         }
-        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 2000; text-align: center; max-width: 400px; width: 90%; }
-        .modal.active { display: block; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; }
-        .modal-overlay.active { display: block; }
+
+        [data-theme="dark"] {
+            --bg-light: #1f2937;
+            --card-bg: #374151;
+            --text-dark: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-light: #4b5563;
+            --table-header-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4));
+        }
+
+        [data-theme-color="green-teal"] {
+            --primary-purple: #16a34a;
+            --primary-blue: #14b8a6;
+            --primary-pink: #6ee7b7;
+        }
+
+        [data-theme-color="red-orange"] {
+            --primary-purple: #ef4444;
+            --primary-blue: #f97316;
+            --primary-pink: #fb923c;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-base);
+            background: linear-gradient(145deg, #e0f2fe, #f3f4f6);
+            color: var(--text-dark);
+            direction: rtl;
+            text-align: right;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        [data-theme="dark"] body {
+            background: linear-gradient(145deg, #1f2937, #374151);
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            color: white;
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            border-bottom-left-radius: var(--border-radius);
+            border-bottom-right-radius: var(--border-radius);
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: contain;
+            user-select: none;
+        }
+
+        .logo-size-1 { width: 48px; height: 48px; }
+        .logo-size-2 { width: 96px; height: 96px; }
+        .logo-size-4 { width: 192px; height: 192px; }
+
+        @media (max-width: 768px) {
+            .logo-size-4 { width: 128px; height: 128px; }
+            .header-right h1 { font-size: 20px; }
+        }
+
+        .header-right h1 {
+            font-weight: 700;
+            font-size: 24px;
+            margin-right: 12px;
+            user-select: none;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .language-toggle {
+            background: linear-gradient(135deg, var(--primary-blue));
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .language-toggle:hover,
+        .language-toggle:focus {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+            outline: none;
+        }
+
+        #lang-display {
+            font-size: 16px;
+            user-select: none;
+        }
+
+        #menu-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        #menu-toggle:hover,
+        #menu-toggle:focus {
+            color: var(--primary-pink);
+            outline: none;
+        }
+
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--text-dark);
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            padding: 8px 0;
+        }
+
+        .bottom-nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bottom-nav li {
+            flex: 1;
+            text-align: center;
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            padding: 8px 4px;
+            transition: var(--transition);
+            border-radius: 8px;
+            margin: 0 2px;
+        }
+
+        .bottom-nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .bottom-nav a.active {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .bottom-nav i {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .bottom-nav span {
+            font-size: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .bottom-nav {
+                display: block;
+            }
+
+            .main {
+                padding-bottom: 60px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px;
+            }
+
+            #add-contact, #import-contacts {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+
+        .main {
+            display: flex;
+            flex-grow: 1;
+            padding: 24px;
+            gap: 24px;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sidebar {
+            width: 260px;
+            background: var(--text-dark);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            padding: 24px 0;
+            position: sticky;
+            top: 24px;
+            align-self: flex-start;
+            transition: transform 0.3s ease-out;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 14px 24px;
+            border-radius: 10px;
+            margin: 8px 12px;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .sidebar nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(6px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar nav ul li a.active {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar nav ul li a i {
+            font-size: 20px;
+            margin-left: 12px;
+            width: 28px;
+        }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 1280px;
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            padding: 32px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            max-width: 960px;
+            width: 100%;
+            transition: var(--transition);
+            overflow: visible;
+        }
+
+        .form-container:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: var(--primary-purple);
+            margin-bottom: 24px;
+            font-size: 32px;
+            font-weight: 700;
+            position: relative;
+            user-select: none;
+        }
+
+        .form-container h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-pink));
+            margin: 12px auto;
+            border-radius: 2px;
+        }
+
+        .form-section {
+            margin-bottom: 16px;
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            background: var(--card-bg);
+            overflow: visible;
+            transition: var(--transition);
+        }
+
+        .form-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            background: linear-gradient(to right, #f9fafb, #ffffff);
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        [data-theme="dark"] .form-section-header {
+            background: linear-gradient(to right, #374151, #4b5563);
+        }
+
+        .form-section-header:hover,
+        .form-section-header:focus {
+            background: linear-gradient(to right, #f3f4f6, #ffffff);
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        [data-theme="dark"] .form-section-header:hover,
+        [data-theme="dark"] .form-section-header:focus {
+            background: linear-gradient(to right, #4b5563, #6b7280);
+        }
+
+        .form-section-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-purple);
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .section-icon {
+            font-size: 18px;
+            color: var(--primary-blue);
+        }
+
+        .accordion-icon {
+            font-size: 16px;
+            color: var(--primary-blue);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-icon.rotate-down {
+            transform: rotate(0deg);
+        }
+
+        .form-section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease-in;
+        }
+
+        .form-section-content.active {
+            padding: 16px 20px;
+            max-height: 1200px;
+            overflow: visible;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .required-star {
+            display: none;
+            color: #ef4444;
+            font-size: 16px;
+        }
+
+        .required-star.show {
+            display: inline;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 6px rgba(124, 58, 237, 0.3);
+            outline: none;
+            transform: scale(1.01);
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            animation: shake 0.3s ease;
+            border-color: #ef4444;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+
+        .time-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .time-row .form-group {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .time-row .form-group input[type="time"] {
+            min-width: 150px;
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            background: var(--card-bg);
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .time-row .form-group input[type="time"]:focus {
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 6px rgba(124, 58, 237, 0.3);
+            outline: none;
+            transform: scale(1.01);
+        }
+
+        .date-picker {
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--card-bg);
+            color: var(--text-dark);
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn {
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            min-width: 100px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::after {
+            width: 300%;
+            height: 300%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--primary-green), #16a34a);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, var(--primary-blue), #0284c7);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f43f5e, #b91c1c);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25d366, #16a34a);
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+            min-width: 70px;
+        }
+
+        #calendar-button {
+            padding: 6px 10px;
+            font-size: 12px;
+            min-width: 60px;
+            margin-right: 8px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start;
+            margin-top: 16px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border-light);
+            padding: 10px 12px;
+            text-align: right;
+            font-size: 14px;
+        }
+
+        th:first-child,
+        td:first-child,
+        th:last-child,
+        td:last-child {
+            width: 80px;
+            text-align: center;
+        }
+
+        thead th {
+            background: var(--table-header-bg);
+            color: white;
+            font-weight: 700;
+        }
+
+        tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--card-bg);
+        }
+
+        tbody tr:hover {
+            background: #e5e7eb;
+        }
+
+        [data-theme="dark"] tbody tr:hover {
+            background: #4b5563;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            z-index: 2000;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        /* استایل صفحه لاگین */
+        #login-view {
+            max-width: 400px;
+            margin: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block !important;
+            position: fixed;
+        }
+
+        /* استایل لیست شرکت‌کنندگان در مودال واتساپ */
+        #attendees-checkboxes {
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        #attendees-checkboxes label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        #attendees-checkboxes input {
+            margin-left: 8px;
+        }
+
+        /* دکمه غیرفعال */
+        .btn.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو آقا مهدوی">
+    <!-- صفحه لاگین -->
+    <div id="login-view" class="modal">
+        <h3 data-i18n="login_title">ورود به سیستم</h3>
+        <div class="form-group">
+            <label for="username" data-i18n="username">نام کاربری:</label>
+            <input type="text" id="username" data-i18n-placeholder="username_placeholder" aria-required="true" />
         </div>
-        <div class="site-title">آقا مهدوی</div>
-        <div class="mobile-menu-toggle"><i class="fas fa-bars"></i></div>
-        <div class="user-auth">
-            <button id="mock-login" class="btn btn-primary">ورود نمایشی</button>
-            <button id="logout-btn" class="btn btn-danger" style="display: none;">خروج</button>
+        <div class="form-group">
+            <label for="password" data-i18n="password">رمز عبور:</label>
+            <input type="password" id="password" data-i18n-placeholder="password_placeholder" aria-required="true" />
+        </div>
+        <div class="form-grid">
+            <button type="button" id="login-btn" class="btn btn-primary" data-i18n="login">ورود</button>
+        </div>
+    </div>
+
+    <!-- محتوای اصلی (مخفی تا ورود) -->
+    <div id="main-content" style="display: none;">
+        <header class="header" role="banner">
+            <div class="header-right" aria-label="لوگو و عنوان سایت">
+            <div <a href="https://uploadkon.ir/" target="_blank" title="وب‌سایت شرکت برکت">
+            <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو شرکت برکت" class="logo" logo-size-1" />
+            </a>
+            <h1 data-i18n="sessions">صورتجلسات</h1>
+        </div>
+        <div class="header-left">
+            <button id="language-toggle" class="language-toggle" aria-label="تغییر زبان سایت">
+            <span id="lang-display">fa</span>
+            </button>
+            <button id="menu-toggle" role="button" aria-label="باز کردن منو"><i class="fas fa-bars"></i></button>
+            </button>
         </div>
     </header>
-    <nav class="main-nav">
+
+    <nav class="bottom-nav" role="navigation" aria-label="ناوبری پایین صفحه">
         <ul>
-            <li><a href="#home" id="nav-home" class="active">خانه</a></li>
-            <li><a href="#meetings" id="nav-meetings">صورت‌جلسات</a></li>
-            <li><a href="#letters" id="nav-letters">نامه‌ها</a></li>
-            <li><a href="#projects" id="nav-projects">پروژه‌ها</a></li>
-            <li><a href="#about" id="nav-about">درباره ما</a></li>
+            <li><a href="#" id="nav-session-mobile" class="active"><i class="fas fa-plus-circle"></i><span data-i18n="new_session">جلسه</span></a></li>
+            <li><a href="#" id="nav-contacts-mobile"><i class="fas fa-address-book"></i><span data-i18n="contacts">مخاطبین</span></a></li>
+            <li><a href="#" id="nav-archive-mobile"><i class="fas fa-archive"></i><span data-i18n="archive">آرشیو</span></a></li>
+            <li><a href="#" id="nav-dashboard-mobile"><i class="fas fa-chart-bar"></i><span data-i18n="dashboard">Dashboard</span></a></li>
+            <li><a href="#" id="nav-settings-mobile"><i class="fas fa-cogs"></i><span data-i18n="settings">تنظیمات</span></a></li>
+            <li><a href="#" id="nav-logout-mobile"><i class="fas fa-sign-out-alt"></i><span data-i18n="logout">خروج</span></a></li>
         </ul>
     </nav>
-    <main class="mosaic-container">
-        <div class="mosaic-tile" data-module="meetings">
-            <div class="tile-content">
-                <i class="fas fa-file-alt tile-icon"></i>
-                <div class="tile-title">صورت‌جلسات</div>
-                <div class="tile-desc">مدیریت جلسات، مصوبات و شرکت‌کنندگان</div>
-            </div>
-        </div>
-        <div class="mosaic-tile" data-module="letters">
-            <div class="tile-content">
-                <i class="fas fa-envelope tile-icon"></i>
-                <div class="tile-title">نامه‌ها</div>
-                <div class="tile-desc">ایجاد و مدیریت نامه‌های رسمی</div>
-            </div>
-        </div>
-        <div class="mosaic-tile" data-module="projects">
-            <div class="tile-content">
-                <i class="fas fa-briefcase tile-icon"></i>
-                <div class="tile-title">پروژه‌ها</div>
-                <div class="tile-desc">پیگیری و مدیریت پروژه‌ها</div>
-            </div>
-        </div>
-        <div class="mosaic-tile" data-module="about">
-            <div class="tile-content">
-                <i class="fas fa-info-circle tile-icon"></i>
-                <div class="tile-title">درباره ما</div>
-                <div class="tile-desc">اطلاعات بیشتر درباره آقا مهدوی</div>
-            </div>
-        </div>
-    </main>
-    <footer class="footer">
-        <p>سامانه مدیریت آقا مهدوی © 1404 | تماس: <a href="mailto:info@aghamahdavi.ir">info@aghamahdavi.ir</a></p>
-        <p>
-            <a href="https://t.me/aghamahdavi"><i class="fab fa-telegram"></i></a>
-            <a href="https://instagram.com/aghamahdavi"><i class="fab fa-instagram"></i></a>
-        </p>
-    </footer>
 
-    <!-- کتابخانه‌ها -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.10.1/build/moment-jalaali.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/i18next@23.15.2/dist/umd/i18next.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // تنظیمات i18next
-            i18next.init({
-                lng: localStorage.getItem('language') || 'fa',
-                resources: {
-                    fa: {
-                        translation: {
-                            home: 'خانه',
-                            meetings: 'صورت‌جلسات',
-                            letters: 'نامه‌ها',
-                            projects: 'پروژه‌ها',
-                            about: 'درباره ما',
-                            logout: 'خروج',
-                            success_save: 'با موفقیت ذخیره شد',
-                            error_required: 'فیلد ضروری است'
-                        }
-                    },
-                    en: {
-                        translation: {
-                            home: 'Home',
-                            meetings: 'Meeting Minutes',
-                            letters: 'Letters',
-                            projects: 'Projects',
-                            about: 'About Us',
-                            logout: 'Logout',
-                            success_save: 'Saved successfully',
-                            error_required: 'Field is required'
-                        }
-                    }
+    <main class="main" role="main">
+        <aside class="sidebar" role="navigation" aria-label="ناوبری اصلی">
+            <nav>
+                <ul>
+                    <li><a href="#" class="active" id="nav-session"><i class="fas fa-plus-circle"></i> <span data-i18n="new_session">جلسه جدید</span></a></li>
+                    <li><a href="#" id="nav-contacts"><i class="fas fa-address-book"></i> <span data-i18n="contacts">مخاطبین</span></a></li>
+                    <li><a href="#" id="nav-archive"><i class="fas fa-archive"></i> <span data-i18n="archive">آرشیو</span></a></li>
+                    <li><a href="#" id="nav-dashboard"><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">Dashboard</span></a></li>
+                    <li><a href="#" id="nav-settings"><i class="fas fa-cogs"></i> <span data-i18n="settings">تنظیمات</span></a></li>
+                    <li><a href="#" id="nav-logout"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">خروج</span></a></li>
+                </ul>
+</nav>
+</aside>
+
+<section class="container" aria-live="polite">
+    <!-- فرم ثبت صورتجلسه -->
+    <article class="form-container" id="session-view" aria-label="فرم ثبت صورتجلسه">
+        <h2 data-i18n="session_form">فرم ثبت صورتجلسه</h2>
+        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-session-info">
+            <header class="form-section-header" role="button" aria-controls="session-info" aria-expanded="true" tabindex="0">
+                <h3>
+                    <i class="fas fa-info-circle section-icon"></i>
+                    <span data-i18n="session_info">اطلاعات جلسه</span>
+                </h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </header>
+            <div class="form-section-content active" id="session-info">
+                <div class="form-grid">
+                    <div class="form-group required">
+                        <label for="session-number" data-i18n="session_number">شماره جلسه:</label>
+                        <input type="text" id="session-number" data-i18n-placeholder="session_number_placeholder" aria-required="true" />
+                    </div>
+                    <div class="form-group required">
+                        <label for="session-date" data-i18n="session_date">تاریخ:</label>
+                        <input type="text" id="session-date" class="date-picker" readonly aria-required="true" aria-describedby="session-date-desc" />
+                        <small id="session-date-desc" class="sr-only">تاریخ جلسه به صورت شمسی</small>
+                    </div>
+                    <div class="time-row">
+                        <div class="form-group required">
+                            <label for="start-time" data-i18n="start_time">ساعت شروع:</label>
+                            <input type="time" id="start-time" aria-required="true" />
+                        </div>
+                        <div class="form-group">
+                            <label for="end-time" data-i18n="end_time">ساعت پایان:</label>
+                            <input type="time" id="end-time" />
+                        </div>
+                    </div>
+                    <div class="form-group full-width required">
+                        <label for="session-title" data-i18n="session_title">عنوان جلسه:</label>
+                        <input type="text" id="session-title" data-i18n-placeholder="session_title_placeholder" aria-required="true" />
+                    </div>
+                    <div class="form-group required">
+                        <label for="location" data-i18n="location">مکان:</label>
+                        <select id="location" aria-required="true" aria-describedby="location-manual-desc">
+                            <option value="" data-i18n="select_location">انتخاب کنید</option>
+                            <option value="شعبه تهران">شعبه تهران</option>
+                            <option value="شعبه شیراز">شعبه شیراز</option>
+                            <option value="شعبه مشهد">شعبه مشهد</option>
+                            <option value="دفتر مرکزی">دفتر مرکزی</option>
+                            <option value="دفتر نمایندگی">دفتر نمایندگی</option>
+                            <option value="manual" data-i18n="manual_location">وارد کردن دستی</option>
+                        </select>
+                        <input type="text" id="location-manual" style="display: none; margin-top: 8px;" data-i18n-placeholder="location_manual" aria-describedby="location-manual-desc" />
+                        <small id="location-manual-desc" class="sr-only">اگر گزینه وارد کردن دستی انتخاب شد، این فیلد فعال می‌شود.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="organizer" data-i18n="organizer">برگزارکننده:</label>
+                        <input type="text" id="organizer" data-i18n-placeholder="organizer_placeholder" aria-required="true" />
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="session-files" data-i18n="session_files">فایل‌های مرتبط:</label>
+                        <input type="file" id="session-files" multiple accept=".pdf,.docx,.xlsx,.jpg,.png" aria-label="انتخاب فایل‌های مرتبط با جلسه" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-attendees">
+            <header class="form-section-header" role="button" aria-controls="attendees-section" aria-expanded="false" tabindex="0">
+                <h3>
+                    <i class="fas fa-users section-icon"></i>
+                    <span data-i18n="attendees">شرکت‌کنندگان</span>
+                </h3>
+                <i class="fas fa-chevron-right accordion-icon"></i>
+            </header>
+            <div class="form-section-content" id="attendees-section" aria-hidden="true">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="attendee-name" data-i18n="attendee_name">نام:</label>
+                        <input type="text" id="attendee-name" data-i18n-placeholder="attendee_name_placeholder" />
+                    </div>
+                    <div class="form-group">
+                        <label for="attendee-mobile" data-i18n="attendee_mobile">موبایل:</label>
+                        <input type="text" id="attendee-mobile" data-i18n-placeholder="mobile_placeholder" />
+                    </div>
+                    <div class="form-group" style="align-self: flex-end;">
+                        <button type="button" id="add-attendee" class="btn btn-success btn-sm" aria-label="افزودن شرکت‌کننده">
+                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive" aria-live="لیست شرکت‌کنندگان" aria-relevant="all">
+                    <table class="data-table" id="attendees-table" aria-label="لیست شرکت‌کنندگان">
+                        <thead>
+                            <tr>
+                                <th data-i18n="row">ردیف</th>
+                                <th data-i18n="attendee_name">نام</th>
+                                <th data-i18n="attendee_mobile">موبایل</th>
+                                <th data-i18n="action">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-decisions">
+            <header class="form-section-header" role="button" aria-controls="decisions-section" aria-expanded="false" tabindex="0">
+                <h3>
+                    <i class="fas fa-check-circle section-icon"></i>
+                    <span data-i18n="decisions">مصوبات</span>
+                </h3>
+                <i class="fas fa-chevron-right accordion-icon"></i>
+            </header>
+            <div class="form-section-content" id="decisions-section" aria-hidden="true">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="decision-text" data-i18n="decision_text">مصوبه:</label>
+                        <textarea id="decision-text" rows="3" data-i18n-placeholder="decision_text_placeholder"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="decision-responsible" data-i18n="decision_responsible">مسئول:</label>
+                        <input type="text" id="decision-responsible" data-i18n-placeholder="decision_responsible" />
+                    </div>
+                    <div class="form-group">
+                        <label for="decision-date" data-i18n="decision_due_date">مهلت:</label>
+                        <input type="text" id="decision-date" class="date-picker" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="decision-status" data-i18n="decision_status">وضعیت:</label>
+                        <select id="decision-status">
+                            <option value="in_progress" data-i18n="in_progress">در حال انجام</option>
+                            <option value="completed" data-i18n="completed">تکمیل شده</option>
+                            <option value="canceled" data-i18n="canceled">لغو</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="align-self: flex-end;">
+                        <button type="button" id="add-decision" class="btn btn-success btn-sm" aria-label="افزودن مصوبه">
+                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="decisions-table" aria-label="لیست مصوبات">
+                        <thead>
+                            <tr>
+                                <th data-i18n="row">ردیف</th>
+                                <th data-i18n="decision_text">مصوبه</th>
+                                <th data-i18n="decision_responsible">مسئول</th>
+                                <th data-i18n="decision_due_date">مهلت</th>
+                                <th data-i18n="decision_status">وضعیت</th>
+                                <th data-i18n="action">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-notes">
+            <header class="form-section-header" role="button" aria-controls="notes-section" aria-expanded="false" tabindex="0">
+                <h3>
+                    <i class="fas fa-comment section-icon"></i>
+                    <span data-i18n="notes">یادداشت‌ها</span>
+                </h3>
+                <i class="fas fa-chevron-right accordion-icon"></i>
+            </header>
+            <div class="form-section-content" id="notes-section" aria-hidden="true">
+                <div class="form-group full-width">
+                    <label for="notes" data-i18n="notes">یادداشت:</label>
+                    <textarea id="notes" rows="5" data-i18n-placeholder="notes_placeholder"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <div class="action-buttons">
+            <button type="button" id="save-button" class="btn btn-primary" aria-label="ذخیره صورتجلسه">
+                <i class="fas fa-save"></i> <span data-i18n="save">ذخیره</span>
+            </button>
+            <button type="button" id="print-button" class="btn btn-success" aria-label="دانلود PDF">
+                <i class="fas fa-print"></i> <span data-i18n="pdf">دانلود PDF</span>
+            </button>
+            <button type="button" id="export-button" class="btn btn-info" aria-label="دانلود اکسل">
+                <i class="fas fa-file-excel"></i> <span data-i18n="excel">اکسل</span>
+            </button>
+            <button type="button" id="whatsapp-button" class="btn btn-whatsapp disabled" aria-label="ارسال به واتساپ">
+                <i class="fab fa-whatsapp"></i> <span data-i18n="whatsapp">واتساپ</span>
+            </button>
+            <button type="button" id="calendar-button" class="btn btn-info btn-sm" aria-label="اضافه کردن به تقویم">
+                <i class="fas fa-calendar-plus"></i> <span data-i18n="calendar">تقویم</span>
+            </button>
+            <button type="button" id="share-button" class="btn btn-primary btn-sm" aria-label="اشتراک‌گذاری جلسه">
+                <i class="fas fa-share-alt"></i> <span data-i18n="share">اشتراک</span>
+            </button>
+        </div>
+    </article>
+
+    <!-- بخش مخاطبان -->
+    <article class="form-container" id="contacts-view" style="display: none;" aria-label="مدیریت مخاطبان">
+        <h2><i class="fas fa-address-book"></i> <span data-i18n="contacts">مدیریت مخاطبان</span></h2>
+        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-add-contact">
+            <header class="form-section-header" role="button" aria-controls="add-contact-section" aria-expanded="true" tabindex="0">
+                <h3>
+                    <i class="fas fa-user-plus section-icon"></i>
+                    <span data-i18n="add_contact">افزودن مخاطب جدید</span>
+                </h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </header>
+            <div class="form-section-content active" id="add-contact-section">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="contact-name" data-i18n="contact_name">نام:</label>
+                        <input type="text" id="contact-name" data-i18n-placeholder="contact_name_placeholder" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-mobile" data-i18n="contact_mobile">موبایل:</label>
+                        <input type="text" id="contact-mobile" data-i18n-placeholder="mobile_placeholder" />
+                    </div>
+                    <div class="form-group" style="align-self: flex-end;">
+                        <button type="button" id="add-contact" class="btn btn-success btn-sm" aria-label="افزودن مخاطب">
+                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                        </button>
+                        <button type="button" id="import-contacts-btn" class="btn btn-info btn-sm" aria-label="وارد کردن مخاطبان">
+                            <i class="fas fa-upload"></i> <span data-i18n="import_contacts">وارد کردن مخاطبان</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-contacts-list">
+            <header class="form-section-header" role="button" aria-controls="contacts-list-section" aria-expanded="false" tabindex="0">
+                <h3>
+                    <i class="fas fa-address-book section-icon"></i>
+                    <span data-i18n="contacts_list">لیست مخاطبان</span>
+                </h3>
+                <i class="fas fa-chevron-right accordion-icon"></i>
+            </header>
+            <div class="form-section-content" id="contacts-list-section" aria-hidden="true">
+                <div class="form-group full-width">
+                    <label for="contacts-search" data-i18n="search_contacts">جستجوی مخاطب:</label>
+                    <input type="text" id="contacts-search" class="search-bar" data-i18n-placeholder="search_contacts_placeholder" aria-label="جستجوی مخاطبان" />
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="contacts-table" aria-label="لیست مخاطبان">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-checkbox" aria-label="انتخاب تمام مخاطبان"></th>
+                                <th data-i18n="row">ردیف</th>
+                                <th data-i18n="contact_name">نام</th>
+                                <th data-i18n="contact_mobile">موبایل</th>
+                                <th data-i18n="action">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="form-group full-width" style="margin-top: 16px;">
+                    <button type="button" id="add-selected-attendees" class="btn btn-primary" data-i18n="add_selected">افزودن انتخاب‌شده‌ها به جلسه</button>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <!-- بخش آرشیو -->
+    <article class="form-container" id="archive-view" style="display: none;" aria-label="آرشیو جلسات">
+        <h2><i class="fas fa-archive"></i> <span data-i18n="archive">آرشیو جلسات</span></h2>
+        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-archive-list">
+            <header class="form-section-header" role="button" aria-controls="archive-list-section" aria-expanded="true" tabindex="0">
+                <h3>
+                    <i class="fas fa-archive section-icon"></i>
+                    <span data-i18n="archive_list">لیست جلسات</span>
+                </h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </header>
+            <div class="form-section-content active" id="archive-list-section">
+                <div class="form-group full-width">
+                    <label for="archive-search" data-i18n="search_sessions">جستجوی جلسه:</label>
+                    <input type="text" id="archive-search" class="search-bar" data-i18n-placeholder="search_sessions_placeholder" aria-label="جستجوی جلسات" />
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table" id="archive-table" aria-label="لیست جلسات آرشیو شده">
+                        <thead>
+                            <tr>
+                                <th data-i18n="row">ردیف</th>
+                                <th data-i18n="session_number">شماره جلسه</th>
+                                <th data-i18n="session_title">عنوان</th>
+                                <th data-i18n="session_date">تاریخ</th>
+                                <th data-i18n="action">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <!-- بخش داشبورد -->
+    <article class="form-container" id="dashboard-view" style="display: none;" aria-label="داشبورد">
+        <h2><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">Dashboard</span></h2>
+        <section class="form-section">
+            <div class="form-section-content active">
+                <p data-i18n="dashboard_welcome">به داشبورد خوش آمدید! در حال حاضر این بخش در حال توسعه است.</p>
+            </div>
+        </section>
+    </article>
+
+    <!-- بخش تنظیمات -->
+    <article class="form-container" id="settings-view" style="display: none;" aria-label="تنظیمات">
+        <h2><i class="fas fa-cogs"></i> <span data-i18n="settings">تنظیمات</span></h2>
+        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-settings">
+            <header class="form-section-header" role="button" aria-controls="settings-content" aria-expanded="true" tabindex="0">
+                <h3>
+                    <i class="fas fa-cogs section-icon"></i>
+                    <span data-i18n="general_settings">تنظیمات عمومی</span>
+                </h3>
+                <i class="fas fa-chevron-down accordion-icon"></i>
+            </header>
+            <div class="form-section-content active" id="settings-content">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="theme" data-i18n="theme">انتخاب تم:</label>
+                        <select id="theme">
+                            <option value="light" data-i18n="light_theme">روشن</option>
+                            <option value="dark" data-i18n="dark_theme">تیره</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="font-family" data-i18n="font_family">فونت:</label>
+                        <select id="font-family">
+                            <option value="'Vazir', sans-serif">وزیر</option>
+                            <option value="'IRANSans', sans-serif">ایران سانس</option>
+                            <option value="'Inter', sans-serif">Inter</option>
+                            <option value="'Roboto', sans-serif">Roboto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="theme-color" data-i18n="theme_color">رنگ قالب:</label>
+                        <select id="theme-color">
+                            <option value="purple-blue">بنفش-آبی</option>
+                            <option value="green-teal">سبز-فیروزه‌ای</option>
+                            <option value="red-orange">قرمز-نارنجی</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="font-size" data-i18n="font_size">اندازه فونت:</label>
+                        <select id="font-size">
+                            <option value="14">کوچک (14px)</option>
+                            <option value="16">نرمال (16px)</option>
+                            <option value="20">بزرگ (20px)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="text-direction" data-i18n="text_direction">جهت متن:</label>
+                        <select id="text-direction">
+                            <option value="rtl">راست به چپ</option>
+                            <option value="ltr">چپ به راست</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="logo-size" data-i18n="logo_size">اندازه لوگو:</label>
+                        <select id="logo-size">
+                            <option value="1">نرمال (1x)</option>
+                            <option value="2">دو برابر (2x)</option>
+                            <option value="4">چهار برابر (4x)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="contacts_access">دسترسی به مخاطبان:</label>
+                        <button type="button" id="contacts-access-btn" class="btn btn-primary" data-i18n="manage_access">مدیریت دسترسی</button>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="reset-settings-btn" class="btn btn-danger" data-i18n="reset_settings">بازنشانی تنظیمات</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-session-settings">
+            <header class="form-section-header" role="button" aria-controls="session-settings-content" aria-expanded="false" tabindex="0">
+                <h3>
+                    <i class="fas fa-calendar-alt section-icon"></i>
+                    <span data-i18n="session_settings">تنظیمات جلسات</span>
+                </h3>
+                <i class="fas fa-chevron-right accordion-icon"></i>
+            </header>
+            <div class="form-section-content" id="session-settings-content" aria-hidden="true">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="default-location" data-i18n="default_location">مکان پیش‌فرض:</label>
+                        <select id="default-location">
+                            <option value="" data-i18n="select_location">انتخاب مکان</option>
+                            <option value="شعبه تهران">شعبه تهران</option>
+                            <option value="شعبه شیراز">شعبه شیراز</option>
+                            <option value="شعبه مشهد">شعبه مشهد</option>
+                            <option value="دفتر مرکزی">دفتر مرکزی</option>
+                            <option value="دفتر نمایندگی">دفتر نمایندگی</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="default-organizer" data-i18n="default_organizer">برگزارکننده پیش‌فرض:</label>
+                        <input type="text" id="default-organizer" data-i18n-placeholder="organizer_default_placeholder" />
+                    </div>
+                    <div class="form-group">
+                        <label for="auto-numbering" data-i18n="auto_numbering">شماره‌گذاری خودکار:</label>
+                        <input type="checkbox" id="auto-numbering" />
+                    </div>
+                    <div class="form-group">
+                        <label for="session-template" data-i18n="session_template">قالب پیش‌فرض جلسه:</label>
+                        <select id="session-template">
+                            <option value="standard" data-i18n="standard_template">استاندارد</option>
+                            <option value="detailed" data-i18n="detailed_template">جزئیات کامل</option>
+                            <option value="minimal" data-i18n="minimal_template">حداقل</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="save-session-settings-btn" class="btn btn-primary" data-i18n="save_session_settings">ذخیره تنظیمات جلسات</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <!-- مودال واتساپ -->
+    <div class="modal" id="whatsapp-modal">
+        <h3 data-i18n="whatsapp_summary">خلاصه جلسه برای واتساپ</h3>
+        <div class="form-group">
+            <label data-i18n="select_attendees">انتخاب شرکت‌کنندگان برای ارسال:</label>
+            <div id="attendees-checkboxes"></div>
+        </div>
+        <textarea id="whatsapp_summary-text" rows="10" aria-label="متن خلاصه جلسه برای ارسال در واتساپ"></textarea>
+        <div class="form-grid">
+            <button type="button" id="send_whatsapp-btn" class="btn btn-whatsapp" data-i18n="send_whatsapp">ارسال</button>
+            <button type="button" id="download_pdf-btn" class="btn btn-success" data-i18n="pdf">دانلود PDF</button>
+            <button type="button" id="close_whatsapp-btn" class="btn btn-danger" data-i18n="close">بستن</button>
+        </div>
+    </div>
+    <div class="modal-overlay" id="modal-overlay"></div>
+
+    <!-- مودال رمز عبور برای حذف -->
+    <div class="modal" id="password-modal">
+        <h3 data-i18n="enter_password">رمز عبور را وارد کنید</h3>
+        <div class="form-group">
+            <input type="password" id="password-input" data-i18n-placeholder="password_placeholder" aria-label="رمز عبور برای تأیید حذف" />
+        </div>
+        <div class="form-grid">
+            <button type="button" id="submit-password-btn" class="btn btn-primary" data-i18n="confirm">تأیید</button>
+            <button type="button" id="cancel-password-btn" class="btn btn-danger" data-i18n="cancel">لغو</button>
+        </div>
+    </div>
+</section>
+</main>
+</div>
+
+<!-- کتابخانه‌ها -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.10.1/build/moment-jalaali.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // --- متغیرها ---
+    let attendees = [];
+    let decisions = [];
+    let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+    let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+    let currentSessionId = null;
+    const password = 'admin123';
+
+    // --- تنظیمات i18next ---
+    i18next.init({
+        lng: localStorage.getItem('language') || 'fa',
+        debug: false,
+        resources: {
+            fa: {
+                translation: {
+                    sessions: 'صورتجلسات',
+                    new_session: 'جلسه جدید',
+                    contacts: 'مخاطبین',
+                    archive: 'آرشیو',
+                    dashboard: 'Dashboard',
+                    settings: 'تنظیمات',
+                    logout: 'خروج',
+                    session_form: 'فرم ثبت صورتجلسه',
+                    session_info: 'اطلاعات جلسه',
+                    session_number: 'شماره جلسه',
+                    session_number_placeholder: 'شماره جلسه را وارد کنید',
+                    session_date: 'تاریخ',
+                    start_time: 'ساعت شروع',
+                    end_time: 'ساعت پایان',
+                    session_title: 'عنوان جلسه',
+                    session_title_placeholder: 'عنوان جلسه را وارد کنید',
+                    location: 'مکان',
+                    select_location: 'انتخاب کنید',
+                    manual_location: 'وارد کردن دستی',
+                    location_manual: 'مکان را وارد کنید',
+                    organizer: 'برگزارکننده',
+                    organizer_placeholder: 'نام برگزارکننده را وارد کنید',
+                    session_files: 'فایل‌های مرتبط',
+                    attendees: 'شرکت‌کنندگان',
+                    attendee_name: 'نام',
+                    attendee_name_placeholder: 'نام شرکت‌کننده',
+                    attendee_mobile: 'موبایل',
+                    mobile_placeholder: 'شماره موبایل (اختیاری)',
+                    add: 'افزودن',
+                    decisions: 'مصوبات',
+                    decision_text: 'مصوبه',
+                    decision_text_placeholder: 'متن مصوبه را وارد کنید',
+                    decision_responsible: 'مسئول',
+                    decision_responsible_placeholder: 'نام مسئول',
+                    decision_due_date: 'مهلت',
+                    decision_status: 'وضعیت',
+                    in_progress: 'در حال انجام',
+                    completed: 'تکمیل شده',
+                    canceled: 'لغو',
+                    notes: 'یادداشت‌ها',
+                    notes_placeholder: 'یادداشت‌های جلسه را وارد کنید',
+                    save: 'ذخیره',
+                    pdf: 'دانلود PDF',
+                    excel: 'اکسل',
+                    whatsapp: 'واتساپ',
+                    calendar: 'تقویم',
+                    share: 'اشتراک',
+                    row: 'ردیف',
+                    action: 'عملیات',
+                    add_contact: 'افزودن مخاطب جدید',
+                    contact_name: 'نام',
+                    contact_name_placeholder: 'نام مخاطب را وارد کنید',
+                    contact_mobile: 'موبایل',
+                    import_contacts: 'وارد کردن مخاطبان',
+                    contacts_list: 'لیست مخاطبان',
+                    search_contacts: 'جستجوی مخاطب',
+                    search_contacts_placeholder: 'نام یا موبایل مخاطب را جستجو کنید',
+                    add_selected: 'افزودن انتخاب‌شده‌ها به جلسه',
+                    archive_list: 'لیست جلسات',
+                    search_sessions: 'جستجوی جلسه',
+                    search_sessions_placeholder: 'شماره یا عنوان جلسه را جستجو کنید',
+                    dashboard_welcome: 'به داشبورد خوش آمدید! در حال حاضر این بخش در حال توسعه است.',
+                    general_settings: 'تنظیمات عمومی',
+                    theme: 'انتخاب تم',
+                    light_theme: 'روشن',
+                    dark_theme: 'تیره',
+                    font_family: 'فونت',
+                    theme_color: 'رنگ قالب',
+                    font_size: 'اندازه فونت',
+                    text_direction: 'جهت متن',
+                    logo_size: 'اندازه لوگو',
+                    contacts_access: 'دسترسی به مخاطبان',
+                    manage_access: 'مدیریت دسترسی',
+                    reset_settings: 'بازنشانی تنظیمات',
+                    session_settings: 'تنظیمات جلسات',
+                    default_location: 'مکان پیش‌فرض',
+                    default_organizer: 'برگزارکننده پیش‌فرض',
+                    organizer_default_placeholder: 'نام برگزارکننده پیش‌فرض را وارد کنید',
+                    auto_numbering: 'شماره‌گذاری خودکار',
+                    session_template: 'قالب پیش‌فرض جلسه',
+                    standard_template: 'استاندارد',
+                    detailed_template: 'جزئیات کامل',
+                    minimal_template: 'حداقل',
+                    save_session_settings: 'ذخیره تنظیمات جلسات',
+                    whatsapp_summary: 'خلاصه جلسه برای واتساپ',
+                    send_whatsapp: 'ارسال',
+                    close: 'بستن',
+                    enter_password: 'رمز عبور را وارد کنید',
+                    password_placeholder: 'رمز عبور',
+                    confirm: 'تأیید',
+                    cancel: 'لغو',
+                    success_save: 'جلسه با موفقیت ذخیره شد',
+                    success_contact_added: 'مخاطب با موفقیت اضافه شد',
+                    success_delete: 'با موفقیت حذف شد',
+                    error_required: 'فیلد ضروری است',
+                    error_mobile: 'شماره موبایل نامعتبر است',
+                    error_password: 'رمز عبور نادرست است',
+                    error_required_fields: 'لطفاً تمام فیلدهای ضروری را پر کنید',
+                    error_no_attendees: 'حداقل یک شرکت‌کننده اضافه کنید',
+                    session_settings_saved: 'تنظیمات جلسات با موفقیت ذخیره شد',
+                    export_success: 'فایل اکسل با موفقیت دانلود شد',
+                    login_title: 'ورود به سیستم',
+                    username: 'نام کاربری',
+                    username_placeholder: 'نام کاربری را وارد کنید',
+                    password: 'رمز عبور',
+                    login: 'ورود',
+                    login_success: 'با موفقیت وارد شدید',
+                    login_failed: 'نام کاربری یا رمز عبور نادرست است',
+                    greeting: 'سلام',
+                    company_signature: 'با تشکر، شرکت برکت',
+                    select_attendees: 'انتخاب شرکت‌کنندگان برای ارسال',
+                    error_select_attendees: 'لطفاً حداقل یک شرکت‌کننده را انتخاب کنید'
                 }
-            }, () => {
+            },
+            en: {
+                translation: {
+                    sessions: 'Meeting Minutes',
+                    new_session: 'New Session',
+                    contacts: 'Contacts',
+                    archive: 'Archive',
+                    dashboard: 'Dashboard',
+                    settings: 'Settings',
+                    logout: 'Logout',
+                    session_form: 'Session Registration Form',
+                    session_info: 'Session Information',
+                    session_number: 'Session Number',
+                    session_number_placeholder: 'Enter session number',
+                    session_date: 'Date',
+                    start_time: 'Start Time',
+                    end_time: 'End Time',
+                    session_title: 'Session Title',
+                    session_title_placeholder: 'Enter session title',
+                    location: 'Location',
+                    select_location: 'Select location',
+                    manual_location: 'Manual entry',
+                    location_manual: 'Enter location',
+                    organizer: 'Organizer',
+                    organizer_placeholder: 'Enter organizer name',
+                    session_files: 'Related Files',
+                    attendees: 'Attendees',
+                    attendee_name: 'Name',
+                    attendee_name_placeholder: 'Attendee name',
+                    attendee_mobile: 'Mobile',
+                    mobile_placeholder: 'Mobile number (optional)',
+                    add: 'Add',
+                    decisions: 'Decisions',
+                    decision_text: 'Decision',
+                    decision_text_placeholder: 'Enter decision text',
+                    decision_responsible: 'Responsible',
+                    decision_responsible_placeholder: 'Responsible name',
+                    decision_due_date: 'Due Date',
+                    decision_status: 'Status',
+                    in_progress: 'In Progress',
+                    completed: 'Completed',
+                    canceled: 'Canceled',
+                    notes: 'Notes',
+                    notes_placeholder: 'Enter session notes',
+                    save: 'Save',
+                    pdf: 'Download PDF',
+                    excel: 'Excel',
+                    whatsapp: 'WhatsApp',
+                    calendar: 'Calendar',
+                    share: 'Share',
+                    row: 'Row',
+                    action: 'Action',
+                    add_contact: 'Add New Contact',
+                    contact_name: 'Name',
+                    contact_name_placeholder: 'Enter contact name',
+                    contact_mobile: 'Mobile',
+                    import_contacts: 'Import Contacts',
+                    contacts_list: 'Contacts List',
+                    search_contacts: 'Search Contact',
+                    search_contacts_placeholder: 'Search by name or mobile',
+                    add_selected: 'Add Selected to Session',
+                    archive_list: 'Sessions List',
+                    search_sessions: 'Search Session',
+                    search_sessions_placeholder: 'Search by number or title',
+                    dashboard_welcome: 'Welcome to the Dashboard! This section is under development.',
+                    general_settings: 'General Settings',
+                    theme: 'Select Theme',
+                    light_theme: 'Light',
+                    dark_theme: 'Dark',
+                    font_family: 'Font',
+                    theme_color: 'Theme Color',
+                    font_size: 'Font Size',
+                    text_direction: 'Text Direction',
+                    logo_size: 'Logo Size',
+                    contacts_access: 'Contacts Access',
+                    manage_access: 'Manage Access',
+                    reset_settings: 'Reset Settings',
+                    session_settings: 'Session Settings',
+                    default_location: 'Default Location',
+                    default_organizer: 'Default Organizer',
+                    organizer_default_placeholder: 'Enter default organizer name',
+                    auto_numbering: 'Auto Numbering',
+                    session_template: 'Default Session Template',
+                    standard_template: 'Standard',
+                    detailed_template: 'Detailed',
+                    minimal_template: 'Minimal',
+                    save_session_settings: 'Save Session Settings',
+                    whatsapp_summary: 'Session Summary for WhatsApp',
+                    send_whatsapp: 'Send',
+                    close: 'Close',
+                    enter_password: 'Enter Password',
+                    password_placeholder: 'Password',
+                    confirm: 'Confirm',
+                    cancel: 'Cancel',
+                    success_save: 'Session saved successfully',
+                    success_contact_added: 'Contact added successfully',
+                    success_delete: 'Successfully deleted',
+                    error_required: 'Field is required',
+                    error_mobile: 'Invalid mobile number',
+                    error_password: 'Incorrect password',
+                    error_required_fields: 'Please fill in all required fields',
+                    error_no_attendees: 'Add at least one attendee',
+                    session_settings_saved: 'Session settings saved successfully',
+                    export_success: 'Excel file downloaded successfully',
+                    login_title: 'Login to System',
+                    username: 'Username',
+                    username_placeholder: 'Enter username',
+                    password: 'Password',
+                    login: 'Log In',
+                    login_success: 'Login successful',
+                    login_failed: 'Invalid username or password',
+                    greeting: 'Hello',
+                    company_signature: 'Thank you, Barakat Company',
+                    select_attendees: 'Select attendees to send',
+                    error_select_attendees: 'Please select at least one attendee'
+                }
+            }
+        }, () => {
+            $('[data-i18n]').each(function() {
+                const key = $(this).data('i18n');
+                $(this).text(i18next.t(key));
+            });
+            $('[data-i18n-placeholder]').each(function() {
+                const key = $(this).data('i18n-placeholder');
+                $(this).attr('placeholder', i18next.t(key));
+            });
+        });
+
+        // --- توابع کمکی ---
+        const showToast = (message, type = 'success') => {
+            Toastify({
+                text: message,
+                duration: 3000,
+                gravity: 'bottom',
+                position: 'left',
+                backgroundColor: type === 'success' ? '#22c55e' : '#ef4444',
+                style: {
+                    fontFamily: "'Vazir', sans-serif",
+                    borderRadius: '10px',
+                    padding: '12px 20px',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    fontSize: '14px'
+                }
+            }).showToast();
+        };
+
+        const validateMobile = (mobile) => {
+            const mobileRegex = /^09[0-9]{9}$/;
+            return mobileRegex.test(mobile);
+        };
+
+        const validateRequiredFields = () => {
+            let isValid = true;
+            $('.form-group.required').each(function() {
+                const input = $(this).find('input, select');
+                if (!input.val()) {
+                    $(this).addClass('error');
+                    showToast(i18next.t('error_required'), 'error');
+                    isValid = false;
+                } else {
+                    $(this).removeClass('error');
+                }
+            });
+
+            const mobileInputs = $('#attendees-table tbody tr').find('td:nth-child(3)').map(function() {
+                return $(this).text();
+            }).get();
+
+            mobileInputs.forEach(mobile => {
+                if (mobile && !validateMobile(mobile)) {
+                    showToast(i18next.t('error_mobile'), 'error');
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        };
+
+        const updateAttendeesTable = () => {
+            const tbody = $('#attendees-table tbody');
+            tbody.empty();
+            attendees.forEach((attendee, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${attendee.name}</td>
+                        <td>${attendee.mobile}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-attendee" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        };
+
+        const updateDecisionsTable = () => {
+            const tbody = $('#decisions-table tbody');
+            tbody.empty();
+            decisions.forEach((decision, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${decision.text}</td>
+                        <td>${decision.responsible}</td>
+                        <td>${decision.dueDate}</td>
+                        <td>${i18next.t(decision.status)}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-decision" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        };
+
+        const updateContactsTable = () => {
+            const tbody = $('#contacts-table tbody');
+            tbody.empty();
+            contacts.forEach((contact, index) => {
+                const row = `
+                    <tr>
+                        <td><input type="checkbox" class="contact-checkbox" data-index="${index}"></td>
+                        <td>${index + 1}</td>
+                        <td>${contact.name}</td>
+                        <td>${contact.mobile}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-contact" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        };
+
+        const updateArchiveTable = () => {
+            const tbody = $('#archive-table tbody');
+            tbody.empty();
+            sessions.forEach((session, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${session.number}</td>
+                        <td>${session.title}</td>
+                        <td>${session.date}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm view-session" data-id="${session.id}">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-session" data-id="${session.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        };
+
+        const generateSessionSummary = (attendeeName = '') => {
+            const session = {
+                number: $('#session-number').val(),
+                date: $('#session-date').val(),
+                startTime: $('#start-time').val(),
+                endTime: $('#end-time').val(),
+                title: $('#session-title').val(),
+                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
+                organizer: $('#organizer').val(),
+                attendees: attendees,
+                decisions: decisions,
+                notes: $('#notes').val()
+            };
+
+            let summary = attendeeName ? `${i18next.t('greeting')} ${attendeeName}،\n` : '';
+            summary += `${i18next.t('session_number')}: ${session.number}\n`;
+            summary += `${i18next.t('session_date')}: ${session.date}\n`;
+            summary += `${i18next.t('start_time')}: ${session.startTime}\n`;
+            if (session.endTime) summary += `${i18next.t('end_time')}: ${session.endTime}\n`;
+            summary += `${i18next.t('session_title')}: ${session.title}\n`;
+            summary += `${i18next.t('location')}: ${session.location}\n`;
+            summary += `${i18next.t('organizer')}: ${session.organizer}\n\n`;
+
+            if (session.attendees.length) {
+                summary += `${i18next.t('attendees')}:\n`;
+                session.attendees.forEach((a, i) => {
+                    summary += `${i + 1}. ${a.name} (${a.mobile})\n`;
+                });
+                summary += '\n';
+            }
+
+            if (session.decisions.length) {
+                summary += `${i18next.t('decisions')}:\n`;
+                session.decisions.forEach((d, i) => {
+                    summary += `${i + 1}. ${d.text} (${i18next.t('decision_responsible')}: ${d.responsible}, ${i18next.t('decision_due_date')}: ${d.dueDate}, ${i18next.t('decision_status')}: ${i18next.t(d.status)})\n`;
+                });
+                summary += '\n';
+            }
+
+            if (session.notes) {
+                summary += `${i18next.t('notes')}:\n${session.notes}\n`;
+            }
+
+            summary += `\n${i18next.t('company_signature')}`;
+            return summary;
+        };
+
+        const saveSession = () => {
+            if (!validateRequiredFields()) return;
+
+            const session = {
+                id: currentSessionId || Date.now(),
+                number: $('#session-number').val(),
+                date: $('#session-date').val(),
+                startTime: $('#start-time').val(),
+                endTime: $('#end-time').val(),
+                title: $('#session-title').val(),
+                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
+                organizer: $('#organizer').val(),
+                files: $('#session-files')[0].files.length ? Array.from($('#session-files')[0].files).map(f => f.name) : [],
+                attendees: attendees,
+                decisions: decisions,
+                notes: $('#notes').val()
+            };
+
+            const index = sessions.findIndex(s => s.id === currentSessionId);
+            if (index !== -1) {
+                sessions[index] = session;
+            } else {
+                sessions.push(session);
+            }
+
+            localStorage.setItem('sessions', JSON.stringify(sessions));
+            showToast(i18next.t('success_save'));
+            updateArchiveTable();
+            resetForm();
+        };
+
+        const resetForm = () => {
+            $('#session-number, #session-date, #start-time, #end-time, #session-title, #organizer, #notes').val('');
+            $('#location').val('');
+            $('#location-manual').hide().val('');
+            $('#session-files').val('');
+            attendees = [];
+            decisions = [];
+            currentSessionId = null;
+            updateAttendeesTable();
+            updateDecisionsTable();
+            updateWhatsAppButtonState();
+        };
+
+        const loadSession = (id) => {
+            const session = sessions.find(s => s.id === id);
+            if (!session) return;
+
+            currentSessionId = session.id;
+            $('#session-number').val(session.number);
+            $('#session-date').val(session.date);
+            $('#start-time').val(session.startTime);
+            $('#end-time').val(session.endTime);
+            $('#session-title').val(session.title);
+            if (session.location && !$('#location').find(`option[value="${session.location}"]`).length) {
+                $('#location').val('manual');
+                $('#location-manual').show().val(session.location);
+            } else {
+                $('#location').val(session.location);
+            }
+            $('#organizer').val(session.organizer);
+            $('#notes').val(session.notes);
+            attendees = session.attendees || [];
+            decisions = session.decisions || [];
+            updateAttendeesTable();
+            updateDecisionsTable();
+
+            $('#session-view').show();
+            $('#contacts-view, #archive-view, #dashboard-view, #settings-view').hide();
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-session, #nav-session-mobile').addClass('active');
+        };
+
+        const exportToExcel = () => {
+            const session = {
+                number: $('#session-number').val(),
+                date: $('#session-date').val(),
+                startTime: $('#start-time').val(),
+                endTime: $('#end-time').val(),
+                title: $('#session-title').val(),
+                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
+                organizer: $('#organizer').val(),
+                attendees: attendees,
+                decisions: decisions,
+                notes: $('#notes').val()
+            };
+
+            const wb = XLSX.utils.book_new();
+            const attendeesSheet = XLSX.utils.json_to_sheet(session.attendees.map((a, i) => ({
+                'ردیف': i + 1,
+                'نام': a.name,
+                'موبایل': a.mobile
+            })));
+            XLSX.utils.book_append_sheet(wb, attendeesSheet, i18next.t('attendees'));
+
+            const decisionsSheet = XLSX.utils.json_to_sheet(session.decisions.map((d, i) => ({
+                'ردیف': i + 1,
+                'مصوبه': d.text,
+                'مسئول': d.responsible,
+                'مهلت': d.dueDate,
+                'وضعیت': i18next.t(d.status)
+            })));
+            XLSX.utils.book_append_sheet(wb, decisionsSheet, i18next.t('decisions'));
+
+            const fileName = `Session_${session.number}_${session.date}.xlsx`;
+            XLSX.write(wb, fileName);
+            showToast(i18next.t('export_success'));
+        };
+
+        const generatePDF = () => {
+            const session = {
+                number: $('#session-number').val(),
+                date: $('#session-date').val(),
+                startTime: $('#start-time').val(),
+                endTime: $('#end-time').val(),
+                title: $('#session-title').val(),
+                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
+                organizer: $('#organizer').val(),
+                attendees: attendees,
+                decisions: decisions,
+                notes: $('#notes').val()
+            };
+
+            const header = `
+                <div style="text-align: center; padding: 10px; border-bottom: 2px solid #7c3aed;">
+                    <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو شرکت برکت" style="width: 80px; height: 80px;">
+                    <h1 style="font-size: 20px; color: #7c3aed;">صورتجلسه</h1>
+                    <p style="font-size: 14px;">موضوع: ${session.title}</p>
+                    <p style="font-size: 12px;">تاریخ: ${session.date} | ساعت شروع: ${session.startTime}${session.endTime ? ` | ساعت پایان: ${session.endTime}` : ''}</p>
+                </div>
+            `;
+
+            const footer = `
+                <div style="text-align: center; padding: 10px; border-top: 1px solid #7c3aed; font-size: 12px; position: fixed; bottom: 0; width: 100%;">
+                    <p>شرکت برکت | صفحه <span class="pageNumber"></span> از <span class="totalPages"></span></p>
+                </div>
+            `;
+
+            const content = `
+                <div style="font-family: 'Vazir', sans-serif; direction: rtl; text-align: right; padding: 20px;">
+                    ${header}
+                    <div style="margin-top: 20px;">
+                        <h2 style="color: #7c3aed;">${i18next.t('session_info')}</h2>
+                        <p><strong>${i18next.t('session_number')}:</strong> ${session.number}</p>
+                        <p><strong>${i18next.t('location')}:</strong> ${session.location}</p>
+                        <p><strong>${i18next.t('organizer')}:</strong> ${session.organizer}</p>
+                        ${session.attendees.length ? `
+                            <h2 style="color: #7c3aed;">${i18next.t('attendees')}</h2>
+                            <ul>${session.attendees.map((a, i) => `<li>${i + 1}. ${a.name} (${a.mobile})</li>`).join('')}</ul>
+                        ` : ''}
+                        ${session.decisions.length ? `
+                            <h2 style="color: #7c3aed;">${i18next.t('decisions')}</h2>
+                            <ul>${session.decisions.map((d, i) => `<li>${i + 1}. ${d.text} (${i18next.t('decision_responsible')}: ${d.responsible}, ${i18next.t('decision_due_date')}: ${d.dueDate}, ${i18next.t('decision_status')}: ${i18next.t(d.status)})</li>`).join('')}</ul>
+                        ` : ''}
+                        ${session.notes ? `
+                            <h2 style="color: #7c3aed;">${i18next.t('notes')}</h2>
+                            <p>${session.notes}</p>
+                        ` : ''}
+                    </div>
+                    ${footer}
+                </div>
+            `;
+
+            const element = document.createElement('div');
+            element.innerHTML = content;
+            html2pdf().from(element).set({
+                margin: [1, 1, 1, 1],
+                filename: `Session_${session.number}.pdf`,
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'in', format: 'letter', compressPDF: true },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            }).save();
+        };
+
+        const openWhatsAppModal = () => {
+            if (!attendees.length) {
+                showToast(i18next.t('error_no_attendees'), 'error');
+                return;
+            }
+            const checkboxes = attendees.map((a, i) => `
+                <label><input type="checkbox" class="attendee-checkbox" data-index="${i}" checked> ${a.name} (${a.mobile})</label>
+            `).join('');
+            $('#attendees-checkboxes').html(checkboxes);
+            const summary = generateSessionSummary();
+            $('#whatsapp_summary-text').val(summary);
+            $('#whatsapp-modal, #modal-overlay').addClass('active');
+        };
+
+        const updateWhatsAppButtonState = () => {
+            const isValid = validateRequiredFields() && attendees.length > 0;
+            if (isValid) {
+                $('#whatsapp-button').removeClass('disabled').prop('disabled', false);
+            } else {
+                $('#whatsapp-button').addClass('disabled').prop('disabled', true);
+            }
+        };
+
+        const saveSessionSettings = () => {
+            const sessionSettings = {
+                defaultLocation: $('#default-location').val(),
+                defaultOrganizer: $('#default-organizer').val(),
+                autoNumbering: $('#auto-numbering').is(':checked'),
+                sessionTemplate: $('#session-template').val()
+            };
+
+            localStorage.setItem('sessionSettings', JSON.stringify(sessionSettings));
+            showToast(i18next.t('session_settings_saved'));
+        };
+
+        const loadSessionSettings = () => {
+            const sessionSettings = JSON.parse(localStorage.getItem('sessionSettings')) || {};
+            $('#default-location').val(sessionSettings.defaultLocation || '');
+            $('#default-organizer').val(sessionSettings.defaultOrganizer || '');
+            $('#auto-numbering').prop('checked', sessionSettings.autoNumbering || false);
+            $('#session-template').val(sessionSettings.sessionTemplate || 'standard');
+        };
+
+        const applySessionSettings = () => {
+            const sessionSettings = JSON.parse(localStorage.getItem('sessionSettings')) || {};
+            if (sessionSettings.defaultLocation) {
+                $('#location').val(sessionSettings.defaultLocation);
+            }
+            if (sessionSettings.defaultOrganizer) {
+                $('#organizer').val(sessionSettings.defaultOrganizer);
+            }
+            if (sessionSettings.autoNumbering) {
+                const lastSession = sessions[sessions.length - 1];
+                const lastNumber = lastSession ? parseInt(lastSession.number) || 0 : 0;
+                $('#session-number').val(lastNumber + 1);
+            }
+        };
+
+        const handleLogin = () => {
+            const username = $('#username').val().trim();
+            const passwordInput = $('#password').val().trim();
+            if (username === 'admin' && passwordInput === 'admin123') {
+                localStorage.setItem('isLoggedIn', 'true');
+                $('#login-view').hide();
+                $('#main-content').show();
+                showToast(i18next.t('login_success'));
+            } else {
+                showToast(i18next.t('login_failed'), 'error');
+                $('#password').val('');
+            }
+        };
+
+        // --- Event Listeners ---
+        $('#login-btn').on('click', handleLogin);
+
+        // Handle login with Enter key
+        $('#username, #password').on('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+
+        $('#language-toggle').on('click', () => {
+            const newLang = i18next.language === 'fa' ? 'en' : 'fa';
+            i18next.changeLanguage(newLang, () => {
+                $('#lang-display').text(newLang);
+                localStorage.setItem('language', newLang);
                 $('[data-i18n]').each(function() {
                     const key = $(this).data('i18n');
                     $(this).text(i18next.t(key));
                 });
+                $('[data-i18n-placeholder]').each(function() {
+                    const key = $(this).data('i18n-placeholder');
+                    $(this).attr('placeholder', i18next.t(key));
+                });
+                updateAttendeesTable();
+                updateDecisionsTable();
+                updateContactsTable();
+                updateArchiveTable();
             });
-
-            // Toastify
-            const showToast = (message, type = 'success') => {
-                Toastify({
-                    text: message,
-                    duration: 3000,
-                    gravity: 'bottom',
-                    position: 'left',
-                    backgroundColor: type === 'success' ? '#22c55e' : '#ef4444',
-                    style: { fontFamily: "'Vazir', sans-serif", borderRadius: '10px', padding: '12px 20px' }
-                }).showToast();
-            };
-
-            // مدیریت منوی موبایل
-            $('.mobile-menu-toggle').on('click', () => {
-                $('.main-nav').toggleClass('active');
-            });
-
-            // بررسی وضعیت لاگین
-            const checkLogin = () => {
-                return localStorage.getItem('isLoggedIn') === 'true';
-            };
-
-            // مدیریت کلیک روی منو
-            $('.main-nav a').on('click', function(e) {
-                e.preventDefault();
-                if (!checkLogin()) {
-                    showToast('لطفاً ابتدا وارد شوید', 'error');
-                    return;
-                }
-                $('.main-nav a').removeClass('active');
-                $(this).addClass('active');
-                const module = $(this).attr('id').replace('nav-', '');
-                loadModule(module);
-            });
-
-            // مدیریت کلیک روی کاشی‌ها
-            $('.mosaic-tile').on('click', function() {
-                if (!checkLogin()) {
-                    showToast('لطفاً ابتدا وارد شوید', 'error');
-                    return;
-                }
-                const module = $(this).data('module');
-                $('.main-nav a').removeClass('active');
-                $(`#nav-${module}`).addClass('active');
-                loadModule(module);
-            });
-
-            // تابع لود ماژول
-            function loadModule(module) {
-                $('.mosaic-container').hide();
-                if ($(`#${module}-module`).length === 0) {
-                    $('main').append(`<div id="${module}-module" class="module-container"></div>`);
-                }
-                $(`#${module}-module`).show().siblings('.module-container').hide();
-                if (module === 'meetings') {
-                    $(`#${module}-module`).load('meetings.html', () => {
-                        $.getScript('meetings.js');
-                    });
-                } else if (module === 'letters') {
-                    $(`#${module}-module`).load('letters.html', () => {
-                        $.getScript('letters.js');
-                    });
-                } else if (module === 'projects') {
-                    $(`#${module}-module`).load('projects.html');
-                } else if (module === 'about') {
-                    $(`#${module}-module`).load('about.html');
-                } else {
-                    $('.mosaic-container').show();
-                    $(`.module-container`).hide();
-                }
-            }
-
-            // ورود نمایشی
-            $('#mock-login').on('click', () => {
-                localStorage.setItem('isLoggedIn', 'true');
-                $('#mock-login').hide();
-                $('#logout-btn').show();
-                showToast('ورود نمایشی انجام شد', 'success');
-            });
-
-            // خروج
-            $('#logout-btn').on('click', () => {
-                localStorage.removeItem('isLoggedIn');
-                $('#logout-btn').hide();
-                $('#mock-login').show();
-                showToast('با موفقیت خارج شدید', 'success');
-                $('.mosaic-container').show();
-                $('.module-container').hide();
-                $('.main-nav a').removeClass('active');
-                $('#nav-home').addClass('active');
-            });
-
-            // بررسی اولیه وضعیت لاگین
-            if (checkLogin()) {
-                $('#mock-login').hide();
-                $('#logout-btn').show();
-            } else {
-                $('#logout-btn').hide();
-                $('#mock-login').show();
-            }
-
-            // لود صفحه خانه به‌صورت پیش‌فرض
-            $('.mosaic-container').show();
         });
-    </script>
+
+        $('.form-section-header').on('click keypress', function(e) {
+            if (e.type === 'keypress' && e.key !== 'Enter') return;
+            const content = $(this).next('.form-section-content');
+            const icon = $(this).find('.accordion-icon');
+            const isExpanded = content.hasClass('active');
+
+            $('.form-section-content').removeClass('active').attr('aria-hidden', 'true');
+            $('.accordion-icon').removeClass('rotate-down').css('transform', '');
+            $('.form-section-header').attr('aria-expanded', 'false');
+
+            if (!isExpanded) {
+                content.addClass('active').attr('aria-hidden', 'false');
+                icon.addClass('rotate-down').css('transform', 'rotate(180deg)');
+                $(this).attr('aria-expanded', 'true');
+            }
+        });
+
+        $('#session-date, #decision-date').each(function() {
+            $(this).datepicker({
+                dateFormat: 'yy/mm/dd',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                beforeShow: function(input, inst) {
+                    inst.dpDiv.css({
+                        fontFamily: "'Vazir', sans-serif",
+                        fontSize: '14px',
+                        direction: 'rtl'
+                    });
+                },
+                onSelect: function(dateText) {
+                    const jalaliDate = moment(dateText, 'YYYY/MM/DD').format('jYYYY/jMM/jDD');
+                    $(this).val(jalaliDate);
+                }
+            });
+        });
+
+        $('#location').on('change', function() {
+            if ($(this).val() === 'manual') {
+                $('#location-manual').show().focus();
+            } else {
+                $('#location-manual').hide().val('');
+            }
+        });
+
+        $('#add-attendee').on('click', () => {
+            const name = $('#attendee-name').val().trim();
+            const mobile = $('#attendee-mobile').val();
+
+            if (!name) {
+                $('#attendee-name').parent().addClass('error');
+                showToast(i18next.t('error_required'), 'error');
+                return;
+            }
+
+            if (mobile && !validateMobile(mobile)) {
+                $('#attendee-mobile').parent().addClass('error');
+                showToast(i18next.t('error_mobile'), 'error');
+                return;
+            }
+
+            $('#attendee-name, #attendee-mobile').parent().removeClass('error');
+            attendees.push({ name, mobile });
+            updateAttendeesTable();
+            $('#attendee-name, #attendee-mobile').val('');
+            updateWhatsAppButtonState();
+        });
+
+        $(document).on('click', '.delete-attendee', function() {
+            const index = $(this).data('index');
+            attendees.splice(index, 1);
+            updateAttendeesTable();
+            updateWhatsAppButtonState();
+        });
+
+        $('#add-decision').on('click', () => {
+            const text = $('#decision-text').val().trim();
+            const responsible = $('#decision-responsible').val().trim();
+            const dueDate = $('#decision-date').val();
+            const status = $('#decision-status').val();
+
+            if (!text) {
+                $('#decision-text').parent().addClass('error');
+                showToast(i18next.t('error_required'), 'error');
+                return;
+            }
+
+            $('#decision-text').parent().removeClass('error');
+decisions.push({ text, responsible, dueDate, status });
+updateDecisionsTable();
+$('#decision-text, #decision-responsible, #decision-date').val('');
+$('#decision-status').val('in_progress');
+});
+
+$(document).on('click', '.delete-decision', function() {
+const index = $(this).data('index');
+decisions.splice(index, 1);
+updateDecisionsTable();
+});
+
+$('#save-button').on('click', saveSession);
+
+$('#print-button').on('click', generatePDF);
+
+$('#export-button').on('click', exportToExcel);
+
+$('#whatsapp-button').on('click', () => {
+if (validateRequiredFields()) {
+openWhatsAppModal();
+} else {
+showToast(i18next.t('error_required_fields'), 'error');
+}
+});
+
+$('#send_whatsapp-btn').on('click', () => {
+const selected = $('.attendee-checkbox:checked').map(function() {
+return attendees[$(this).data('index')];
+}).get();
+
+if (!selected.length) {
+showToast(i18next.t('error_select_attendees'), 'error');
+return;
+}
+
+selected.forEach(attendee => {
+const text = encodeURIComponent(generateSessionSummary(attendee.name));
+const url = `https://api.whatsapp.com/send?phone=${attendee.mobile.replace(/^0/, '+98')}&text=${text}`;
+window.open(url, '_blank');
+});
+$('#whatsapp-modal, #modal-overlay').removeClass('active');
+});
+
+$('#download_pdf-btn').on('click', generatePDF);
+
+$('#close_whatsapp-btn').on('click', () => {
+$('#whatsapp-modal, #modal-overlay').removeClass('active');
+});
+
+$('#calendar-button').on('click', () => {
+const title = $('#session-title').val();
+const date = $('#session-date').val();
+const startTime = $('#start-time').val();
+const endTime = $('#end-time').val();
+const location = $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val();
+
+const startDateTime = moment(`${date} ${startTime}`, 'jYYYY/jMM/jDD HH:mm').format('YYYYMMDDTHHmm00');
+const endDateTime = endTime ? moment(`${date} ${endTime}`, 'jYYYY/jMM/jDD HH:mm').format('YYYYMMDDTHHmm00') : startDateTime;
+
+const icsContent = [
+'BEGIN:VCALENDAR',
+'VERSION:2.0',
+'BEGIN:VEVENT',
+`DTSTART:${startDateTime}`,
+`DTEND:${endDateTime}`,
+`SUMMARY:${title}`,
+`LOCATION:${location}`,
+'END:VEVENT',
+'END:VCALENDAR'
+].join('\n');
+
+const blob = new Blob([icsContent], { type: 'text/calendar' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `Session_${$('#session-number').val()}.ics`;
+a.click();
+URL.revokeObjectURL(url);
+});
+
+$('#share-button').on('click', () => {
+const summary = generateSessionSummary();
+if (navigator.share) {
+navigator.share({
+title: $('#session-title').val(),
+text: summary
+}).catch(err => console.error('Error sharing:', err));
+} else {
+navigator.clipboard.writeText(summary).then(() => {
+showToast('Summary copied to clipboard!');
+});
+}
+});
+
+$('#add-contact').on('click', () => {
+const name = $('#contact-name').val().trim();
+const mobile = $('#contact-mobile').val().trim();
+
+if (!name) {
+$('#contact-name').parent().addClass('error');
+showToast(i18next.t('error_required'), 'error');
+return;
+}
+
+if (mobile && !validateMobile(mobile)) {
+$('#contact-mobile').parent().addClass('error');
+showToast(i18next.t('error_mobile'), 'error');
+return;
+}
+
+$('#contact-name, #contact-mobile').parent().removeClass('error');
+contacts.push({ name, mobile });
+localStorage.setItem('contacts', JSON.stringify(contacts));
+updateContactsTable();
+$('#contact-name, #contact-mobile').val('');
+showToast(i18next.t('success_contact_added'));
+});
+
+$('#contacts-search').on('input', function() {
+const query = $(this).val().toLowerCase();
+$('#contacts-table tbody tr').each(function() {
+const name = $(this).find('td:nth-child(3)').text().toLowerCase();
+const mobile = $(this).find('td:nth-child(4)').text().toLowerCase();
+if (name.includes(query) || mobile.includes(query)) {
+$(this).show();
+} else {
+$(this).hide();
+}
+});
+});
+
+$(document).on('click', '.delete-contact', function() {
+const index = $(this).data('index');
+contacts.splice(index, 1);
+localStorage.setItem('contacts', JSON.stringify(contacts));
+updateContactsTable();
+showToast(i18next.t('success_delete'));
+});
+
+$('#select-all-checkbox').on('change', function() {
+$('.contact-checkbox').prop('checked', this.checked);
+});
+
+$('#add-selected-attendees').on('click', () => {
+const selected = $('.contact-checkbox:checked').map(function() {
+const index = $(this).data('index');
+return contacts[index];
+}).get();
+
+if (!selected.length) {
+showToast(i18next.t('error_select_attendees'), 'error');
+return;
+}
+
+attendees.push(...selected);
+updateAttendeesTable();
+$('#contacts-view').hide();
+$('#session-view').show();
+$('.sidebar nav a, .bottom-nav a').removeClass('active');
+$('#nav-session, #nav-session-mobile').addClass('active');
+updateWhatsAppButtonState();
+});
+
+$('#archive-search').on('input', function() {
+const query = $(this).val().toLowerCase();
+$('#archive-table tbody tr').each(function() {
+const number = $(this).find('td:nth-child(2)').text().toLowerCase();
+const title = $(this).find('td:nth-child(3)').text().toLowerCase();
+if (number.includes(query) || title.includes(query)) {
+$(this).show();
+} else {
+$(this).hide();
+}
+});
+});
+
+$(document).on('click', '.view-session', function() {
+const id = $(this).data('id');
+loadSession(id);
+});
+
+$(document).on('click', '.delete-session', function() {
+const id = $(this).data('id');
+$('#password-modal, #modal-overlay').addClass('active');
+$('#submit-password-btn').off('click').on('click', () => {
+const inputPassword = $('#password-input').val();
+if (inputPassword === password) {
+sessions = sessions.filter(s => s.id !== id);
+localStorage.setItem('sessions', JSON.stringify(sessions));
+updateArchiveTable();
+showToast(i18next.t('success_delete'));
+$('#password-modal, #modal-overlay').removeClass('active');
+$('#password-input').val('');
+} else {
+showToast(i18next.t('error_password'), 'error');
+}
+});
+});
+
+$('#cancel-password-btn').on('click', () => {
+$('#password-modal, #modal-overlay').removeClass('active');
+$('#password-input').val('');
+});
+
+$('#menu-toggle').on('click', () => {
+$('.sidebar').slideToggle(300);
+});
+
+$('.sidebar nav a, .bottom-nav a').on('click', function(e) {
+e.preventDefault();
+$('.sidebar nav a, .bottom-nav a').removeClass('active');
+$(this).addClass('active');
+const viewId = $(this).attr('id').replace('nav-', '').replace('-mobile', '') + '-view';
+$('.form-container').hide();
+$(`#${viewId}`).show();
+if ($(window).width() <= 768) {
+$('.sidebar').slideUp(300);
+}
+});
+
+$('#nav-logout, #nav-logout-mobile').on('click', () => {
+localStorage.removeItem('isLoggedIn');
+$('#main-content').hide();
+$('#login-view').show();
+resetForm();
+});
+
+$('#theme').on('change', function() {
+$('body').attr('data-theme', $(this).val());
+});
+
+$('#font-family').on('change', function() {
+$('body').css('font-family', $(this).val());
+});
+
+$('#theme-color').on('change', function() {
+$('body').attr('data-theme-color', $(this).val());
+});
+
+$('#font-size').on('change', function() {
+$('body').css('font-size', `${$(this).val()}px`);
+});
+
+$('#text-direction').on('change', function() {
+$('body').attr('dir', $(this).val());
+$('body').css('text-align', $(this).val() === 'rtl' ? 'right' : 'left');
+});
+
+$('#logo-size').on('change', function() {
+$('.logo').removeClass('logo-size-1 logo-size-2 logo-size-4').addClass(`logo-size-${$(this).val()}`);
+});
+
+$('#contacts-access-btn').on('click', () => {
+alert('مدیریت دسترسی مخاطبان در حال توسعه است.');
+});
+
+$('#reset-settings-btn').on('click', () => {
+$('#theme').val('light');
+$('#font-family').val("'Vazir', sans-serif");
+$('#theme-color').val('purple-blue');
+$('#font-size').val('16');
+$('#text-direction').val('rtl');
+$('#logo-size').val('1');
+$('body').attr('data-theme', 'light');
+$('body').css('font-family', "'Vazir', sans-serif");
+$('body').attr('data-theme-color', 'purple-blue');
+$('body').css('font-size', '16px');
+$('body').attr('dir', 'rtl');
+$('body').css('text-align', 'right');
+$('.logo').removeClass('logo-size-1 logo-size-2 logo-size-4').addClass('logo-size-1');
+showToast('تنظیمات بازنشانی شد');
+});
+
+$('#save-session-settings-btn').on('click', saveSessionSettings);
+
+$('#session-number, #session-date, #start-time, #session-title, #location, #location-manual, #organizer').on('input change', updateWhatsAppButtonState);
+
+// --- Initialization ---
+if (localStorage.getItem('isLoggedIn') === 'true') {
+$('#login-view').hide();
+$('#main-content').show();
+} else {
+$('#main-content').hide();
+$('#login-view').show();
+}
+
+updateAttendeesTable();
+updateDecisionsTable();
+updateContactsTable();
+updateArchiveTable();
+loadSessionSettings();
+applySessionSettings();
+updateWhatsAppButtonState();
+});
+</script>
 </body>
 </html>
