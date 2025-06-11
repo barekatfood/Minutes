@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آقا مهدوی | سامانه مدیریت</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
+    <link href="https://cdn.fontcdn.ir/Fonts/Vazir/font-face.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Vazir', sans-serif; background: #f0f2f5; }
+        .header { background: linear-gradient(90deg, #7c3aed, #3b82f6); color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .header .logo img { height: 50px; }
+        .header .site-title { font-size: 26px; font-weight: bold; }
+        .user-auth .btn { padding: 8px 16px; margin-left: 10px; border-radius: 4px; cursor: pointer; }
+        .btn-primary { background: #22c55e; border: none; color: #fff; }
+        .btn-danger { background: #ef4444; border: none; color: #fff; }
+        .mobile-menu-toggle { display: none; font-size: 24px; cursor: pointer; }
+        .main-nav { background: #fff; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .main-nav ul { list-style: none; display: flex; }
+        .main-nav li { margin-left: 20px; }
+        .main-nav a { text-decoration: none; color: #333; font-weight: 500; transition: color 0.3s; }
+        .main-nav a:hover, .main-nav a.active { color: #7c3aed; }
+        .mosaic-container { padding: 20px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .mosaic-tile { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+        .mosaic-tile:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .tile-content { padding: 20px; text-align: center; }
+        .tile-icon { font-size: 40px; color: #7c3aed; margin-bottom: 10px; }
+        .tile-title { font-size: 18px; font-weight: bold; color: #333; }
+        .tile-desc { font-size: 14px; color: #666; margin-top: 5px; }
+        .footer { background: #1f2937; color: #fff; text-align: center; padding: 20px; margin-top: 20px; }
+        .footer a { color: #22c55e; text-decoration: none; margin: 0 5px; }
+        @media (max-width: 768px) {
+            .header { flex-wrap: wrap; }
+            .mobile-menu-toggle { display: block; }
+            .main-nav { display: none; }
+            .main-nav.active { display: block; }
+            .main-nav ul { flex-direction: column; }
+            .main-nav li { margin: 10px 0; }
+            .mosaic-container { grid-template-columns: 1fr; }
+        }
+        .modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 2000; text-align: center; max-width: 400px; width: 90%; }
+        .modal.active { display: block; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1999; }
+        .modal-overlay.active { display: block; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو آقا مهدوی">
+        </div>
+        <div class="site-title">آقا مهدوی</div>
+        <div class="mobile-menu-toggle"><i class="fas fa-bars"></i></div>
+        <div class="user-auth">
+            <button id="mock-login" class="btn btn-primary">ورود نمایشی</button>
+            <button id="logout-btn" class="btn btn-danger" style="display: none;">خروج</button>
+        </div>
+    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#home" id="nav-home" class="active">خانه</a></li>
+            <li><a href="#meetings" id="nav-meetings">صورت‌جلسات</a></li>
+            <li><a href="#letters" id="nav-letters">نامه‌ها</a></li>
+            <li><a href="#projects" id="nav-projects">پروژه‌ها</a></li>
+            <li><a href="#about" id="nav-about">درباره ما</a></li>
+        </ul>
+    </nav>
+    <main class="mosaic-container">
+        <div class="mosaic-tile" data-module="meetings">
+            <div class="tile-content">
+                <i class="fas fa-file-alt tile-icon"></i>
+                <div class="tile-title">صورت‌جلسات</div>
+                <div class="tile-desc">مدیریت جلسات، مصوبات و شرکت‌کنندگان</div>
+            </div>
+        </div>
+        <div class="mosaic-tile" data-module="letters">
+            <div class="tile-content">
+                <i class="fas fa-envelope tile-icon"></i>
+                <div class="tile-title">نامه‌ها</div>
+                <div class="tile-desc">ایجاد و مدیریت نامه‌های رسمی</div>
+            </div>
+        </div>
+        <div class="mosaic-tile" data-module="projects">
+            <div class="tile-content">
+                <i class="fas fa-briefcase tile-icon"></i>
+                <div class="tile-title">پروژه‌ها</div>
+                <div class="tile-desc">پیگیری و مدیریت پروژه‌ها</div>
+            </div>
+        </div>
+        <div class="mosaic-tile" data-module="about">
+            <div class="tile-content">
+                <i class="fas fa-info-circle tile-icon"></i>
+                <div class="tile-title">درباره ما</div>
+                <div class="tile-desc">اطلاعات بیشتر درباره آقا مهدوی</div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>سامانه مدیریت آقا مهدوی © 1404 | تماس: <a href="mailto:info@aghamahdavi.ir">info@aghamahdavi.ir</a></p>
+        <p>
+            <a href="https://t.me/aghamahdavi"><i class="fab fa-telegram"></i></a>
+            <a href="https://instagram.com/aghamahdavi"><i class="fab fa-instagram"></i></a>
+        </p>
+    </footer>
+
+    <!-- کتابخانه‌ها -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.10.1/build/moment-jalaali.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next@23.15.2/dist/umd/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // تنظیمات i18next
+            i18next.init({
+                lng: localStorage.getItem('language') || 'fa',
+                resources: {
+                    fa: {
+                        translation: {
+                            home: 'خانه',
+                            meetings: 'صورت‌جلسات',
+                            letters: 'نامه‌ها',
+                            projects: 'پروژه‌ها',
+                            about: 'درباره ما',
+                            logout: 'خروج',
+                            success_save: 'با موفقیت ذخیره شد',
+                            error_required: 'فیلد ضروری است'
+                        }
+                    },
+                    en: {
+                        translation: {
+                            home: 'Home',
+                            meetings: 'Meeting Minutes',
+                            letters: 'Letters',
+                            projects: 'Projects',
+                            about: 'About Us',
+                            logout: 'Logout',
+                            success_save: 'Saved successfully',
+                            error_required: 'Field is required'
+                        }
+                    }
+                }
+            }, () => {
+                $('[data-i18n]').each(function() {
+                    const key = $(this).data('i18n');
+                    $(this).text(i18next.t(key));
+                });
+            });
+
+            // Toastify
+            const showToast = (message, type = 'success') => {
+                Toastify({
+                    text: message,
+                    duration: 3000,
+                    gravity: 'bottom',
+                    position: 'left',
+                    backgroundColor: type === 'success' ? '#22c55e' : '#ef4444',
+                    style: { fontFamily: "'Vazir', sans-serif", borderRadius: '10px', padding: '12px 20px' }
+                }).showToast();
+            };
+
+            // مدیریت منوی موبایل
+            $('.mobile-menu-toggle').on('click', () => {
+                $('.main-nav').toggleClass('active');
+            });
+
+            // بررسی وضعیت لاگین
+            const checkLogin = () => {
+                return localStorage.getItem('isLoggedIn') === 'true';
+            };
+
+            // مدیریت کلیک روی منو
+            $('.main-nav a').on('click', function(e) {
+                e.preventDefault();
+                if (!checkLogin()) {
+                    showToast('لطفاً ابتدا وارد شوید', 'error');
+                    return;
+                }
+                $('.main-nav a').removeClass('active');
+                $(this).addClass('active');
+                const module = $(this).attr('id').replace('nav-', '');
+                loadModule(module);
+            });
+
+            // مدیریت کلیک روی کاشی‌ها
+            $('.mosaic-tile').on('click', function() {
+                if (!checkLogin()) {
+                    showToast('لطفاً ابتدا وارد شوید', 'error');
+                    return;
+                }
+                const module = $(this).data('module');
+                $('.main-nav a').removeClass('active');
+                $(`#nav-${module}`).addClass('active');
+                loadModule(module);
+            });
+
+            // تابع لود ماژول
+            function loadModule(module) {
+                $('.mosaic-container').hide();
+                if ($(`#${module}-module`).length === 0) {
+                    $('main').append(`<div id="${module}-module" class="module-container"></div>`);
+                }
+                $(`#${module}-module`).show().siblings('.module-container').hide();
+                if (module === 'meetings') {
+                    $(`#${module}-module`).load('meetings.html', () => {
+                        $.getScript('meetings.js');
+                    });
+                } else if (module === 'letters') {
+                    $(`#${module}-module`).load('letters.html', () => {
+                        $.getScript('letters.js');
+                    });
+                } else if (module === 'projects') {
+                    $(`#${module}-module`).load('projects.html');
+                } else if (module === 'about') {
+                    $(`#${module}-module`).load('about.html');
+                } else {
+                    $('.mosaic-container').show();
+                    $(`.module-container`).hide();
+                }
+            }
+
+            // ورود نمایشی
+            $('#mock-login').on('click', () => {
+                localStorage.setItem('isLoggedIn', 'true');
+                $('#mock-login').hide();
+                $('#logout-btn').show();
+                showToast('ورود نمایشی انجام شد', 'success');
+            });
+
+            // خروج
+            $('#logout-btn').on('click', () => {
+                localStorage.removeItem('isLoggedIn');
+                $('#logout-btn').hide();
+                $('#mock-login').show();
+                showToast('با موفقیت خارج شدید', 'success');
+                $('.mosaic-container').show();
+                $('.module-container').hide();
+                $('.main-nav a').removeClass('active');
+                $('#nav-home').addClass('active');
+            });
+
+            // بررسی اولیه وضعیت لاگین
+            if (checkLogin()) {
+                $('#mock-login').hide();
+                $('#logout-btn').show();
+            } else {
+                $('#logout-btn').hide();
+                $('#mock-login').show();
+            }
+
+            // لود صفحه خانه به‌صورت پیش‌فرض
+            $('.mosaic-container').show();
+        });
+    </script>
+</body>
+</html>
