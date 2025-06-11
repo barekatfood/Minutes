@@ -9,10 +9,11 @@
 
     <!-- فونت‌ها و آیکون‌ها -->
     <link href="https://cdn.fontcdn.ir/Fonts/Vazir/font-face.css" rel="stylesheet" />
-    <link href="https://cdn.fontcdn.ir/Fonts/IRANSans/font-face.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.fontcdn.ir/Fonts/IranSans/font-face.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="https://unpkg.com/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css" />
 
     <style>
@@ -31,7 +32,7 @@
             --transition: all 0.3s ease;
             --border-radius: 12px;
             --table-header-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.6), rgba(236, 72, 153, 0.6));
-            --font-base: 'Vazir', 'Inter', sans-serif;
+            --font-base: 'Vazir', 'IranSans', 'Inter', sans-serif;
         }
 
         [data-theme="dark"] {
@@ -41,18 +42,6 @@
             --text-muted: #9ca3af;
             --border-light: #4b5563;
             --table-header-bg: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4));
-        }
-
-        [data-theme-color="green-teal"] {
-            --primary-purple: #16a34a;
-            --primary-blue: #14b8a6;
-            --primary-pink: #6ee7b7;
-        }
-
-        [data-theme-color="red-orange"] {
-            --primary-purple: #ef4444;
-            --primary-blue: #f97316;
-            --primary-pink: #fb923c;
         }
 
         * {
@@ -72,7 +61,6 @@
             display: flex;
             flex-direction: column;
             transition: var(--transition);
-            font-size: 16px;
         }
 
         [data-theme="dark"] body {
@@ -105,15 +93,6 @@
             user-select: none;
         }
 
-        .logo-size-1 { width: 48px; height: 48px; }
-        .logo-size-2 { width: 96px; height: 96px; }
-        .logo-size-4 { width: 192px; height: 192px; }
-
-        @media (max-width: 768px) {
-            .logo-size-4 { width: 128px; height: 128px; }
-            .header-right h1 { font-size: 20px; }
-        }
-
         .header-right h1 {
             font-weight: 700;
             font-size: 24px;
@@ -128,7 +107,7 @@
         }
 
         .language-toggle {
-            background: linear-gradient(135deg, var(--primary-blue));
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
             border: none;
             padding: 8px 16px;
             border-radius: 10px;
@@ -238,21 +217,6 @@
             .main {
                 padding-bottom: 60px;
             }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                font-size: 16px;
-            }
-
-            #add-contact, #import-contacts {
-                width: 100%;
-                margin-top: 10px;
-            }
         }
 
         .main {
@@ -282,7 +246,7 @@
             position: sticky;
             top: 24px;
             align-self: flex-start;
-            transition: transform 0.3s ease-out;
+            transition: transform 0.3s ease;
         }
 
         .sidebar nav ul {
@@ -399,34 +363,29 @@
         }
 
         .form-section-header h3 {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             color: var(--primary-purple);
             font-size: 20px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .section-icon {
-            font-size: 18px;
-            color: var(--primary-blue);
-        }
-
-        .accordion-icon {
+        .form-section-header i {
             font-size: 16px;
             color: var(--primary-blue);
             transition: transform 0.3s ease;
         }
 
-        .accordion-icon.rotate-down {
-            transform: rotate(0deg);
+        .form-section-header i.rotate-down {
+            transform: rotate(90deg);
         }
 
         .form-section-content {
             padding: 0;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease-in;
+            transition: max-height 0.4s ease, padding 0.4s ease;
         }
 
         .form-section-content.active {
@@ -457,7 +416,7 @@
             align-items: center;
             gap: 6px;
             margin-bottom: 6px;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 14px;
             color: var(--text-dark);
         }
@@ -537,17 +496,6 @@
             transform: scale(1.01);
         }
 
-        .date-picker {
-            padding: 10px;
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            font-size: 14px;
-            background: var(--card-bg);
-            color: var(--text-dark);
-            width: 100%;
-            cursor: pointer;
-        }
-
         .btn {
             border: none;
             padding: 10px 20px;
@@ -620,7 +568,7 @@
             padding: 6px 10px;
             font-size: 12px;
             min-width: 60px;
-            margin-right: 8px;
+            margin-left: 8px;
         }
 
         .action-buttons {
@@ -638,6 +586,7 @@
 
         .data-table {
             width: 100%;
+            min-width: 100%;
             border-collapse: separate;
             border-spacing: 0;
             border-radius: 10px;
@@ -646,8 +595,7 @@
             animation: fadeIn 0.6s ease-out;
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid var(--border-light);
             padding: 10px 12px;
             text-align: right;
@@ -669,7 +617,7 @@
         }
 
         tbody tr {
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         tbody tr:nth-child(even) {
@@ -685,15 +633,15 @@
         }
 
         .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
         }
 
         .search-bar {
@@ -704,113 +652,19 @@
             border-radius: 10px;
             font-size: 14px;
         }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-md);
-            z-index: 2000;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .modal.active {
-            display: block;
-        }
-
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1999;
-        }
-
-        .modal-overlay.active {
-            display: block;
-        }
-
-        /* استایل صفحه لاگین */
-        #login-view {
-            max-width: 400px;
-            margin: auto;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: block !important;
-            position: fixed;
-        }
-
-        /* استایل لیست شرکت‌کنندگان در مودال واتساپ */
-        #attendees-checkboxes {
-            max-height: 150px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-
-        #attendees-checkboxes label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        #attendees-checkboxes input {
-            margin-left: 8px;
-        }
-
-        /* دکمه غیرفعال */
-        .btn.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
-    <!-- صفحه لاگین -->
-    <div id="login-view" class="modal">
-        <h3 data-i18n="login_title">ورود به سیستم</h3>
-        <div class="form-group">
-            <label for="username" data-i18n="username">نام کاربری:</label>
-            <input type="text" id="username" data-i18n-placeholder="username_placeholder" aria-required="true" />
-        </div>
-        <div class="form-group">
-            <label for="password" data-i18n="password">رمز عبور:</label>
-            <input type="password" id="password" data-i18n-placeholder="password_placeholder" aria-required="true" />
-        </div>
-        <div class="form-grid">
-            <button type="button" id="login-btn" class="btn btn-primary" data-i18n="login">ورود</button>
-        </div>
-    </div>
-
-    <!-- محتوای اصلی (مخفی تا ورود) -->
-    <div id="main-content" style="display: none;">
-        <header class="header" role="banner">
-            <div class="header-right" aria-label="لوگو و عنوان سایت">
-            <div <a href="https://uploadkon.ir/" target="_blank" title="وب‌سایت شرکت برکت">
-            <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو شرکت برکت" class="logo" logo-size-1" />
-            </a>
+    <header class="header" role="banner">
+        <div class="header-right" aria-label="لوگو و عنوان سایت">
+            <img src="/icon-192.png" alt="لوگو شرکت برکت" class="logo" />
             <h1 data-i18n="sessions">صورتجلسات</h1>
         </div>
         <div class="header-left">
-            <button id="language-toggle" class="language-toggle" aria-label="تغییر زبان سایت">
-            <span id="lang-display">fa</span>
+            <button id="language-toggle" class="language-toggle" aria-label="تغییر زبان سایت" aria-pressed="false">
+                <span id="lang-display">fa</span>
             </button>
-            <button id="menu-toggle" role="button" aria-label="باز کردن منو"><i class="fas fa-bars"></i></button>
-            </button>
+            <button id="menu-toggle" aria-label="بازکردن منو"><i class="fas fa-bars"></i></button>
         </div>
     </header>
 
@@ -819,7 +673,7 @@
             <li><a href="#" id="nav-session-mobile" class="active"><i class="fas fa-plus-circle"></i><span data-i18n="new_session">جلسه</span></a></li>
             <li><a href="#" id="nav-contacts-mobile"><i class="fas fa-address-book"></i><span data-i18n="contacts">مخاطبین</span></a></li>
             <li><a href="#" id="nav-archive-mobile"><i class="fas fa-archive"></i><span data-i18n="archive">آرشیو</span></a></li>
-            <li><a href="#" id="nav-dashboard-mobile"><i class="fas fa-chart-bar"></i><span data-i18n="dashboard">Dashboard</span></a></li>
+            <li><a href="#" id="nav-dashboard-mobile"><i class="fas fa-chart-bar"></i><span data-i18n="dashboard">داشبورد</span></a></li>
             <li><a href="#" id="nav-settings-mobile"><i class="fas fa-cogs"></i><span data-i18n="settings">تنظیمات</span></a></li>
             <li><a href="#" id="nav-logout-mobile"><i class="fas fa-sign-out-alt"></i><span data-i18n="logout">خروج</span></a></li>
         </ul>
@@ -832,1575 +686,1328 @@
                     <li><a href="#" class="active" id="nav-session"><i class="fas fa-plus-circle"></i> <span data-i18n="new_session">جلسه جدید</span></a></li>
                     <li><a href="#" id="nav-contacts"><i class="fas fa-address-book"></i> <span data-i18n="contacts">مخاطبین</span></a></li>
                     <li><a href="#" id="nav-archive"><i class="fas fa-archive"></i> <span data-i18n="archive">آرشیو</span></a></li>
-                    <li><a href="#" id="nav-dashboard"><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">Dashboard</span></a></li>
+                    <li><a href="#" id="nav-dashboard"><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">داشبورد</span></a></li>
                     <li><a href="#" id="nav-settings"><i class="fas fa-cogs"></i> <span data-i18n="settings">تنظیمات</span></a></li>
                     <li><a href="#" id="nav-logout"><i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">خروج</span></a></li>
                 </ul>
-</nav>
-</aside>
+            </nav>
+        </aside>
 
-<section class="container" aria-live="polite">
-    <!-- فرم ثبت صورتجلسه -->
-    <article class="form-container" id="session-view" aria-label="فرم ثبت صورتجلسه">
-        <h2 data-i18n="session_form">فرم ثبت صورتجلسه</h2>
-        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-session-info">
-            <header class="form-section-header" role="button" aria-controls="session-info" aria-expanded="true" tabindex="0">
-                <h3>
-                    <i class="fas fa-info-circle section-icon"></i>
-                    <span data-i18n="session_info">اطلاعات جلسه</span>
-                </h3>
-                <i class="fas fa-chevron-down accordion-icon"></i>
-            </header>
-            <div class="form-section-content active" id="session-info">
-                <div class="form-grid">
-                    <div class="form-group required">
-                        <label for="session-number" data-i18n="session_number">شماره جلسه:</label>
-                        <input type="text" id="session-number" data-i18n-placeholder="session_number_placeholder" aria-required="true" />
-                    </div>
-                    <div class="form-group required">
-                        <label for="session-date" data-i18n="session_date">تاریخ:</label>
-                        <input type="text" id="session-date" class="date-picker" readonly aria-required="true" aria-describedby="session-date-desc" />
-                        <small id="session-date-desc" class="sr-only">تاریخ جلسه به صورت شمسی</small>
-                    </div>
-                    <div class="time-row">
-                        <div class="form-group required">
-                            <label for="start-time" data-i18n="start_time">ساعت شروع:</label>
-                            <input type="time" id="start-time" aria-required="true" />
+        <section class="container" aria-live="polite">
+            <!-- فرم ثبت صورتجلسه -->
+            <article class="form-container" id="session-view" aria-label="فرم ثبت صورتجلسه">
+                <h2 data-i18n="session_form">فرم ثبت صورتجلسه</h2>
+
+                <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-session-info">
+                    <header class="form-section-header" role="button" aria-controls="session-info" aria-expanded="true" tabindex="0">
+                        <h3><i class="fas fa-info-circle"></i> <span data-i18n="session_info">اطلاعات جلسه</span></h3>
+                        <i class="fas fa-chevron-left rotate-down"></i>
+                    </header>
+                    <div class="form-section-content active" id="session-info">
+                        <div class="form-grid">
+                            <div class="form-group required">
+                                <label for="session-number" data-i18n="session_number">شماره جلسه: <span class="required-star show">*</span></label>
+                                <input type="text" id="session-number" data-i18n-placeholder="session_number_placeholder" aria-required="true" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="session-date" data-i18n="session_date">تاریخ: <span class="required-star show">*</span></label>
+                                <input type="text" id="session-date" class="pdp" readonly aria-required="true" aria-describedby="session-date-desc" />
+                                <small id="session-date-desc" class="sr-only">تاریخ جلسه به صورت شمسی</small>
+                            </div>
+                            <div class="time-row">
+                                <div class="form-group required">
+                                    <label for="start-time" data-i18n="start_time">ساعت شروع: <span class="required-star show">*</span></label>
+                                    <input type="time" id="start-time" aria-required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="end-time" data-i18n="end_time">ساعت پایان:</label>
+                                    <input type="time" id="end-time" />
+                                </div>
+                            </div>
+                            <div class="form-group full-width required">
+                                <label for="session-title" data-i18n="session_title">عنوان جلسه: <span class="required-star show">*</span></label>
+                                <input type="text" id="session-title" data-i18n-placeholder="session_title_placeholder" aria-required="true" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="location" data-i18n="location">مکان: <span class="required-star show">*</span></label>
+                                <select id="location" aria-required="true" aria-describedby="location-manual-desc">
+                                    <option value="" data-i18n="select_location">انتخاب مکان</option>
+                                    <option value="شعبه لبخند">شعبه لبخند</option>
+                                    <option value="شعبه مسجد">شعبه مسجد</option>
+                                    <option value="شعبه الزهرا">شعبه الزهرا</option>
+                                    <option value="دفتر باغ فیض">دفتر باغ فیض</option>
+                                    <option value="دفتر تالار سرای مهر">دفتر تالار سرای مهر</option>
+                                    <option value="manual" data-i18n="manual_location">وارد کردن دستی</option>
+                                </select>
+                                <input type="text" id="location-manual" style="display: none; margin-top: 8px;" data-i18n-placeholder="location_manual" aria-describedby="location-manual-desc" />
+                                <small id="location-manual-desc" class="sr-only">اگر گزینه وارد کردن دستی انتخاب شد، این فیلد فعال می‌شود</small>
+                            </div>
+                            <div class="form-group required">
+                                <label for="organizer" data-i18n="organizer">برگزارکننده: <span class="required-star show">*</span></label>
+                                <input type="text" id="organizer" data-i18n-placeholder="organizer_placeholder" aria-required="true" />
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="session-files" data-i18n="session_files">فایل‌های مرتبط:</label>
+                                <input type="file" id="session-files" multiple accept=".pdf,.docx,.jpg,.png" aria-label="انتخاب فایل‌های مرتبط با جلسه" />
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="end-time" data-i18n="end_time">ساعت پایان:</label>
-                            <input type="time" id="end-time" />
+                    </div>
+                </section>
+
+                <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-attendees">
+                    <header class="form-section-header" role="button" aria-controls="attendees-section" aria-expanded="false" tabindex="0">
+                        <h3><i class="fas fa-users"></i> <span data-i18n="attendees">شرکت‌کنندگان</span></h3>
+                        <i class="fas fa-chevron-right"></i>
+                    </header>
+                    <div class="form-section-content" id="attendees-section" aria-hidden="true">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="attendee-name" data-i18n="attendee_name">نام:</label>
+                                <input type="text" id="attendee-name" data-i18n-placeholder="attendee_name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="attendee-mobile" data-i18n="attendee_mobile">موبایل:</label>
+                                <input type="text" id="attendee-mobile" data-i18n-placeholder="attendee_mobile" />
+                            </div>
+                            <div class="form-group" style="align-self: flex-end;">
+                                <button type="button" id="add-attendee" class="btn btn-success btn-sm" aria-label="افزودن شرکت‌کننده">
+                                    <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive" aria-live="polite" aria-relevant="all">
+                            <table class="data-table" id="attendees-table" aria-label="لیست شرکت‌کنندگان">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="row">ردیف</th>
+                                        <th data-i18n="attendee_name">نام</th>
+                                        <th data-i18n="attendee_mobile">موبایل</th>
+                                        <th data-i18n="action">عمل</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
                         </div>
                     </div>
-                    <div class="form-group full-width required">
-                        <label for="session-title" data-i18n="session_title">عنوان جلسه:</label>
-                        <input type="text" id="session-title" data-i18n-placeholder="session_title_placeholder" aria-required="true" />
-                    </div>
-                    <div class="form-group required">
-                        <label for="location" data-i18n="location">مکان:</label>
-                        <select id="location" aria-required="true" aria-describedby="location-manual-desc">
-                            <option value="" data-i18n="select_location">انتخاب کنید</option>
-                            <option value="شعبه تهران">شعبه تهران</option>
-                            <option value="شعبه شیراز">شعبه شیراز</option>
-                            <option value="شعبه مشهد">شعبه مشهد</option>
-                            <option value="دفتر مرکزی">دفتر مرکزی</option>
-                            <option value="دفتر نمایندگی">دفتر نمایندگی</option>
-                            <option value="manual" data-i18n="manual_location">وارد کردن دستی</option>
-                        </select>
-                        <input type="text" id="location-manual" style="display: none; margin-top: 8px;" data-i18n-placeholder="location_manual" aria-describedby="location-manual-desc" />
-                        <small id="location-manual-desc" class="sr-only">اگر گزینه وارد کردن دستی انتخاب شد، این فیلد فعال می‌شود.</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="organizer" data-i18n="organizer">برگزارکننده:</label>
-                        <input type="text" id="organizer" data-i18n-placeholder="organizer_placeholder" aria-required="true" />
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="session-files" data-i18n="session_files">فایل‌های مرتبط:</label>
-                        <input type="file" id="session-files" multiple accept=".pdf,.docx,.xlsx,.jpg,.png" aria-label="انتخاب فایل‌های مرتبط با جلسه" />
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-attendees">
-            <header class="form-section-header" role="button" aria-controls="attendees-section" aria-expanded="false" tabindex="0">
-                <h3>
-                    <i class="fas fa-users section-icon"></i>
-                    <span data-i18n="attendees">شرکت‌کنندگان</span>
-                </h3>
-                <i class="fas fa-chevron-right accordion-icon"></i>
-            </header>
-            <div class="form-section-content" id="attendees-section" aria-hidden="true">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="attendee-name" data-i18n="attendee_name">نام:</label>
-                        <input type="text" id="attendee-name" data-i18n-placeholder="attendee_name_placeholder" />
+                <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-decisions">
+                    <header class="form-section-header" role="button" aria-controls="decisions-section" aria-expanded="false" tabindex="0">
+                        <h3><i class="fas fa-check-square"></i> <span data-i18n="decisions">مصوبات</span></h3>
+                        <i class="fas fa-chevron-right"></i>
+                    </header>
+                    <div class="form-section-content" id="decisions-section" aria-hidden="true">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="decision-text" data-i18n="decision_text">مصوبه:</label>
+                                <input type="text" id="decision-text" data-i18n-placeholder="decision_text" />
+                            </div>
+                            <div class="form-group">
+                                <label for="decision-responsible" data-i18n="decision_responsible">مسئول:</label>
+                                <input type="text" id="decision-responsible" data-i18n-placeholder="decision_responsible" />
+                            </div>
+                            <div class="form-group">
+                                <label for="decision-due-date" data-i18n="decision_due_date">مهلت:</label>
+                                <input type="text" id="decision-due-date" class="pdp" readonly />
+                            </div>
+                            <div class="form-group">
+                                <label for="decision-status" data-i18n="decision_status">وضعیت:</label>
+                                <select id="decision-status">
+                                    <option value="در حال انجام" data-i18n="in_progress">در حال انجام</option>
+                                    <option value="تکمیل شده" data-i18n="completed">تکمیل شده</option>
+                                    <option value="لغو شده" data-i18n="canceled">لغو شده</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="align-self: flex-end;">
+                                <button type="button" id="add-decision" class="btn btn-success btn-sm" aria-label="افزودن مصوبه">
+                                    <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive" aria-live="polite" aria-relevant="all">
+                            <table class="data-table" id="decisions-table" aria-label="لیست مصوبات">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="row">ردیف</th>
+                                        <th data-i18n="decision_text">مصوبه</th>
+                                        <th data-i18n="decision_responsible">مسئول</th>
+                                        <th data-i18n="decision_due_date">مهلت</th>
+                                        <th data-i18n="decision_status">وضعیت</th>
+                                        <th data-i18n="action">عمل</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="attendee-mobile" data-i18n="attendee_mobile">موبایل:</label>
-                        <input type="text" id="attendee-mobile" data-i18n-placeholder="mobile_placeholder" />
+                </section>
+
+                <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-notes">
+                    <header class="form-section-header" role="button" aria-controls="notes-section" aria-expanded="false" tabindex="0">
+                        <h3><i class="fas fa-comment"></i> <span data-i18n="notes">یادداشت‌ها</span></h3>
+                        <i class="fas fa-chevron-right"></i>
+                    </header>
+                    <div class="form-section-content" id="notes-section" aria-hidden="true">
+                        <div class="form-group full-width">
+                            <label for="notes" data-i18n="notes">یادداشت:</label>
+                            <textarea id="notes" rows="5" data-i18n-placeholder="notes_placeholder"></textarea>
+                        </div>
                     </div>
-                    <div class="form-group" style="align-self: flex-end;">
-                        <button type="button" id="add-attendee" class="btn btn-success btn-sm" aria-label="افزودن شرکت‌کننده">
-                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                </section>
+
+                <div class="action-buttons">
+                    <button type="button" id="save-button" class="btn btn-primary" aria-label="ذخیره صورتجلسه">
+                        <i class="fas fa-save"></i> <span data-i18n="save">ذخیره</span>
+                    </button>
+                    <button type="button" id="print-button" class="btn btn-success" aria-label="دانلود PDF">
+                        <i class="fas fa-print"></i> <span data-i18n="pdf">PDF</span>
+                    </button>
+                    <button type="button" id="export-button" class="btn btn-info" aria-label="دانلود Excel">
+                        <i class="fas fa-file-excel"></i> <span data-i18n="excel">Excel</span>
+                    </button>
+                    <button type="button" id="whatsapp-button" class="btn btn-whatsapp" aria-label="ارسال به واتساپ">
+                        <i class="fab fa-whatsapp"></i> <span data-i18n="whatsapp">واتساپ</span>
+                    </button>
+                    <button type="button" id="calendar-button" class="btn btn-info btn-sm" aria-label="افزودن به تقویم">
+                        <i class="fas fa-calendar-plus"></i> <span data-i18n="add_to_calendar">تقویم</span>
+                    </button>
+                    <button type="button" id="share-button" class="btn btn-primary btn-sm" aria-label="اشتراک‌گذاری جلسه">
+                        <i class="fas fa-share-alt"></i> <span data-i18n="share_session">اشتراک</span>
+                    </button>
+                </div>
+            </article>
+
+            <!-- بخش مخاطبین -->
+            <article class="form-container" id="contacts-view" style="display: none;" aria-label="مدیریت مخاطبین">
+                <h2><i class="fas fa-address-book"></i> <span data-i18n="contacts">مدیریت مخاطبین</span></h2>
+                <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-add-contact">
+                    <header class="form-section-header" role="button" aria-controls="add-contact-section" aria-expanded="true" tabindex="0">
+                        <h3 data-i18n="add_contact">افزودن مخاطب</h3>
+                        <i class="fas fa-chevron-left rotate-down"></i>
+                    </header>
+                    <div class="form-section-content active" id="add-contact-section">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contact-name" data-i18n="attendee_name">نام:</label>
+                                <input type="text" id="contact-name" data-i18n-placeholder="attendee_name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-mobile" data-i18n="attendee_mobile">موبایل:</label>
+                                <input type="text" id="contact-mobile" data-i18n-placeholder="attendee_mobile" />
+                            </div>
+                            <div class="form-group" style="align-self: flex-end;">
+                                <button type="button" id="add-contact" class="btn btn-success btn-sm" aria-label="افزودن مخاطب">
+                                    <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
+                                </button>
+                                <button type="button" id="import-contacts" class="btn btn-info btn-sm" aria-label="وارد کردن مخاطبین">
+                                    <i class="fas fa-upload"></i> <span data-i18n="import_contacts">وارد کردن</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-contacts-list">
+                    <header class="form-section-header" role="button" aria-controls="contacts-list-section" aria-expanded="false" tabindex="0">
+                        <h3 data-i18n="contacts_list">لیست مخاطبین</h3>
+                        <i class="fas fa-chevron-right"></i>
+                    </header>
+                    <div class="form-section-content" id="contacts-list-section" aria-hidden="true">
+                        <input type="text" id="contacts-search" class="search-bar" data-i18n-placeholder="search_contacts" aria-label="جستجو در مخاطبین" />
+                        <div class="table-responsive" aria-live="polite" aria-relevant="all">
+                            <table class="data-table" id="contacts-table" aria-label="لیست مخاطبین">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="select-all-contacts" aria-label="انتخاب همه مخاطبین" /></th>
+                                        <th data-i18n="row">ردیف</th>
+                                        <th data-i18n="attendee_name">نام</th>
+                                        <th data-i18n="attendee_mobile">موبایل</th>
+                                        <th data-i18n="action">عمل</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                        <button type="button" id="add-selected-attendees" class="btn btn-success btn-sm" style="margin-top:12px;" data-i18n="add_selected_attendees">
+                            افزودن شرکت‌کنندگان انتخاب شده
                         </button>
                     </div>
-                </div>
-                <div class="table-responsive" aria-live="لیست شرکت‌کنندگان" aria-relevant="all">
-                    <table class="data-table" id="attendees-table" aria-label="لیست شرکت‌کنندگان">
-                        <thead>
-                            <tr>
-                                <th data-i18n="row">ردیف</th>
-                                <th data-i18n="attendee_name">نام</th>
-                                <th data-i18n="attendee_mobile">موبایل</th>
-                                <th data-i18n="action">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
+                </section>
+            </article>
 
-        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-decisions">
-            <header class="form-section-header" role="button" aria-controls="decisions-section" aria-expanded="false" tabindex="0">
-                <h3>
-                    <i class="fas fa-check-circle section-icon"></i>
-                    <span data-i18n="decisions">مصوبات</span>
-                </h3>
-                <i class="fas fa-chevron-right accordion-icon"></i>
-            </header>
-            <div class="form-section-content" id="decisions-section" aria-hidden="true">
-                <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label for="decision-text" data-i18n="decision_text">مصوبه:</label>
-                        <textarea id="decision-text" rows="3" data-i18n-placeholder="decision_text_placeholder"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="decision-responsible" data-i18n="decision_responsible">مسئول:</label>
-                        <input type="text" id="decision-responsible" data-i18n-placeholder="decision_responsible" />
-                    </div>
-                    <div class="form-group">
-                        <label for="decision-date" data-i18n="decision_due_date">مهلت:</label>
-                        <input type="text" id="decision-date" class="date-picker" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label for="decision-status" data-i18n="decision_status">وضعیت:</label>
-                        <select id="decision-status">
-                            <option value="in_progress" data-i18n="in_progress">در حال انجام</option>
-                            <option value="completed" data-i18n="completed">تکمیل شده</option>
-                            <option value="canceled" data-i18n="canceled">لغو</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="align-self: flex-end;">
-                        <button type="button" id="add-decision" class="btn btn-success btn-sm" aria-label="افزودن مصوبه">
-                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="data-table" id="decisions-table" aria-label="لیست مصوبات">
-                        <thead>
-                            <tr>
-                                <th data-i18n="row">ردیف</th>
-                                <th data-i18n="decision_text">مصوبه</th>
-                                <th data-i18n="decision_responsible">مسئول</th>
-                                <th data-i18n="decision_due_date">مهلت</th>
-                                <th data-i18n="decision_status">وضعیت</th>
-                                <th data-i18n="action">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-notes">
-            <header class="form-section-header" role="button" aria-controls="notes-section" aria-expanded="false" tabindex="0">
-                <h3>
-                    <i class="fas fa-comment section-icon"></i>
-                    <span data-i18n="notes">یادداشت‌ها</span>
-                </h3>
-                <i class="fas fa-chevron-right accordion-icon"></i>
-            </header>
-            <div class="form-section-content" id="notes-section" aria-hidden="true">
-                <div class="form-group full-width">
-                    <label for="notes" data-i18n="notes">یادداشت:</label>
-                    <textarea id="notes" rows="5" data-i18n-placeholder="notes_placeholder"></textarea>
-                </div>
-            </div>
-        </section>
-
-        <div class="action-buttons">
-            <button type="button" id="save-button" class="btn btn-primary" aria-label="ذخیره صورتجلسه">
-                <i class="fas fa-save"></i> <span data-i18n="save">ذخیره</span>
-            </button>
-            <button type="button" id="print-button" class="btn btn-success" aria-label="دانلود PDF">
-                <i class="fas fa-print"></i> <span data-i18n="pdf">دانلود PDF</span>
-            </button>
-            <button type="button" id="export-button" class="btn btn-info" aria-label="دانلود اکسل">
-                <i class="fas fa-file-excel"></i> <span data-i18n="excel">اکسل</span>
-            </button>
-            <button type="button" id="whatsapp-button" class="btn btn-whatsapp disabled" aria-label="ارسال به واتساپ">
-                <i class="fab fa-whatsapp"></i> <span data-i18n="whatsapp">واتساپ</span>
-            </button>
-            <button type="button" id="calendar-button" class="btn btn-info btn-sm" aria-label="اضافه کردن به تقویم">
-                <i class="fas fa-calendar-plus"></i> <span data-i18n="calendar">تقویم</span>
-            </button>
-            <button type="button" id="share-button" class="btn btn-primary btn-sm" aria-label="اشتراک‌گذاری جلسه">
-                <i class="fas fa-share-alt"></i> <span data-i18n="share">اشتراک</span>
-            </button>
-        </div>
-    </article>
-
-    <!-- بخش مخاطبان -->
-    <article class="form-container" id="contacts-view" style="display: none;" aria-label="مدیریت مخاطبان">
-        <h2><i class="fas fa-address-book"></i> <span data-i18n="contacts">مدیریت مخاطبان</span></h2>
-        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-add-contact">
-            <header class="form-section-header" role="button" aria-controls="add-contact-section" aria-expanded="true" tabindex="0">
-                <h3>
-                    <i class="fas fa-user-plus section-icon"></i>
-                    <span data-i18n="add_contact">افزودن مخاطب جدید</span>
-                </h3>
-                <i class="fas fa-chevron-down accordion-icon"></i>
-            </header>
-            <div class="form-section-content active" id="add-contact-section">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="contact-name" data-i18n="contact_name">نام:</label>
-                        <input type="text" id="contact-name" data-i18n-placeholder="contact_name_placeholder" />
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-mobile" data-i18n="contact_mobile">موبایل:</label>
-                        <input type="text" id="contact-mobile" data-i18n-placeholder="mobile_placeholder" />
-                    </div>
-                    <div class="form-group" style="align-self: flex-end;">
-                        <button type="button" id="add-contact" class="btn btn-success btn-sm" aria-label="افزودن مخاطب">
-                            <i class="fas fa-plus"></i> <span data-i18n="add">افزودن</span>
-                        </button>
-                        <button type="button" id="import-contacts-btn" class="btn btn-info btn-sm" aria-label="وارد کردن مخاطبان">
-                            <i class="fas fa-upload"></i> <span data-i18n="import_contacts">وارد کردن مخاطبان</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-contacts-list">
-            <header class="form-section-header" role="button" aria-controls="contacts-list-section" aria-expanded="false" tabindex="0">
-                <h3>
-                    <i class="fas fa-address-book section-icon"></i>
-                    <span data-i18n="contacts_list">لیست مخاطبان</span>
-                </h3>
-                <i class="fas fa-chevron-right accordion-icon"></i>
-            </header>
-            <div class="form-section-content" id="contacts-list-section" aria-hidden="true">
-                <div class="form-group full-width">
-                    <label for="contacts-search" data-i18n="search_contacts">جستجوی مخاطب:</label>
-                    <input type="text" id="contacts-search" class="search-bar" data-i18n-placeholder="search_contacts_placeholder" aria-label="جستجوی مخاطبان" />
-                </div>
-                <div class="table-responsive">
-                    <table class="data-table" id="contacts-table" aria-label="لیست مخاطبان">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="select-all-checkbox" aria-label="انتخاب تمام مخاطبان"></th>
-                                <th data-i18n="row">ردیف</th>
-                                <th data-i18n="contact_name">نام</th>
-                                <th data-i18n="contact_mobile">موبایل</th>
-                                <th data-i18n="action">عملیات</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div class="form-group full-width" style="margin-top: 16px;">
-                    <button type="button" id="add-selected-attendees" class="btn btn-primary" data-i18n="add_selected">افزودن انتخاب‌شده‌ها به جلسه</button>
-                </div>
-            </div>
-        </section>
-    </article>
-
-    <!-- بخش آرشیو -->
-    <article class="form-container" id="archive-view" style="display: none;" aria-label="آرشیو جلسات">
-        <h2><i class="fas fa-archive"></i> <span data-i18n="archive">آرشیو جلسات</span></h2>
-        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-archive-list">
-            <header class="form-section-header" role="button" aria-controls="archive-list-section" aria-expanded="true" tabindex="0">
-                <h3>
-                    <i class="fas fa-archive section-icon"></i>
-                    <span data-i18n="archive_list">لیست جلسات</span>
-                </h3>
-                <i class="fas fa-chevron-down accordion-icon"></i>
-            </header>
-            <div class="form-section-content active" id="archive-list-section">
-                <div class="form-group full-width">
-                    <label for="archive-search" data-i18n="search_sessions">جستجوی جلسه:</label>
-                    <input type="text" id="archive-search" class="search-bar" data-i18n-placeholder="search_sessions_placeholder" aria-label="جستجوی جلسات" />
-                </div>
-                <div class="table-responsive">
-                    <table class="data-table" id="archive-table" aria-label="لیست جلسات آرشیو شده">
+            <!-- بخش آرشیو -->
+            <article class="form-container" id="archive-view" style="display: none;" aria-label="آرشیو جلسات">
+                <h2><i class="fas fa-archive"></i> <span data-i18n="archive">آرشیو جلسات</span></h2>
+                <input type="text" id="archive-search" class="search-bar" data-i18n-placeholder="search_archive" aria-label="جستجو در آرشیو جلسات" />
+                <div class="table-responsive" aria-live="polite" aria-relevant="all">
+                    <table class="data-table" id="archive-table" aria-label="لیست آرشیو جلسات">
                         <thead>
                             <tr>
                                 <th data-i18n="row">ردیف</th>
                                 <th data-i18n="session_number">شماره جلسه</th>
                                 <th data-i18n="session_title">عنوان</th>
                                 <th data-i18n="session_date">تاریخ</th>
-                                <th data-i18n="action">عملیات</th>
+                                <th data-i18n="action">عمل</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
-            </div>
-        </section>
-    </article>
+            </article>
 
-    <!-- بخش داشبورد -->
-    <article class="form-container" id="dashboard-view" style="display: none;" aria-label="داشبورد">
-        <h2><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">Dashboard</span></h2>
-        <section class="form-section">
-            <div class="form-section-content active">
-                <p data-i18n="dashboard_welcome">به داشبورد خوش آمدید! در حال حاضر این بخش در حال توسعه است.</p>
-            </div>
-        </section>
-    </article>
+            <!-- بخش داشبورد -->
+            <article class="form-container" id="dashboard-view" style="display: none;" aria-label="داشبورد">
+                <h2><i class="fas fa-chart-bar"></i> <span data-i18n="dashboard">داشبورد</span></h2>
+                <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-dashboard">
+                    <header class="form-section-header" role="button" aria-controls="dashboard-content" aria-expanded="true" tabindex="0">
+                        <h3 data-i18n="session_stats">آمار جلسات</h3>
+                        <i class="fas fa-chevron-left rotate-down"></i>
+                    </header>
+                    <div class="form-section-content active" id="dashboard-content">
+                        <p data-i18n="stats_coming_soon">آمار جلسات و مصوبات به زودی اضافه خواهد شد.</p>
+                    </div>
+                </section>
+            </article>
 
-    <!-- بخش تنظیمات -->
-    <article class="form-container" id="settings-view" style="display: none;" aria-label="تنظیمات">
-        <h2><i class="fas fa-cogs"></i> <span data-i18n="settings">تنظیمات</span></h2>
-        <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-settings">
-            <header class="form-section-header" role="button" aria-controls="settings-content" aria-expanded="true" tabindex="0">
-                <h3>
-                    <i class="fas fa-cogs section-icon"></i>
-                    <span data-i18n="general_settings">تنظیمات عمومی</span>
-                </h3>
-                <i class="fas fa-chevron-down accordion-icon"></i>
-            </header>
-            <div class="form-section-content active" id="settings-content">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="theme" data-i18n="theme">انتخاب تم:</label>
-                        <select id="theme">
-                            <option value="light" data-i18n="light_theme">روشن</option>
-                            <option value="dark" data-i18n="dark_theme">تیره</option>
-                        </select>
+            <!-- بخش تنظیمات -->
+            <article class="form-container" id="settings-view" style="display: none;" aria-label="تنظیمات">
+                <h2><i class="fas fa-cogs"></i> <span data-i18n="settings">تنظیمات</span></h2>
+                <section class="form-section" data-toggle="accordion" aria-expanded="true" tabindex="0" id="section-settings">
+                    <header class="form-section-header" role="button" aria-controls="settings-content" aria-expanded="true" tabindex="0">
+                        <h3 data-i18n="general_settings">تنظیمات عمومی</h3>
+                        <i class="fas fa-chevron-left rotate-down"></i>
+                    </header>
+                    <div class="form-section-content active" id="settings-content">
+                        <div class="form-group">
+                            <label for="theme" data-i18n="theme">انتخاب تم:</label>
+                            <select id="theme">
+                                <option value="light" data-i18n="light_theme">روشن</option>
+                                <option value="dark" data-i18n="dark_theme">تیره</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="font-family" data-i18n="font_family">فونت:</label>
-                        <select id="font-family">
-                            <option value="'Vazir', sans-serif">وزیر</option>
-                            <option value="'IRANSans', sans-serif">ایران سانس</option>
-                            <option value="'Inter', sans-serif">Inter</option>
-                            <option value="'Roboto', sans-serif">Roboto</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="theme-color" data-i18n="theme_color">رنگ قالب:</label>
-                        <select id="theme-color">
-                            <option value="purple-blue">بنفش-آبی</option>
-                            <option value="green-teal">سبز-فیروزه‌ای</option>
-                            <option value="red-orange">قرمز-نارنجی</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="font-size" data-i18n="font_size">اندازه فونت:</label>
-                        <select id="font-size">
-                            <option value="14">کوچک (14px)</option>
-                            <option value="16">نرمال (16px)</option>
-                            <option value="20">بزرگ (20px)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="text-direction" data-i18n="text_direction">جهت متن:</label>
-                        <select id="text-direction">
-                            <option value="rtl">راست به چپ</option>
-                            <option value="ltr">چپ به راست</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="logo-size" data-i18n="logo_size">اندازه لوگو:</label>
-                        <select id="logo-size">
-                            <option value="1">نرمال (1x)</option>
-                            <option value="2">دو برابر (2x)</option>
-                            <option value="4">چهار برابر (4x)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="contacts_access">دسترسی به مخاطبان:</label>
-                        <button type="button" id="contacts-access-btn" class="btn btn-primary" data-i18n="manage_access">مدیریت دسترسی</button>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" id="reset-settings-btn" class="btn btn-danger" data-i18n="reset_settings">بازنشانی تنظیمات</button>
-                    </div>
-                </div>
-            </div>
+                </section>
+            </article>
         </section>
-        <section class="form-section" data-toggle="accordion" aria-expanded="false" tabindex="0" id="section-session-settings">
-            <header class="form-section-header" role="button" aria-controls="session-settings-content" aria-expanded="false" tabindex="0">
-                <h3>
-                    <i class="fas fa-calendar-alt section-icon"></i>
-                    <span data-i18n="session_settings">تنظیمات جلسات</span>
-                </h3>
-                <i class="fas fa-chevron-right accordion-icon"></i>
-            </header>
-            <div class="form-section-content" id="session-settings-content" aria-hidden="true">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="default-location" data-i18n="default_location">مکان پیش‌فرض:</label>
-                        <select id="default-location">
-                            <option value="" data-i18n="select_location">انتخاب مکان</option>
-                            <option value="شعبه تهران">شعبه تهران</option>
-                            <option value="شعبه شیراز">شعبه شیراز</option>
-                            <option value="شعبه مشهد">شعبه مشهد</option>
-                            <option value="دفتر مرکزی">دفتر مرکزی</option>
-                            <option value="دفتر نمایندگی">دفتر نمایندگی</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="default-organizer" data-i18n="default_organizer">برگزارکننده پیش‌فرض:</label>
-                        <input type="text" id="default-organizer" data-i18n-placeholder="organizer_default_placeholder" />
-                    </div>
-                    <div class="form-group">
-                        <label for="auto-numbering" data-i18n="auto_numbering">شماره‌گذاری خودکار:</label>
-                        <input type="checkbox" id="auto-numbering" />
-                    </div>
-                    <div class="form-group">
-                        <label for="session-template" data-i18n="session_template">قالب پیش‌فرض جلسه:</label>
-                        <select id="session-template">
-                            <option value="standard" data-i18n="standard_template">استاندارد</option>
-                            <option value="detailed" data-i18n="detailed_template">جزئیات کامل</option>
-                            <option value="minimal" data-i18n="minimal_template">حداقل</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" id="save-session-settings-btn" class="btn btn-primary" data-i18n="save_session_settings">ذخیره تنظیمات جلسات</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </article>
+    </main>
 
-    <!-- مودال واتساپ -->
-    <div class="modal" id="whatsapp-modal">
+    <!-- مودال خلاصه واتساپ -->
+    <div id="whatsapp-summary-modal" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.3); max-width:400px; z-index:2000;">
         <h3 data-i18n="whatsapp_summary">خلاصه جلسه برای واتساپ</h3>
-        <div class="form-group">
-            <label data-i18n="select_attendees">انتخاب شرکت‌کنندگان برای ارسال:</label>
-            <div id="attendees-checkboxes"></div>
-        </div>
-        <textarea id="whatsapp_summary-text" rows="10" aria-label="متن خلاصه جلسه برای ارسال در واتساپ"></textarea>
-        <div class="form-grid">
-            <button type="button" id="send_whatsapp-btn" class="btn btn-whatsapp" data-i18n="send_whatsapp">ارسال</button>
-            <button type="button" id="download_pdf-btn" class="btn btn-success" data-i18n="pdf">دانلود PDF</button>
-            <button type="button" id="close_whatsapp-btn" class="btn btn-danger" data-i18n="close">بستن</button>
-        </div>
+        <textarea id="whatsapp-summary-text" rows="10" style="width:100%; margin-bottom:10px;"></textarea>
+        <button id="send-whatsapp" class="btn btn-whatsapp btn-sm" style="margin-bottom:10px;" data-i18n="send_whatsapp">ارسال</button>
+        <button id="download-pdf-btn" class="btn btn-success btn-sm" style="margin-bottom:10px;" data-i18n="pdf">دانلود PDF</button>
+        <button id="close-whatsapp-modal" class="btn btn-danger btn-sm" data-i18n="close">بستن</button>
     </div>
-    <div class="modal-overlay" id="modal-overlay"></div>
 
-    <!-- مودال رمز عبور برای حذف -->
-    <div class="modal" id="password-modal">
-        <h3 data-i18n="enter_password">رمز عبور را وارد کنید</h3>
-        <div class="form-group">
-            <input type="password" id="password-input" data-i18n-placeholder="password_placeholder" aria-label="رمز عبور برای تأیید حذف" />
-        </div>
-        <div class="form-grid">
-            <button type="button" id="submit-password-btn" class="btn btn-primary" data-i18n="confirm">تأیید</button>
-            <button type="button" id="cancel-password-btn" class="btn btn-danger" data-i18n="cancel">لغو</button>
-        </div>
-    </div>
-</section>
-</main>
-</div>
+    <!-- اسکریپت‌ها -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/persian-date@1.1.0/dist/persian-date.min.js"></script>
+    <script src="https://unpkg.com/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/i18next@23.15.1/dist/umd/i18next.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
 
-<!-- کتابخانه‌ها -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.10.1/build/moment-jalaali.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/i18next@23.15.2/dist/umd/i18next.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    // --- متغیرها ---
-    let attendees = [];
-    let decisions = [];
-    let contacts = JSON.parse(localStorage.getItem('contacts')) || [];
-    let sessions = JSON.parse(localStorage.getItem('sessions')) || [];
-    let currentSessionId = null;
-    const password = 'admin123';
-
-    // --- تنظیمات i18next ---
-    i18next.init({
-        lng: localStorage.getItem('language') || 'fa',
-        debug: false,
-        resources: {
-            fa: {
-                translation: {
-                    sessions: 'صورتجلسات',
-                    new_session: 'جلسه جدید',
-                    contacts: 'مخاطبین',
-                    archive: 'آرشیو',
-                    dashboard: 'Dashboard',
-                    settings: 'تنظیمات',
-                    logout: 'خروج',
-                    session_form: 'فرم ثبت صورتجلسه',
-                    session_info: 'اطلاعات جلسه',
-                    session_number: 'شماره جلسه',
-                    session_number_placeholder: 'شماره جلسه را وارد کنید',
-                    session_date: 'تاریخ',
-                    start_time: 'ساعت شروع',
-                    end_time: 'ساعت پایان',
-                    session_title: 'عنوان جلسه',
-                    session_title_placeholder: 'عنوان جلسه را وارد کنید',
-                    location: 'مکان',
-                    select_location: 'انتخاب کنید',
-                    manual_location: 'وارد کردن دستی',
-                    location_manual: 'مکان را وارد کنید',
-                    organizer: 'برگزارکننده',
-                    organizer_placeholder: 'نام برگزارکننده را وارد کنید',
-                    session_files: 'فایل‌های مرتبط',
-                    attendees: 'شرکت‌کنندگان',
-                    attendee_name: 'نام',
-                    attendee_name_placeholder: 'نام شرکت‌کننده',
-                    attendee_mobile: 'موبایل',
-                    mobile_placeholder: 'شماره موبایل (اختیاری)',
-                    add: 'افزودن',
-                    decisions: 'مصوبات',
-                    decision_text: 'مصوبه',
-                    decision_text_placeholder: 'متن مصوبه را وارد کنید',
-                    decision_responsible: 'مسئول',
-                    decision_responsible_placeholder: 'نام مسئول',
-                    decision_due_date: 'مهلت',
-                    decision_status: 'وضعیت',
-                    in_progress: 'در حال انجام',
-                    completed: 'تکمیل شده',
-                    canceled: 'لغو',
-                    notes: 'یادداشت‌ها',
-                    notes_placeholder: 'یادداشت‌های جلسه را وارد کنید',
-                    save: 'ذخیره',
-                    pdf: 'دانلود PDF',
-                    excel: 'اکسل',
-                    whatsapp: 'واتساپ',
-                    calendar: 'تقویم',
-                    share: 'اشتراک',
-                    row: 'ردیف',
-                    action: 'عملیات',
-                    add_contact: 'افزودن مخاطب جدید',
-                    contact_name: 'نام',
-                    contact_name_placeholder: 'نام مخاطب را وارد کنید',
-                    contact_mobile: 'موبایل',
-                    import_contacts: 'وارد کردن مخاطبان',
-                    contacts_list: 'لیست مخاطبان',
-                    search_contacts: 'جستجوی مخاطب',
-                    search_contacts_placeholder: 'نام یا موبایل مخاطب را جستجو کنید',
-                    add_selected: 'افزودن انتخاب‌شده‌ها به جلسه',
-                    archive_list: 'لیست جلسات',
-                    search_sessions: 'جستجوی جلسه',
-                    search_sessions_placeholder: 'شماره یا عنوان جلسه را جستجو کنید',
-                    dashboard_welcome: 'به داشبورد خوش آمدید! در حال حاضر این بخش در حال توسعه است.',
-                    general_settings: 'تنظیمات عمومی',
-                    theme: 'انتخاب تم',
-                    light_theme: 'روشن',
-                    dark_theme: 'تیره',
-                    font_family: 'فونت',
-                    theme_color: 'رنگ قالب',
-                    font_size: 'اندازه فونت',
-                    text_direction: 'جهت متن',
-                    logo_size: 'اندازه لوگو',
-                    contacts_access: 'دسترسی به مخاطبان',
-                    manage_access: 'مدیریت دسترسی',
-                    reset_settings: 'بازنشانی تنظیمات',
-                    session_settings: 'تنظیمات جلسات',
-                    default_location: 'مکان پیش‌فرض',
-                    default_organizer: 'برگزارکننده پیش‌فرض',
-                    organizer_default_placeholder: 'نام برگزارکننده پیش‌فرض را وارد کنید',
-                    auto_numbering: 'شماره‌گذاری خودکار',
-                    session_template: 'قالب پیش‌فرض جلسه',
-                    standard_template: 'استاندارد',
-                    detailed_template: 'جزئیات کامل',
-                    minimal_template: 'حداقل',
-                    save_session_settings: 'ذخیره تنظیمات جلسات',
-                    whatsapp_summary: 'خلاصه جلسه برای واتساپ',
-                    send_whatsapp: 'ارسال',
-                    close: 'بستن',
-                    enter_password: 'رمز عبور را وارد کنید',
-                    password_placeholder: 'رمز عبور',
-                    confirm: 'تأیید',
-                    cancel: 'لغو',
-                    success_save: 'جلسه با موفقیت ذخیره شد',
-                    success_contact_added: 'مخاطب با موفقیت اضافه شد',
-                    success_delete: 'با موفقیت حذف شد',
-                    error_required: 'فیلد ضروری است',
-                    error_mobile: 'شماره موبایل نامعتبر است',
-                    error_password: 'رمز عبور نادرست است',
-                    error_required_fields: 'لطفاً تمام فیلدهای ضروری را پر کنید',
-                    error_no_attendees: 'حداقل یک شرکت‌کننده اضافه کنید',
-                    session_settings_saved: 'تنظیمات جلسات با موفقیت ذخیره شد',
-                    export_success: 'فایل اکسل با موفقیت دانلود شد',
-                    login_title: 'ورود به سیستم',
-                    username: 'نام کاربری',
-                    username_placeholder: 'نام کاربری را وارد کنید',
-                    password: 'رمز عبور',
-                    login: 'ورود',
-                    login_success: 'با موفقیت وارد شدید',
-                    login_failed: 'نام کاربری یا رمز عبور نادرست است',
-                    greeting: 'سلام',
-                    company_signature: 'با تشکر، شرکت برکت',
-                    select_attendees: 'انتخاب شرکت‌کنندگان برای ارسال',
-                    error_select_attendees: 'لطفاً حداقل یک شرکت‌کننده را انتخاب کنید'
-                }
-            },
-            en: {
-                translation: {
-                    sessions: 'Meeting Minutes',
-                    new_session: 'New Session',
-                    contacts: 'Contacts',
-                    archive: 'Archive',
-                    dashboard: 'Dashboard',
-                    settings: 'Settings',
-                    logout: 'Logout',
-                    session_form: 'Session Registration Form',
-                    session_info: 'Session Information',
-                    session_number: 'Session Number',
-                    session_number_placeholder: 'Enter session number',
-                    session_date: 'Date',
-                    start_time: 'Start Time',
-                    end_time: 'End Time',
-                    session_title: 'Session Title',
-                    session_title_placeholder: 'Enter session title',
-                    location: 'Location',
-                    select_location: 'Select location',
-                    manual_location: 'Manual entry',
-                    location_manual: 'Enter location',
-                    organizer: 'Organizer',
-                    organizer_placeholder: 'Enter organizer name',
-                    session_files: 'Related Files',
-                    attendees: 'Attendees',
-                    attendee_name: 'Name',
-                    attendee_name_placeholder: 'Attendee name',
-                    attendee_mobile: 'Mobile',
-                    mobile_placeholder: 'Mobile number (optional)',
-                    add: 'Add',
-                    decisions: 'Decisions',
-                    decision_text: 'Decision',
-                    decision_text_placeholder: 'Enter decision text',
-                    decision_responsible: 'Responsible',
-                    decision_responsible_placeholder: 'Responsible name',
-                    decision_due_date: 'Due Date',
-                    decision_status: 'Status',
-                    in_progress: 'In Progress',
-                    completed: 'Completed',
-                    canceled: 'Canceled',
-                    notes: 'Notes',
-                    notes_placeholder: 'Enter session notes',
-                    save: 'Save',
-                    pdf: 'Download PDF',
-                    excel: 'Excel',
-                    whatsapp: 'WhatsApp',
-                    calendar: 'Calendar',
-                    share: 'Share',
-                    row: 'Row',
-                    action: 'Action',
-                    add_contact: 'Add New Contact',
-                    contact_name: 'Name',
-                    contact_name_placeholder: 'Enter contact name',
-                    contact_mobile: 'Mobile',
-                    import_contacts: 'Import Contacts',
-                    contacts_list: 'Contacts List',
-                    search_contacts: 'Search Contact',
-                    search_contacts_placeholder: 'Search by name or mobile',
-                    add_selected: 'Add Selected to Session',
-                    archive_list: 'Sessions List',
-                    search_sessions: 'Search Session',
-                    search_sessions_placeholder: 'Search by number or title',
-                    dashboard_welcome: 'Welcome to the Dashboard! This section is under development.',
-                    general_settings: 'General Settings',
-                    theme: 'Select Theme',
-                    light_theme: 'Light',
-                    dark_theme: 'Dark',
-                    font_family: 'Font',
-                    theme_color: 'Theme Color',
-                    font_size: 'Font Size',
-                    text_direction: 'Text Direction',
-                    logo_size: 'Logo Size',
-                    contacts_access: 'Contacts Access',
-                    manage_access: 'Manage Access',
-                    reset_settings: 'Reset Settings',
-                    session_settings: 'Session Settings',
-                    default_location: 'Default Location',
-                    default_organizer: 'Default Organizer',
-                    organizer_default_placeholder: 'Enter default organizer name',
-                    auto_numbering: 'Auto Numbering',
-                    session_template: 'Default Session Template',
-                    standard_template: 'Standard',
-                    detailed_template: 'Detailed',
-                    minimal_template: 'Minimal',
-                    save_session_settings: 'Save Session Settings',
-                    whatsapp_summary: 'Session Summary for WhatsApp',
-                    send_whatsapp: 'Send',
-                    close: 'Close',
-                    enter_password: 'Enter Password',
-                    password_placeholder: 'Password',
-                    confirm: 'Confirm',
-                    cancel: 'Cancel',
-                    success_save: 'Session saved successfully',
-                    success_contact_added: 'Contact added successfully',
-                    success_delete: 'Successfully deleted',
-                    error_required: 'Field is required',
-                    error_mobile: 'Invalid mobile number',
-                    error_password: 'Incorrect password',
-                    error_required_fields: 'Please fill in all required fields',
-                    error_no_attendees: 'Add at least one attendee',
-                    session_settings_saved: 'Session settings saved successfully',
-                    export_success: 'Excel file downloaded successfully',
-                    login_title: 'Login to System',
-                    username: 'Username',
-                    username_placeholder: 'Enter username',
-                    password: 'Password',
-                    login: 'Log In',
-                    login_success: 'Login successful',
-                    login_failed: 'Invalid username or password',
-                    greeting: 'Hello',
-                    company_signature: 'Thank you, Barakat Company',
-                    select_attendees: 'Select attendees to send',
-                    error_select_attendees: 'Please select at least one attendee'
+    <script>
+    $(function() {
+        // --- 1. i18next راه‌اندازی ---
+        i18next.init({
+            lng: 'fa',
+            debug: false,
+            resources: {
+                fa: {
+                    translation: {
+                        sessions: "صورتجلسات",
+                        new_session: "جلسه جدید",
+                        contacts: "مخاطبین",
+                        archive: "آرشیو",
+                        dashboard: "داشبورد",
+                        settings: "تنظیمات",
+                        logout: "خروج",
+                        session_form: "فرم ثبت صورتجلسه",
+                        session_info: "اطلاعات جلسه",
+                        attendees: "شرکت‌کنندگان",
+                        decisions: "مصوبات",
+                        notes: "یادداشت‌ها",
+                        save: "ذخیره",
+                        pdf: "PDF",
+                        excel: "Excel",
+                        whatsapp: "واتساپ",
+                        add_to_calendar: "افزودن به تقویم",
+                        share_session: "اشتراک‌گذاری",
+                        session_number: "شماره جلسه",
+                        session_date: "تاریخ",
+                        start_time: "ساعت شروع",
+                        end_time: "ساعت پایان",
+                        session_title: "عنوان جلسه",
+                        location: "مکان",
+                        organizer: "برگزارکننده",
+                        session_files: "فایل‌های مرتبط",
+                        attendee_name: "نام",
+                        attendee_mobile: "موبایل",
+                        decision_text: "مصوبه",
+                        decision_responsible: "مسئول",
+                        decision_due_date: "مهلت",
+                        decision_status: "وضعیت",
+                        notes_placeholder: "یادداشت‌ها...",
+                        session_number_placeholder: "مثال: ۰۱",
+                        session_title_placeholder: "عنوان",
+                        organizer_placeholder: "نام",
+                        location_manual: "مکان را وارد کنید",
+                        select_location: "انتخاب مکان",
+                        manual_location: "وارد کردن دستی",
+                        in_progress: "در حال انجام",
+                        completed: "تکمیل شده",
+                        canceled: "لغو شده",
+                        add: "افزودن",
+                        import_contacts: "وارد کردن",
+                        add_contact: "افزودن مخاطب",
+                        contacts_list: "لیست مخاطبین",
+                        search_contacts: "جستجو در مخاطبین",
+                        search_archive: "جستجو در جلسات",
+                        add_selected_attendees: "افزودن شرکت‌کنندگان انتخاب شده",
+                        row: "ردیف",
+                        action: "عمل",
+                        session_stats: "آمار جلسات",
+                        stats_coming_soon: "آمار جلسات و مصوبات به زودی اضافه خواهد شد",
+                        general_settings: "تنظیمات عمومی",
+                        theme: "انتخاب تم",
+                        light_theme: "روشن",
+                        dark_theme: "تیره",
+                        whatsapp_summary: "خلاصه جلسه برای واتساپ",
+                        send_whatsapp: "ارسال",
+                        close: "بستن",
+                        fill_required_fields: "لطفاً فیلدهای اجباری را پر کنید",
+                        add_attendee_or_decision: "لطفاً حداقل یک شرکت‌کننده یا مصوبه اضافه کنید",
+                        session_saved: "جلسه با موفقیت ذخیره شد",
+                        contacts_permission: "لطفاً دسترسی به مخاطبین را فعال کنید",
+                        contacts_error: "خطا در دسترسی به مخاطبین",
+                        hello: "سلام",
+                        thanks: "با تشکر",
+                        company_barakat: "شرکت برکت",
+                        calendar_added: "جلسه به تقویم اضافه شد",
+                        share_error: "اشتراک‌گذاری در این مرورگر پشتیبانی نمی‌شود"
+                    }
+                },
+                en: {
+                    translation: {
+                        sessions: "Sessions",
+                        new_session: "New Session",
+                        contacts: "Contacts",
+                        archive: "Archive",
+                        dashboard: "Dashboard",
+                        settings: "Settings",
+                        logout: "Logout",
+                        session_form: "Session Form",
+                        session_info: "Session Info",
+                        attendees: "Attendees",
+                        decisions: "Decisions",
+                        notes: "Notes",
+                        save: "Save",
+                        pdf: "PDF",
+                        excel: "Excel",
+                        whatsapp: "WhatsApp",
+                        add_to_calendar: "Add to Calendar",
+                        share_session: "Share Session",
+                        session_number: "Session Number",
+                        session_date: "Date",
+                        start_time: "Start Time",
+                        end_time: "End Time",
+                        session_title: "Session Title",
+                        location: "Location",
+                        organizer: "Organizer",
+                        session_files: "Related Files",
+                        attendee_name: "Name",
+                        attendee_mobile: "Mobile",
+                        decision_text: "Decision",
+                        decision_responsible: "Responsible",
+                        decision_due_date: "Due Date",
+                        decision_status: "Status",
+                        notes_placeholder: "Notes...",
+                        session_number_placeholder: "Example: 01",
+                        session_title_placeholder: "Title",
+                        organizer_placeholder: "Name",
+                        location_manual: "Enter location",
+                        select_location: "Select location",
+                        manual_location: "Manual entry",
+                        in_progress: "In Progress",
+                        completed: "Completed",
+                        canceled: "Canceled",
+                        add: "Add",
+                        import_contacts: "Import",
+                        add_contact: "Add Contact",
+                        contacts_list: "Contacts List",
+                        search_contacts: "Search Contacts",
+                        search_archive: "Search Sessions",
+                        add_selected_attendees: "Add Selected Attendees",
+                        row: "Row",
+                        action: "Action",
+                        session_stats: "Session Statistics",
+                        stats_coming_soon: "Session and decision statistics will be added soon",
+                        general_settings: "General Settings",
+                        theme: "Select Theme",
+                        light_theme: "Light",
+                        dark_theme: "Dark",
+                        whatsapp_summary: "Session Summary for WhatsApp",
+                        send_whatsapp: "Send",
+                        close: "Close",
+                        fill_required_fields: "Please fill in the required fields",
+                        add_attendee_or_decision: "Please add at least one attendee or decision",
+                        session_saved: "Session saved successfully",
+                        contacts_permission: "Please enable contacts access",
+                        contacts_error: "Error accessing contacts",
+                        hello: "Hello",
+                        thanks: "Thank you",
+                        company_barakat: "Barakat Company",
+                        calendar_added: "Session added to calendar",
+                        share_error: "Sharing is not supported in this browser"
+                    }
                 }
             }
-        }, () => {
+        }, function(err, t) {
+            updateContent();
+        });
+
+        function updateContent() {
             $('[data-i18n]').each(function() {
-                const key = $(this).data('i18n');
+                const key = $(this).attr('data-i18n');
                 $(this).text(i18next.t(key));
             });
             $('[data-i18n-placeholder]').each(function() {
-                const key = $(this).data('i18n-placeholder');
+                const key = $(this).attr('data-i18n-placeholder');
                 $(this).attr('placeholder', i18next.t(key));
             });
-        });
-
-        // --- توابع کمکی ---
-        const showToast = (message, type = 'success') => {
-            Toastify({
-                text: message,
-                duration: 3000,
-                gravity: 'bottom',
-                position: 'left',
-                backgroundColor: type === 'success' ? '#22c55e' : '#ef4444',
-                style: {
-                    fontFamily: "'Vazir', sans-serif",
-                    borderRadius: '10px',
-                    padding: '12px 20px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    fontSize: '14px'
-                }
-            }).showToast();
-        };
-
-        const validateMobile = (mobile) => {
-            const mobileRegex = /^09[0-9]{9}$/;
-            return mobileRegex.test(mobile);
-        };
-
-        const validateRequiredFields = () => {
-            let isValid = true;
-            $('.form-group.required').each(function() {
-                const input = $(this).find('input, select');
-                if (!input.val()) {
-                    $(this).addClass('error');
-                    showToast(i18next.t('error_required'), 'error');
-                    isValid = false;
-                } else {
-                    $(this).removeClass('error');
-                }
+            $('#contacts-search').attr('placeholder', i18next.t('search_contacts') + '...');
+            $('#archive-search').attr('placeholder', i18next.t('search_archive') + '...');
+            $('#decision-status option').each(function() {
+                const key = $(this).attr('data-i18n');
+                $(this).text(i18next.t(key));
             });
+        }
 
-            const mobileInputs = $('#attendees-table tbody tr').find('td:nth-child(3)').map(function() {
-                return $(this).text();
-            }).get();
-
-            mobileInputs.forEach(mobile => {
-                if (mobile && !validateMobile(mobile)) {
-                    showToast(i18next.t('error_mobile'), 'error');
-                    isValid = false;
-                }
-            });
-
-            return isValid;
-        };
-
-        const updateAttendeesTable = () => {
-            const tbody = $('#attendees-table tbody');
-            tbody.empty();
-            attendees.forEach((attendee, index) => {
-                const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${attendee.name}</td>
-                        <td>${attendee.mobile}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm delete-attendee" data-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                tbody.append(row);
-            });
-        };
-
-        const updateDecisionsTable = () => {
-            const tbody = $('#decisions-table tbody');
-            tbody.empty();
-            decisions.forEach((decision, index) => {
-                const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${decision.text}</td>
-                        <td>${decision.responsible}</td>
-                        <td>${decision.dueDate}</td>
-                        <td>${i18next.t(decision.status)}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm delete-decision" data-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                tbody.append(row);
-            });
-        };
-
-        const updateContactsTable = () => {
-            const tbody = $('#contacts-table tbody');
-            tbody.empty();
-            contacts.forEach((contact, index) => {
-                const row = `
-                    <tr>
-                        <td><input type="checkbox" class="contact-checkbox" data-index="${index}"></td>
-                        <td>${index + 1}</td>
-                        <td>${contact.name}</td>
-                        <td>${contact.mobile}</td>
-                        <td>
-                            <button class="btn btn-danger btn-sm delete-contact" data-index="${index}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                tbody.append(row);
-            });
-        };
-
-        const updateArchiveTable = () => {
-            const tbody = $('#archive-table tbody');
-            tbody.empty();
-            sessions.forEach((session, index) => {
-                const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${session.number}</td>
-                        <td>${session.title}</td>
-                        <td>${session.date}</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm view-session" data-id="${session.id}">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="btn btn-danger btn-sm delete-session" data-id="${session.id}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-                tbody.append(row);
-            });
-        };
-
-        const generateSessionSummary = (attendeeName = '') => {
-            const session = {
-                number: $('#session-number').val(),
-                date: $('#session-date').val(),
-                startTime: $('#start-time').val(),
-                endTime: $('#end-time').val(),
-                title: $('#session-title').val(),
-                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
-                organizer: $('#organizer').val(),
-                attendees: attendees,
-                decisions: decisions,
-                notes: $('#notes').val()
-            };
-
-            let summary = attendeeName ? `${i18next.t('greeting')} ${attendeeName}،\n` : '';
-            summary += `${i18next.t('session_number')}: ${session.number}\n`;
-            summary += `${i18next.t('session_date')}: ${session.date}\n`;
-            summary += `${i18next.t('start_time')}: ${session.startTime}\n`;
-            if (session.endTime) summary += `${i18next.t('end_time')}: ${session.endTime}\n`;
-            summary += `${i18next.t('session_title')}: ${session.title}\n`;
-            summary += `${i18next.t('location')}: ${session.location}\n`;
-            summary += `${i18next.t('organizer')}: ${session.organizer}\n\n`;
-
-            if (session.attendees.length) {
-                summary += `${i18next.t('attendees')}:\n`;
-                session.attendees.forEach((a, i) => {
-                    summary += `${i + 1}. ${a.name} (${a.mobile})\n`;
-                });
-                summary += '\n';
-            }
-
-            if (session.decisions.length) {
-                summary += `${i18next.t('decisions')}:\n`;
-                session.decisions.forEach((d, i) => {
-                    summary += `${i + 1}. ${d.text} (${i18next.t('decision_responsible')}: ${d.responsible}, ${i18next.t('decision_due_date')}: ${d.dueDate}, ${i18next.t('decision_status')}: ${i18next.t(d.status)})\n`;
-                });
-                summary += '\n';
-            }
-
-            if (session.notes) {
-                summary += `${i18next.t('notes')}:\n${session.notes}\n`;
-            }
-
-            summary += `\n${i18next.t('company_signature')}`;
-            return summary;
-        };
-
-        const saveSession = () => {
-            if (!validateRequiredFields()) return;
-
-            const session = {
-                id: currentSessionId || Date.now(),
-                number: $('#session-number').val(),
-                date: $('#session-date').val(),
-                startTime: $('#start-time').val(),
-                endTime: $('#end-time').val(),
-                title: $('#session-title').val(),
-                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
-                organizer: $('#organizer').val(),
-                files: $('#session-files')[0].files.length ? Array.from($('#session-files')[0].files).map(f => f.name) : [],
-                attendees: attendees,
-                decisions: decisions,
-                notes: $('#notes').val()
-            };
-
-            const index = sessions.findIndex(s => s.id === currentSessionId);
-            if (index !== -1) {
-                sessions[index] = session;
-            } else {
-                sessions.push(session);
-            }
-
-            localStorage.setItem('sessions', JSON.stringify(sessions));
-            showToast(i18next.t('success_save'));
-            updateArchiveTable();
-            resetForm();
-        };
-
-        const resetForm = () => {
-            $('#session-number, #session-date, #start-time, #end-time, #session-title, #organizer, #notes').val('');
-            $('#location').val('');
-            $('#location-manual').hide().val('');
-            $('#session-files').val('');
-            attendees = [];
-            decisions = [];
-            currentSessionId = null;
-            updateAttendeesTable();
-            updateDecisionsTable();
-            updateWhatsAppButtonState();
-        };
-
-        const loadSession = (id) => {
-            const session = sessions.find(s => s.id === id);
-            if (!session) return;
-
-            currentSessionId = session.id;
-            $('#session-number').val(session.number);
-            $('#session-date').val(session.date);
-            $('#start-time').val(session.startTime);
-            $('#end-time').val(session.endTime);
-            $('#session-title').val(session.title);
-            if (session.location && !$('#location').find(`option[value="${session.location}"]`).length) {
-                $('#location').val('manual');
-                $('#location-manual').show().val(session.location);
-            } else {
-                $('#location').val(session.location);
-            }
-            $('#organizer').val(session.organizer);
-            $('#notes').val(session.notes);
-            attendees = session.attendees || [];
-            decisions = session.decisions || [];
-            updateAttendeesTable();
-            updateDecisionsTable();
-
-            $('#session-view').show();
-            $('#contacts-view, #archive-view, #dashboard-view, #settings-view').hide();
-            $('.sidebar nav a, .bottom-nav a').removeClass('active');
-            $('#nav-session, #nav-session-mobile').addClass('active');
-        };
-
-        const exportToExcel = () => {
-            const session = {
-                number: $('#session-number').val(),
-                date: $('#session-date').val(),
-                startTime: $('#start-time').val(),
-                endTime: $('#end-time').val(),
-                title: $('#session-title').val(),
-                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
-                organizer: $('#organizer').val(),
-                attendees: attendees,
-                decisions: decisions,
-                notes: $('#notes').val()
-            };
-
-            const wb = XLSX.utils.book_new();
-            const attendeesSheet = XLSX.utils.json_to_sheet(session.attendees.map((a, i) => ({
-                'ردیف': i + 1,
-                'نام': a.name,
-                'موبایل': a.mobile
-            })));
-            XLSX.utils.book_append_sheet(wb, attendeesSheet, i18next.t('attendees'));
-
-            const decisionsSheet = XLSX.utils.json_to_sheet(session.decisions.map((d, i) => ({
-                'ردیف': i + 1,
-                'مصوبه': d.text,
-                'مسئول': d.responsible,
-                'مهلت': d.dueDate,
-                'وضعیت': i18next.t(d.status)
-            })));
-            XLSX.utils.book_append_sheet(wb, decisionsSheet, i18next.t('decisions'));
-
-            const fileName = `Session_${session.number}_${session.date}.xlsx`;
-            XLSX.write(wb, fileName);
-            showToast(i18next.t('export_success'));
-        };
-
-        const generatePDF = () => {
-            const session = {
-                number: $('#session-number').val(),
-                date: $('#session-date').val(),
-                startTime: $('#start-time').val(),
-                endTime: $('#end-time').val(),
-                title: $('#session-title').val(),
-                location: $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val(),
-                organizer: $('#organizer').val(),
-                attendees: attendees,
-                decisions: decisions,
-                notes: $('#notes').val()
-            };
-
-            const header = `
-                <div style="text-align: center; padding: 10px; border-bottom: 2px solid #7c3aed;">
-                    <img src="https://uploadkon.ir/uploads/7c1210_251000034822-removebg-preview.png" alt="لوگو شرکت برکت" style="width: 80px; height: 80px;">
-                    <h1 style="font-size: 20px; color: #7c3aed;">صورتجلسه</h1>
-                    <p style="font-size: 14px;">موضوع: ${session.title}</p>
-                    <p style="font-size: 12px;">تاریخ: ${session.date} | ساعت شروع: ${session.startTime}${session.endTime ? ` | ساعت پایان: ${session.endTime}` : ''}</p>
-                </div>
-            `;
-
-            const footer = `
-                <div style="text-align: center; padding: 10px; border-top: 1px solid #7c3aed; font-size: 12px; position: fixed; bottom: 0; width: 100%;">
-                    <p>شرکت برکت | صفحه <span class="pageNumber"></span> از <span class="totalPages"></span></p>
-                </div>
-            `;
-
-            const content = `
-                <div style="font-family: 'Vazir', sans-serif; direction: rtl; text-align: right; padding: 20px;">
-                    ${header}
-                    <div style="margin-top: 20px;">
-                        <h2 style="color: #7c3aed;">${i18next.t('session_info')}</h2>
-                        <p><strong>${i18next.t('session_number')}:</strong> ${session.number}</p>
-                        <p><strong>${i18next.t('location')}:</strong> ${session.location}</p>
-                        <p><strong>${i18next.t('organizer')}:</strong> ${session.organizer}</p>
-                        ${session.attendees.length ? `
-                            <h2 style="color: #7c3aed;">${i18next.t('attendees')}</h2>
-                            <ul>${session.attendees.map((a, i) => `<li>${i + 1}. ${a.name} (${a.mobile})</li>`).join('')}</ul>
-                        ` : ''}
-                        ${session.decisions.length ? `
-                            <h2 style="color: #7c3aed;">${i18next.t('decisions')}</h2>
-                            <ul>${session.decisions.map((d, i) => `<li>${i + 1}. ${d.text} (${i18next.t('decision_responsible')}: ${d.responsible}, ${i18next.t('decision_due_date')}: ${d.dueDate}, ${i18next.t('decision_status')}: ${i18next.t(d.status)})</li>`).join('')}</ul>
-                        ` : ''}
-                        ${session.notes ? `
-                            <h2 style="color: #7c3aed;">${i18next.t('notes')}</h2>
-                            <p>${session.notes}</p>
-                        ` : ''}
-                    </div>
-                    ${footer}
-                </div>
-            `;
-
-            const element = document.createElement('div');
-            element.innerHTML = content;
-            html2pdf().from(element).set({
-                margin: [1, 1, 1, 1],
-                filename: `Session_${session.number}.pdf`,
-                html2canvas: { scale: 2 },
-                jsPDF: { orientation: 'portrait', unit: 'in', format: 'letter', compressPDF: true },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-            }).save();
-        };
-
-        const openWhatsAppModal = () => {
-            if (!attendees.length) {
-                showToast(i18next.t('error_no_attendees'), 'error');
-                return;
-            }
-            const checkboxes = attendees.map((a, i) => `
-                <label><input type="checkbox" class="attendee-checkbox" data-index="${i}" checked> ${a.name} (${a.mobile})</label>
-            `).join('');
-            $('#attendees-checkboxes').html(checkboxes);
-            const summary = generateSessionSummary();
-            $('#whatsapp_summary-text').val(summary);
-            $('#whatsapp-modal, #modal-overlay').addClass('active');
-        };
-
-        const updateWhatsAppButtonState = () => {
-            const isValid = validateRequiredFields() && attendees.length > 0;
-            if (isValid) {
-                $('#whatsapp-button').removeClass('disabled').prop('disabled', false);
-            } else {
-                $('#whatsapp-button').addClass('disabled').prop('disabled', true);
-            }
-        };
-
-        const saveSessionSettings = () => {
-            const sessionSettings = {
-                defaultLocation: $('#default-location').val(),
-                defaultOrganizer: $('#default-organizer').val(),
-                autoNumbering: $('#auto-numbering').is(':checked'),
-                sessionTemplate: $('#session-template').val()
-            };
-
-            localStorage.setItem('sessionSettings', JSON.stringify(sessionSettings));
-            showToast(i18next.t('session_settings_saved'));
-        };
-
-        const loadSessionSettings = () => {
-            const sessionSettings = JSON.parse(localStorage.getItem('sessionSettings')) || {};
-            $('#default-location').val(sessionSettings.defaultLocation || '');
-            $('#default-organizer').val(sessionSettings.defaultOrganizer || '');
-            $('#auto-numbering').prop('checked', sessionSettings.autoNumbering || false);
-            $('#session-template').val(sessionSettings.sessionTemplate || 'standard');
-        };
-
-        const applySessionSettings = () => {
-            const sessionSettings = JSON.parse(localStorage.getItem('sessionSettings')) || {};
-            if (sessionSettings.defaultLocation) {
-                $('#location').val(sessionSettings.defaultLocation);
-            }
-            if (sessionSettings.defaultOrganizer) {
-                $('#organizer').val(sessionSettings.defaultOrganizer);
-            }
-            if (sessionSettings.autoNumbering) {
-                const lastSession = sessions[sessions.length - 1];
-                const lastNumber = lastSession ? parseInt(lastSession.number) || 0 : 0;
-                $('#session-number').val(lastNumber + 1);
-            }
-        };
-
-        const handleLogin = () => {
-            const username = $('#username').val().trim();
-            const passwordInput = $('#password').val().trim();
-            if (username === 'admin' && passwordInput === 'admin123') {
-                localStorage.setItem('isLoggedIn', 'true');
-                $('#login-view').hide();
-                $('#main-content').show();
-                showToast(i18next.t('login_success'));
-            } else {
-                showToast(i18next.t('login_failed'), 'error');
-                $('#password').val('');
-            }
-        };
-
-        // --- Event Listeners ---
-        $('#login-btn').on('click', handleLogin);
-
-        // Handle login with Enter key
-        $('#username, #password').on('keypress', function(e) {
-            if (e.key === 'Enter') {
-                handleLogin();
-            }
-        });
-
-        $('#language-toggle').on('click', () => {
+        $('#language-toggle').on('click', function() {
             const newLang = i18next.language === 'fa' ? 'en' : 'fa';
             i18next.changeLanguage(newLang, () => {
+                updateContent();
                 $('#lang-display').text(newLang);
-                localStorage.setItem('language', newLang);
-                $('[data-i18n]').each(function() {
-                    const key = $(this).data('i18n');
-                    $(this).text(i18next.t(key));
-                });
-                $('[data-i18n-placeholder]').each(function() {
-                    const key = $(this).data('i18n-placeholder');
-                    $(this).attr('placeholder', i18next.t(key));
-                });
-                updateAttendeesTable();
-                updateDecisionsTable();
-                updateContactsTable();
-                updateArchiveTable();
+                $('body').attr('dir', newLang === 'fa' ? 'rtl' : 'ltr');
+                $('body').css('text-align', newLang === 'fa' ? 'right' : 'left');
             });
         });
 
-        $('.form-section-header').on('click keypress', function(e) {
-            if (e.type === 'keypress' && e.key !== 'Enter') return;
-            const content = $(this).next('.form-section-content');
-            const icon = $(this).find('.accordion-icon');
-            const isExpanded = content.hasClass('active');
-
-            $('.form-section-content').removeClass('active').attr('aria-hidden', 'true');
-            $('.accordion-icon').removeClass('rotate-down').css('transform', '');
-            $('.form-section-header').attr('aria-expanded', 'false');
-
-            if (!isExpanded) {
-                content.addClass('active').attr('aria-hidden', 'false');
-                icon.addClass('rotate-down').css('transform', 'rotate(180deg)');
-                $(this).attr('aria-expanded', 'true');
+        // --- 2. Persian Datepicker راه‌اندازی ---
+        $('.pdp').persianDatepicker({
+            format: 'YYYY/MM/DD',
+            autoClose: true,
+            initialValueType: 'persian',
+            calendarType: 'persian',
+            timeZone: 'Asia/Tehran',
+            onSelect: function(unix) {
+                const date = new persianDate(unix).toLocale('fa').format('YYYY/MM/DD');
+                $(this).val(date);
+                console.log('Selected Persian Date:', date);
             }
         });
 
-        $('#session-date, #decision-date').each(function() {
-            $(this).datepicker({
-                dateFormat: 'yy/mm/dd',
-                changeMonth: true,
-                changeYear: true,
-                showButtonPanel: true,
-                beforeShow: function(input, inst) {
-                    inst.dpDiv.css({
-                        fontFamily: "'Vazir', sans-serif",
-                        fontSize: '14px',
-                        direction: 'rtl'
-                    });
-                },
-                onSelect: function(dateText) {
-                    const jalaliDate = moment(dateText, 'YYYY/MM/DD').format('jYYYY/jMM/jDD');
-                    $(this).val(jalaliDate);
+        // --- 3. آکاردئون ---
+        $('.form-section-header').on('click keypress', function(e) {
+            if (e.type === "click" || e.key === "Enter" || e.key === " ") {
+                const header = $(this);
+                const content = header.next('.form-section-content');
+                const icon = header.find('i').first();
+
+                $('.form-section-content').not(content).removeClass('active').attr('aria-hidden', 'true');
+                $('.form-section-header').not(header).attr('aria-expanded', 'false');
+                $('.form-section-header i').not(icon).removeClass('rotate-down fa-chevron-left').addClass('fa-chevron-right');
+
+                if (content.hasClass('active')) {
+                    content.removeClass('active').attr('aria-hidden', 'true');
+                    header.attr('aria-expanded', 'false');
+                    icon.removeClass('rotate-down fa-chevron-left').addClass('fa-chevron-right');
+                } else {
+                    content.addClass('active').attr('aria-hidden', 'false');
+                    header.attr('aria-expanded', 'true');
+                    icon.addClass('rotate-down fa-chevron-left').removeClass('fa-chevron-right');
                 }
-            });
+            }
         });
 
+        // --- 4. ناوبری بین بخش‌ها ---
+        function showView(viewId) {
+            $('.form-container').hide();
+            $(`#${viewId}`).show();
+        }
+
+        $('#nav-session, #nav-session-mobile').on('click', e => {
+            e.preventDefault();
+            showView('session-view');
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-session, #nav-session-mobile').addClass('active');
+        });
+
+        $('#nav-contacts, #nav-contacts-mobile').on('click', e => {
+            e.preventDefault();
+            showView('contacts-view');
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-contacts, #nav-contacts-mobile').addClass('active');
+        });
+
+        $('#nav-archive, #nav-archive-mobile').on('click', e => {
+            e.preventDefault();
+            showView('archive-view');
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-archive, #nav-archive-mobile').addClass('active');
+            renderArchive();
+        });
+
+        $('#nav-dashboard, #nav-dashboard-mobile').on('click', e => {
+            e.preventDefault();
+            showView('dashboard-view');
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-dashboard, #nav-dashboard-mobile').addClass('active');
+        });
+
+        $('#nav-settings, #nav-settings-mobile').on('click', e => {
+            e.preventDefault();
+            showView('settings-view');
+            $('.sidebar nav a, .bottom-nav a').removeClass('active');
+            $('#nav-settings, #nav-settings-mobile').addClass('active');
+        });
+
+        $('#nav-logout, #nav-logout-mobile').on('click', e => {
+            e.preventDefault();
+            localStorage.removeItem('sessions');
+            localStorage.removeItem('contacts');
+            Toastify({
+                text: i18next.t('logout') + " با موفقیت انجام شد.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#22c55e"
+            }).showToast();
+            window.location.href = '/login';
+        });
+
+        // --- 5. انتخاب مکان دستی ---
         $('#location').on('change', function() {
             if ($(this).val() === 'manual') {
                 $('#location-manual').show().focus();
             } else {
-                $('#location-manual').hide().val('');
+                $('#location-manual').hide();
             }
         });
+
+        // --- 6. افزودن شرکت‌کننده ---
+        let attendees = [];
+
+        function renderAttendees() {
+            const tbody = $('#attendees-table tbody');
+            tbody.empty();
+            attendees.forEach((a, i) => {
+                tbody.append(`
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${a.name}</td>
+                        <td>${a.mobile}</td>
+                        <td><button class="btn btn-danger btn-sm delete-attendee" data-index="${i}" aria-label="حذف شرکت‌کننده"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `);
+            });
+        }
 
         $('#add-attendee').on('click', () => {
             const name = $('#attendee-name').val().trim();
-            const mobile = $('#attendee-mobile').val();
-
-            if (!name) {
-                $('#attendee-name').parent().addClass('error');
-                showToast(i18next.t('error_required'), 'error');
-                return;
+            const mobile = $('#attendee-mobile').val().trim();
+            if (name && mobile) {
+                attendees.push({ name, mobile });
+                renderAttendees();
+                $('#attendee-name, #attendee-mobile').val('');
+            } else {
+                Toastify({
+                    text: i18next.t('attendee_name') + " و " + i18next.t('attendee_mobile') + " را وارد کنید.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ef4444"
+                }).showToast();
             }
-
-            if (mobile && !validateMobile(mobile)) {
-                $('#attendee-mobile').parent().addClass('error');
-                showToast(i18next.t('error_mobile'), 'error');
-                return;
-            }
-
-            $('#attendee-name, #attendee-mobile').parent().removeClass('error');
-            attendees.push({ name, mobile });
-            updateAttendeesTable();
-            $('#attendee-name, #attendee-mobile').val('');
-            updateWhatsAppButtonState();
         });
 
-        $(document).on('click', '.delete-attendee', function() {
-            const index = $(this).data('index');
-            attendees.splice(index, 1);
-            updateAttendeesTable();
-            updateWhatsAppButtonState();
+        $('#attendees-table').on('click', '.delete-attendee', function() {
+            const idx = $(this).data('index');
+            attendees.splice(idx, 1);
+            renderAttendees();
         });
+
+        // --- 7. مدیریت مخاطبین ---
+        let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+
+        function renderContacts() {
+            const tbody = $('#contacts-table tbody');
+            tbody.empty();
+            contacts.forEach((c, i) => {
+                tbody.append(`
+                    <tr>
+                        <td><input type="checkbox" class="contact-checkbox" data-index="${i}" data-name="${c.name}" data-mobile="${c.mobile}" aria-label="انتخاب مخاطب ${c.name}" /></td>
+                        <td>${i + 1}</td>
+                        <td>${c.name}</td>
+                        <td>${c.mobile}</td>
+                        <td><button class="btn btn-danger btn-sm delete-contact" data-index="${i}" aria-label="حذف مخاطب"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `);
+            });
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+        }
+
+        $('#add-contact').on('click', () => {
+            const name = $('#contact-name').val().trim();
+            const mobile = $('#contact-mobile').val().trim();
+            if (name && mobile) {
+                if (!contacts.some(c => c.name === name && c.mobile === mobile)) {
+                    contacts.push({ name, mobile });
+                    renderContacts();
+                    $('#contact-name, #contact-mobile').val('');
+                    Toastify({
+                        text: i18next.t('add_contact') + " با موفقیت انجام شد.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#22c55e"
+                    }).showToast();
+                } else {
+                    Toastify({
+                        text: "این مخاطب قبلاً اضافه شده است.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#ef4444"
+                    }).showToast();
+                }
+            } else {
+                Toastify({
+                    text: i18next.t('attendee_name') + " و " + i18next.t('attendee_mobile') + " را وارد کنید.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ef4444"
+                }).showToast();
+            }
+        });
+
+        $('#contacts-table').on('click', '.delete-contact', function() {
+            const idx = $(this).data('index');
+            contacts.splice(idx, 1);
+            renderContacts();
+        });
+
+        $('#select-all-contacts').on('change', function() {
+            $('.contact-checkbox').prop('checked', $(this).prop('checked'));
+        });
+
+        $('#contacts-search').on('input', function() {
+            const val = $(this).val().toLowerCase();
+            $('#contacts-table tbody tr').each(function() {
+                const name = $(this).find('td:nth-child(3)').text().toLowerCase();
+                const mobile = $(this).find('td:nth-child(4)').text().toLowerCase();
+                if (name.includes(val) || mobile.includes(val)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        $('#add-selected-attendees').on('click', () => {
+            $('.contact-checkbox:checked').each(function() {
+                const name = $(this).data('name');
+                const mobile = $(this).data('mobile');
+                if (!attendees.some(a => a.name === name && a.mobile === mobile)) {
+                    attendees.push({ name, mobile });
+                }
+            });
+            renderAttendees();
+            Toastify({
+                text: i18next.t('add_selected_attendees') + " با موفقیت انجام شد.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#22c55e"
+            }).showToast();
+        });
+
+        // --- 8. وارد کردن مخاطبین با Contacts API ---
+        $('#import-contacts').on('click', async () => {
+            if ('contacts' in navigator && 'ContactsManager' in window) {
+                try {
+                    const permission = await navigator.permissions.query({ name: 'contacts' });
+                    if (permission.state !== 'granted') {
+                        Toastify({
+                            text: i18next.t('contacts_permission'),
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            backgroundColor: "#ef4444"
+                        }).showToast();
+                        return;
+                    }
+                    const props = ['name', 'tel'];
+                    const opts = { multiple: true };
+                    const selectedContacts = await navigator.contacts.select(props, opts);
+                    selectedContacts.forEach(c => {
+                        const name = (c.name && c.name[0]) || '';
+                        const mobile = (c.tel && c.tel[0]) || '';
+                        if (name && mobile && !contacts.some(ct => ct.name === name && ct.mobile === mobile)) {
+                            contacts.push({ name, mobile });
+                        }
+                    });
+                    renderContacts();
+                    Toastify({
+                        text: i18next.t('import_contacts') + " با موفقیت انجام شد.",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#22c55e"
+                    }).showToast();
+                } catch (e) {
+                    console.error(e);
+                    Toastify({
+                        text: i18next.t('contacts_error'),
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#ef4444"
+                    }).showToast();
+                }
+            } else {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                            const text = event.target.result;
+                            const lines = text.split('\n');
+                            lines.forEach(line => {
+                                const [name, mobile] = line.split(',');
+                                if (name && mobile && !contacts.some(ct => ct.name === name && ct.mobile === mobile)) {
+                                    contacts.push({ name, mobile });
+                                }
+                            });
+                            renderContacts();
+                            Toastify({
+                                text: i18next.t('import_contacts') + " از فایل CSV انجام شد.",
+                                duration: 3000,
+                                gravity: "top",
+                                position: "center",
+                                backgroundColor: "#22c55e"
+                            }).showToast();
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+        });
+
+        // --- 9. افزودن مصوبه ---
+        let decisions = [];
+
+        function renderDecisions() {
+            const tbody = $('#decisions-table tbody');
+            tbody.empty();
+            decisions.forEach((d, i) => {
+                tbody.append(`
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${d.text}</td>
+                        <td>${d.responsible}</td>
+                        <td>${d.dueDate}</td>
+                        <td>${d.status}</td>
+                        <td><button class="btn btn-danger btn-sm delete-decision" data-index="${i}" aria-label="حذف مصوبه"><i class="fas fa-trash"></i></button></td>
+                    </tr>
+                `);
+            });
+        }
 
         $('#add-decision').on('click', () => {
             const text = $('#decision-text').val().trim();
             const responsible = $('#decision-responsible').val().trim();
-            const dueDate = $('#decision-date').val();
+            const dueDate = $('#decision-due-date').val().trim();
             const status = $('#decision-status').val();
 
-            if (!text) {
-                $('#decision-text').parent().addClass('error');
-                showToast(i18next.t('error_required'), 'error');
-                return;
+            if (text && responsible) {
+                decisions.push({ text, responsible, dueDate, status });
+                renderDecisions();
+                $('#decision-text, #decision-responsible, #decision-due-date').val('');
+                $('#decision-status').val('در حال انجام');
+            } else {
+                Toastify({
+                    text: i18next.t('decision_text') + " و " + i18next.t('decision_responsible') + " را وارد کنید.",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ef4444"
+                }).showToast();
+            }
+        });
+
+        $('#decisions-table').on('click', '.delete-decision', function() {
+            const idx = $(this).data('index');
+            decisions.splice(idx, 1);
+            renderDecisions();
+        });
+
+        // --- 10. اعتبارسنجی فرم ---
+        function openSection(id) {
+            const header = $(`#section-${id} .form-section-header`);
+            const content = $(`#section-${id} .form-section-content`);
+            if (!content.hasClass('active')) {
+                $('.form-section-content').removeClass('active').attr('aria-hidden', 'true');
+                $('.form-section-header').attr('aria-expanded', 'false');
+                $('.form-section-header i').removeClass('rotate-down fa-chevron-left').addClass('fa-chevron-right');
+                content.addClass('active').attr('aria-hidden', 'false');
+                header.attr('aria-expanded', 'true');
+                const icon = header.find('i').first();
+                icon.addClass('rotate-down fa-chevron-left').removeClass('fa-chevron-right');
+            }
+        }
+
+        function validateForm() {
+            const requiredFields = [
+                { id: 'session-number', section: 'session-info', label: i18next.t('session_number') },
+                { id: 'session-date', section: 'session-info', label: i18next.t('session_date') },
+                { id: 'start-time', section: 'session-info', label: i18next.t('start_time') },
+                { id: 'session-title', section: 'session-info', label: i18next.t('session_title') },
+                { id: 'location', section: 'session-info', label: i18next.t('location') },
+                { id: 'organizer', section: 'session-info', label: i18next.t('organizer') }
+            ];
+            for (let f of requiredFields) {
+                const val = $(`#${f.id}`).val().trim();
+                if (!val || (f.id === 'location' && val === '')) {
+                    openSection(f.section);
+                    $(`#${f.id}`).focus();
+                    Toastify({
+                        text: i18next.t('fill_required_fields') + ": " + f.label,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: "#ef4444"
+                    }).showToast();
+                    return false;
+                }
+            }
+            if ($('#location').val() === 'manual' && !$('#location-manual').val().trim()) {
+                openSection('session-info');
+                $('#location-manual').focus();
+                Toastify({
+                    text: i18next.t('fill_required_fields') + ": " + i18next.t('location_manual'),
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ef4444"
+                }).showToast();
+                return false;
+            }
+            return true;
+        }
+
+        function validateShare() {
+            if (!validateForm()) return false;
+            if (attendees.length === 0 && decisions.length === 0) {
+                Toastify({
+                    text: i18next.t('add_attendee_or_decision'),
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#ef4444"
+                }).showToast();
+                return false;
+            }
+            return true;
+        }
+
+        // --- 11. ذخیره جلسه ---
+        let sessions = JSON.parse(localStorage.getItem('sessions') || '[]');
+
+        function getLastSessionNumber() {
+            if (sessions.length === 0) return '01';
+            const maxNum = Math.max(...sessions.map(s => parseInt(s.number, 10) || 0));
+            return String(maxNum + 1).padStart(2, '0');
+        }
+
+        $('#session-number').val(getLastSessionNumber());
+
+        $('#save-button').on('click', () => {
+            if (!validateForm()) return;
+
+            const number = $('#session-number').val().trim();
+            const date = $('#session-date').val().trim();
+            const startTime = $('#start-time').val().trim();
+            const endTime = $('#end-time').val().trim();
+            const title = $('#session-title').val().trim();
+            let location = $('#location').val();
+            if (location === 'manual') location = $('#location-manual').val().trim();
+            const organizer = $('#organizer').val().trim();
+            const notes = $('#notes').val().trim();
+            const files = $('#session-files')[0].files;
+
+            const existingIndex = sessions.findIndex(s => s.number === number);
+            const sessionData = {
+                number, date, startTime, endTime, title, location, organizer, notes,
+                attendees: [...attendees],
+                decisions: [...decisions],
+                files: Array.from(files).map(f => f.name)
+            };
+
+            if (existingIndex >= 0) {
+                sessions[existingIndex] = sessionData;
+            } else {
+                sessions.push(sessionData);
             }
 
-            $('#decision-text').parent().removeClass('error');
-decisions.push({ text, responsible, dueDate, status });
-updateDecisionsTable();
-$('#decision-text, #decision-responsible, #decision-date').val('');
-$('#decision-status').val('in_progress');
+            localStorage.setItem('sessions', JSON.stringify(sessions));
+            Toastify({
+                text: i18next.t('session_saved'),
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#22c55e"
+            }).showToast();
+
+            $('#session-number').val(getLastSessionNumber());
+            attendees = [];
+            decisions = [];
+            renderAttendees();
+            renderDecisions();
+            $('#session-date, #start-time, #end-time, #session-title, #location, #location-manual, #organizer, #notes, #session-files').val('');
+            $('#location').val('');
+        });
+
+        // --- 12. مدیریت آرشیو ---
+        function renderArchive() {
+            const tbody = $('#archive-table tbody');
+            tbody.empty();
+            sessions.forEach((s, i) => {
+                tbody.append(`
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${s.number}</td>
+                        <td>${s.title}</td>
+                        <td>${s.date}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm delete-session" data-index="${i}" aria-label="حذف جلسه"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `);
+            });
+        }
+
+        $('#archive-search').on('input', function() {
+    const val = $(this).val().toLowerCase();
+    $('#archive-table tbody tr').each(function() {
+        const number = $(this).find('td:nth-child(2)').text().toLowerCase();
+        const title = $(this).find('td:nth-child(3)').text().toLowerCase();
+        const date = $(this).find('td:nth-child(4)').text().toLowerCase();
+        if (number.includes(val) || title.includes(val) || date.includes(val)) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
 });
 
-$(document).on('click', '.delete-decision', function() {
-const index = $(this).data('index');
-decisions.splice(index, 1);
-updateDecisionsTable();
+// --- 13. حذف جلسه از آرشیو ---
+$('#archive-table').on('click', '.delete-session', function() {
+    const idx = $(this).data('index');
+    sessions.splice(idx, 1);
+    localStorage.setItem('sessions', JSON.stringify(sessions));
+    renderArchive();
+    Toastify({
+        text: "جلسه با موفقیت حذف شد.",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#ef4444"
+    }).showToast();
 });
 
-$('#save-button').on('click', saveSession);
+// --- 14. دانلود PDF ---
+function generatePDF() {
+    if (!validateShare()) return;
+
+    const number = $('#session-number').val().trim();
+    const date = $('#session-date').val().trim();
+    const startTime = $('#start-time').val().trim();
+    const endTime = $('#end-time').val().trim();
+    const title = $('#session-title').val().trim();
+    let location = $('#location').val();
+    if (location === 'manual') location = $('#location-manual').val().trim();
+    const organizer = $('#organizer').val().trim();
+    const notes = $('#notes').val().trim();
+
+    const element = document.createElement('div');
+    element.style.padding = '20px';
+    element.style.fontFamily = "'Vazir', sans-serif";
+    element.style.direction = 'rtl';
+    element.style.textAlign = 'right';
+    element.innerHTML = `
+        <h2 style="text-align: center; color: #7c3aed;">صورتجلسه شماره ${number}</h2>
+        <p><strong>عنوان:</strong> ${title}</p>
+        <p><strong>تاریخ:</strong> ${date}</p>
+        <p><strong>ساعت شروع:</strong> ${startTime} | <strong>ساعت پایان:</strong> ${endTime || '-'}</p>
+        <p><strong>مکان:</strong> ${location}</p>
+        <p><strong>برگزارکننده:</strong> ${organizer}</p>
+        <h3 style="color: #7c3aed;">شرکت‌کنندگان:</h3>
+        <ul>
+            ${attendees.map(a => `<li>${a.name} (${a.mobile})</li>`).join('')}
+        </ul>
+        <h3 style="color: #7c3aed;">مصوبات:</h3>
+        <ul>
+            ${decisions.map(d => `<li>${d.text} - مسئول: ${d.responsible}, مهلت: ${d.dueDate || '-'}, وضعیت: ${d.status}</li>`).join('')}
+        </ul>
+        <h3 style="color: #7c3aed;">یادداشت‌ها:</h3>
+        <p>${notes || '-'}</p>
+    `;
+
+    html2pdf()
+        .set({
+            margin: 10,
+            filename: `session_${number}.pdf`,
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        })
+        .from(element)
+        .save();
+}
 
 $('#print-button').on('click', generatePDF);
+$('#download-pdf-btn').on('click', generatePDF);
 
-$('#export-button').on('click', exportToExcel);
+// --- 15. دانلود Excel ---
+$('#export-button').on('click', () => {
+    if (!validateShare()) return;
 
-$('#whatsapp-button').on('click', () => {
-if (validateRequiredFields()) {
-openWhatsAppModal();
-} else {
-showToast(i18next.t('error_required_fields'), 'error');
-}
+    const number = $('#session-number').val().trim();
+    const date = $('#session-date').val().trim();
+    const startTime = $('#start-time').val().trim();
+    const endTime = $('#end-time').val().trim();
+    const title = $('#session-title').val().trim();
+    let location = $('#location').val();
+    if (location === 'manual') location = $('#location-manual').val().trim();
+    const organizer = $('#organizer').val().trim();
+    const notes = $('#notes').val().trim();
+
+    const data = [
+        { "کلید": "شماره جلسه", "مقدار": number },
+        { "کلید": "عنوان", "مقدار": title },
+        { "کلید": "تاریخ", "مقدار": date },
+        { "کلید": "ساعت شروع", "مقدار": startTime },
+        { "کلید": "ساعت پایان", "مقدار": endTime || '-' },
+        { "کلید": "مکان", "مقدار": location },
+        { "کلید": "برگزارکننده", "مقدار": organizer },
+        { "کلید": "یادداشت‌ها", "مقدار": notes || '-' },
+        {},
+        { "کلید": "شرکت‌کنندگان", "مقدار": "" },
+        ...attendees.map((a, i) => ({
+            "کلید": `شرکت‌کننده ${i + 1}`,
+            "مقدار": `${a.name} (${a.mobile})`
+        })),
+        {},
+        { "کلید": "مصوبات", "مقدار": "" },
+        ...decisions.map((d, i) => ({
+            "کلید": `مصوبه ${i + 1}`,
+            "مقدار": `${d.text} - مسئول: ${d.responsible}, مهلت: ${d.dueDate || '-'}, وضعیت: ${d.status}`
+        }))
+    ];
+
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Session');
+    XLSX.write(wb, `session_${number}.xlsx`);
 });
 
-$('#send_whatsapp-btn').on('click', () => {
-const selected = $('.attendee-checkbox:checked').map(function() {
-return attendees[$(this).data('index')];
-}).get();
+// --- 16. ارسال به واتساپ ---
+function generateWhatsAppSummary() {
+    if (!validateShare()) return;
 
-if (!selected.length) {
-showToast(i18next.t('error_select_attendees'), 'error');
-return;
-}
+    const number = $('#session-number').val().trim();
+    const date = $('#session-date').val().trim();
+    const startTime = $('#start-time').val().trim();
+    const endTime = $('#end-time').val().trim();
+    const title = $('#session-title').val().trim();
+    let location = $('#location').val();
+    if (location === 'manual') location = $('#location-manual').val().trim();
+    const organizer = $('#organizer').val().trim();
+    const notes = $('#notes').val().trim();
 
-selected.forEach(attendee => {
-const text = encodeURIComponent(generateSessionSummary(attendee.name));
-const url = `https://api.whatsapp.com/send?phone=${attendee.mobile.replace(/^0/, '+98')}&text=${text}`;
-window.open(url, '_blank');
-});
-$('#whatsapp-modal, #modal-overlay').removeClass('active');
-});
+    const summary = `
+${i18next.t('hello')}
+*صورتجلسه شماره ${number}*
+*عنوان:* ${title}
+*تاریخ:* ${date}
+*ساعت:* ${startTime} ${endTime ? `- ${endTime}` : ''}
+*مکان:* ${location}
+*برگزارکننده:* ${organizer}
+*شرکت‌کنندگان:*
+${attendees.map(a => `- ${a.name} (${a.mobile})`).join('\n')}
+*مصوبات:*
+${decisions.map((d, i) => `${i + 1}. ${d.text} (مسئول: ${d.responsible}, مهلت: ${d.dueDate || '-'}, وضعیت: ${d.status})`).join('\n')}
+*یادداشت‌ها:*
+${notes || '-'}
+${i18next.t('thanks')}
+${i18next.t('company_barakat')}
+    `;
 
-$('#download_pdf-btn').on('click', generatePDF);
-
-$('#close_whatsapp-btn').on('click', () => {
-$('#whatsapp-modal, #modal-overlay').removeClass('active');
-});
-
-$('#calendar-button').on('click', () => {
-const title = $('#session-title').val();
-const date = $('#session-date').val();
-const startTime = $('#start-time').val();
-const endTime = $('#end-time').val();
-const location = $('#location').val() === 'manual' ? $('#location-manual').val() : $('#location').val();
-
-const startDateTime = moment(`${date} ${startTime}`, 'jYYYY/jMM/jDD HH:mm').format('YYYYMMDDTHHmm00');
-const endDateTime = endTime ? moment(`${date} ${endTime}`, 'jYYYY/jMM/jDD HH:mm').format('YYYYMMDDTHHmm00') : startDateTime;
-
-const icsContent = [
-'BEGIN:VCALENDAR',
-'VERSION:2.0',
-'BEGIN:VEVENT',
-`DTSTART:${startDateTime}`,
-`DTEND:${endDateTime}`,
-`SUMMARY:${title}`,
-`LOCATION:${location}`,
-'END:VEVENT',
-'END:VCALENDAR'
-].join('\n');
-
-const blob = new Blob([icsContent], { type: 'text/calendar' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href = url;
-a.download = `Session_${$('#session-number').val()}.ics`;
-a.click();
-URL.revokeObjectURL(url);
-});
-
-$('#share-button').on('click', () => {
-const summary = generateSessionSummary();
-if (navigator.share) {
-navigator.share({
-title: $('#session-title').val(),
-text: summary
-}).catch(err => console.error('Error sharing:', err));
-} else {
-navigator.clipboard.writeText(summary).then(() => {
-showToast('Summary copied to clipboard!');
-});
-}
-});
-
-$('#add-contact').on('click', () => {
-const name = $('#contact-name').val().trim();
-const mobile = $('#contact-mobile').val().trim();
-
-if (!name) {
-$('#contact-name').parent().addClass('error');
-showToast(i18next.t('error_required'), 'error');
-return;
+    $('#whatsapp-summary-text').val(summary.trim());
+    $('#whatsapp-summary-modal').show();
 }
 
-if (mobile && !validateMobile(mobile)) {
-$('#contact-mobile').parent().addClass('error');
-showToast(i18next.t('error_mobile'), 'error');
-return;
+$('#whatsapp-button').on('click', generateWhatsAppSummary);
+
+$('#send-whatsapp').on('click', () => {
+    const text = $('#whatsapp-summary-text').val().trim();
+    if (text) {
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+        window.open(url, '_blank');
+        $('#whatsapp-summary-modal').hide();
+    }
+});
+
+$('#close-whatsapp-modal').on('click', () => {
+    $('#whatsapp-summary-modal').hide();
+});
+
+// --- 17. افزودن به تقویم ---
+function addToCalendar() {
+    if (!validateForm()) return;
+
+    const title = $('#session-title').val().trim();
+    const date = $('#session-date').val().trim();
+    const startTime = $('#start-time').val().trim();
+    const endTime = $('#end-time').val().trim();
+    let location = $('#location').val();
+    if (location === 'manual') location = $('#location-manual').val().trim();
+
+    // تبدیل تاریخ شمسی به میلادی
+    const persianDateParts = date.split('/');
+    const persianDateObj = new persianDate([parseInt(persianDateParts[0]), parseInt(persianDateParts[1]), parseInt(persianDateParts[2])]);
+    const gregorianDate = persianDateObj.toLocale('en').format('YYYYMMDD');
+    const startDateTime = `${gregorianDate}T${startTime.replace(':', '')}00`;
+    const endDateTime = endTime ? `${gregorianDate}T${endTime.replace(':', '')}00` : startDateTime;
+
+    // ایجاد فایل ICS
+    const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'BEGIN:VEVENT',
+        `SUMMARY:${title}`,
+        `DTSTART:${startDateTime}`,
+        `DTEND:${endDateTime}`,
+        `LOCATION:${location}`,
+        `DESCRIPTION:جلسه برگزار شده توسط ${$('#organizer').val().trim()}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+    ].join('\n');
+
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `session_${$('#session-number').val().trim()}.ics`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+
+    Toastify({
+        text: i18next.t('calendar_added'),
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        backgroundColor: "#22c55e"
+    }).showToast();
 }
 
-$('#contact-name, #contact-mobile').parent().removeClass('error');
-contacts.push({ name, mobile });
-localStorage.setItem('contacts', JSON.stringify(contacts));
-updateContactsTable();
-$('#contact-name, #contact-mobile').val('');
-showToast(i18next.t('success_contact_added'));
+$('#calendar-button').on('click', addToCalendar);
+
+// --- 18. اشتراک‌گذاری جلسه ---
+$('#share-button').on('click', async () => {
+    if (!validateShare()) return;
+
+    const number = $('#session-number').val().trim();
+    const title = $('#session-title').val().trim();
+    const date = $('#session-date').val().trim();
+    const startTime = $('#start-time').val().trim();
+    const location = $('#location').val() === 'manual' ? $('#location-manual').val().trim() : $('#location').val();
+
+    const shareData = {
+        title: `صورتجلسه شماره ${number}`,
+        text: `جلسه: ${title}\nتاریخ: ${date}\nساعت: ${startTime}\nمکان: ${location}`,
+        url: window.location.href
+    };
+
+    if (navigator.share && navigator.canShare(shareData)) {
+        try {
+            await navigator.share(shareData);
+        } catch (err) {
+            console.error('Error sharing:', err);
+            Toastify({
+                text: i18next.t('share_error'),
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#ef4444"
+            }).showToast();
+        }
+    } else {
+        // فال‌بک برای مرورگرهایی که Web Share API را پشتیبانی نمی‌کنند
+        const text = `${shareData.title}\n${shareData.text}\nلینک: ${shareData.url}`;
+        navigator.clipboard.writeText(text).then(() => {
+            Toastify({
+                text: "لینک جلسه در کلیپ‌بورد کپی شد.",
+                duration: 3000,
+                gravity: "top",
+                position: "center",
+                backgroundColor: "#22c55e"
+            }).showToast();
+        });
+    }
 });
 
-$('#contacts-search').on('input', function() {
-const query = $(this).val().toLowerCase();
-$('#contacts-table tbody tr').each(function() {
-const name = $(this).find('td:nth-child(3)').text().toLowerCase();
-const mobile = $(this).find('td:nth-child(4)').text().toLowerCase();
-if (name.includes(query) || mobile.includes(query)) {
-$(this).show();
-} else {
-$(this).hide();
-}
-});
-});
-
-$(document).on('click', '.delete-contact', function() {
-const index = $(this).data('index');
-contacts.splice(index, 1);
-localStorage.setItem('contacts', JSON.stringify(contacts));
-updateContactsTable();
-showToast(i18next.t('success_delete'));
-});
-
-$('#select-all-checkbox').on('change', function() {
-$('.contact-checkbox').prop('checked', this.checked);
-});
-
-$('#add-selected-attendees').on('click', () => {
-const selected = $('.contact-checkbox:checked').map(function() {
-const index = $(this).data('index');
-return contacts[index];
-}).get();
-
-if (!selected.length) {
-showToast(i18next.t('error_select_attendees'), 'error');
-return;
-}
-
-attendees.push(...selected);
-updateAttendeesTable();
-$('#contacts-view').hide();
-$('#session-view').show();
-$('.sidebar nav a, .bottom-nav a').removeClass('active');
-$('#nav-session, #nav-session-mobile').addClass('active');
-updateWhatsAppButtonState();
-});
-
-$('#archive-search').on('input', function() {
-const query = $(this).val().toLowerCase();
-$('#archive-table tbody tr').each(function() {
-const number = $(this).find('td:nth-child(2)').text().toLowerCase();
-const title = $(this).find('td:nth-child(3)').text().toLowerCase();
-if (number.includes(query) || title.includes(query)) {
-$(this).show();
-} else {
-$(this).hide();
-}
-});
-});
-
-$(document).on('click', '.view-session', function() {
-const id = $(this).data('id');
-loadSession(id);
-});
-
-$(document).on('click', '.delete-session', function() {
-const id = $(this).data('id');
-$('#password-modal, #modal-overlay').addClass('active');
-$('#submit-password-btn').off('click').on('click', () => {
-const inputPassword = $('#password-input').val();
-if (inputPassword === password) {
-sessions = sessions.filter(s => s.id !== id);
-localStorage.setItem('sessions', JSON.stringify(sessions));
-updateArchiveTable();
-showToast(i18next.t('success_delete'));
-$('#password-modal, #modal-overlay').removeClass('active');
-$('#password-input').val('');
-} else {
-showToast(i18next.t('error_password'), 'error');
-}
-});
-});
-
-$('#cancel-password-btn').on('click', () => {
-$('#password-modal, #modal-overlay').removeClass('active');
-$('#password-input').val('');
-});
-
-$('#menu-toggle').on('click', () => {
-$('.sidebar').slideToggle(300);
-});
-
-$('.sidebar nav a, .bottom-nav a').on('click', function(e) {
-e.preventDefault();
-$('.sidebar nav a, .bottom-nav a').removeClass('active');
-$(this).addClass('active');
-const viewId = $(this).attr('id').replace('nav-', '').replace('-mobile', '') + '-view';
-$('.form-container').hide();
-$(`#${viewId}`).show();
-if ($(window).width() <= 768) {
-$('.sidebar').slideUp(300);
-}
-});
-
-$('#nav-logout, #nav-logout-mobile').on('click', () => {
-localStorage.removeItem('isLoggedIn');
-$('#main-content').hide();
-$('#login-view').show();
-resetForm();
-});
-
+// --- 19. مدیریت تم ---
 $('#theme').on('change', function() {
-$('body').attr('data-theme', $(this).val());
+    const theme = $(this).val();
+    $('body').attr('data-theme', theme);
+    localStorage.setItem('theme', theme);
 });
 
-$('#font-family').on('change', function() {
-$('body').css('font-family', $(this).val());
+// بارگذاری تم ذخیره‌شده
+const savedTheme = localStorage.getItem('theme') || 'light';
+$('#theme').val(savedTheme);
+$('body').attr('data-theme', savedTheme);
+
+// --- 20. باز کردن منو در موبایل ---
+$('#menu-toggle').on('click', () => {
+    $('.sidebar').slideToggle();
 });
 
-$('#theme-color').on('change', function() {
-$('body').attr('data-theme-color', $(this).val());
-});
-
-$('#font-size').on('change', function() {
-$('body').css('font-size', `${$(this).val()}px`);
-});
-
-$('#text-direction').on('change', function() {
-$('body').attr('dir', $(this).val());
-$('body').css('text-align', $(this).val() === 'rtl' ? 'right' : 'left');
-});
-
-$('#logo-size').on('change', function() {
-$('.logo').removeClass('logo-size-1 logo-size-2 logo-size-4').addClass(`logo-size-${$(this).val()}`);
-});
-
-$('#contacts-access-btn').on('click', () => {
-alert('مدیریت دسترسی مخاطبان در حال توسعه است.');
-});
-
-$('#reset-settings-btn').on('click', () => {
-$('#theme').val('light');
-$('#font-family').val("'Vazir', sans-serif");
-$('#theme-color').val('purple-blue');
-$('#font-size').val('16');
-$('#text-direction').val('rtl');
-$('#logo-size').val('1');
-$('body').attr('data-theme', 'light');
-$('body').css('font-family', "'Vazir', sans-serif");
-$('body').attr('data-theme-color', 'purple-blue');
-$('body').css('font-size', '16px');
-$('body').attr('dir', 'rtl');
-$('body').css('text-align', 'right');
-$('.logo').removeClass('logo-size-1 logo-size-2 logo-size-4').addClass('logo-size-1');
-showToast('تنظیمات بازنشانی شد');
-});
-
-$('#save-session-settings-btn').on('click', saveSessionSettings);
-
-$('#session-number, #session-date, #start-time, #session-title, #location, #location-manual, #organizer').on('input change', updateWhatsAppButtonState);
-
-// --- Initialization ---
-if (localStorage.getItem('isLoggedIn') === 'true') {
-$('#login-view').hide();
-$('#main-content').show();
-} else {
-$('#main-content').hide();
-$('#login-view').show();
+// --- 21. رفع مشکل تاریخ ---
+function fixDateIssue() {
+    $('.pdp').each(function() {
+        const val = $(this).val();
+        if (val && !/^\d{4}\/\d{2}\/\d{2}$/.test(val)) {
+            $(this).val('');
+            console.warn('Invalid Persian date format detected and cleared:', val);
+        }
+    });
 }
+fixDateIssue();
 
-updateAttendeesTable();
-updateDecisionsTable();
-updateContactsTable();
-updateArchiveTable();
-loadSessionSettings();
-applySessionSettings();
-updateWhatsAppButtonState();
+// --- 22. رندر اولیه ---
+renderContacts();
+renderArchive();
+
 });
 </script>
 </body>
